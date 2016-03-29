@@ -6,7 +6,16 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var JourneySchema = new Schema({
-    city: {type: String, required: true, index: {unique: true}}
+    start: {
+        street: {type: String, required: true},
+        area: {type: String, required: true},
+        city: {type: Schema.ObjectId, required: true, ref: 'City'}
+    },
+    end: {
+        street: {type: String, required: true},
+        area: {type: String, required: true},
+        city: {type: Schema.ObjectId, required: true, ref: 'City'}
+    }
 });
 
 
