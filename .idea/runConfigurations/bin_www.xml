@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="bin\www" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="node_modules/nodemon/bin/nodemon.js" working-dir="$PROJECT_DIR$">
+  <configuration default="false" name="bin\www" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="server/node_modules/nodemon/bin/nodemon.js" working-dir="$PROJECT_DIR$">
     <envs>
       <env name="DEBUG" value="boilerplate-express:*" />
     </envs>
