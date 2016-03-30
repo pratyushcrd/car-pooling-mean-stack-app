@@ -3,6 +3,7 @@ var router = express.Router();
 var City = require('../models/city.js');
 var Car = require('../models/car.js');
 var User = require('../models/user.js');
+var Journey = require('../models/journey.js');
 
 // DELETE ALL ROUTE AFTER USAGE
 

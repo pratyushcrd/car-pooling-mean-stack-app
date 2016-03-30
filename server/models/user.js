@@ -18,11 +18,11 @@ var UserSchema = new Schema({
 UserSchema.path('email').validate(function (email) {
     var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
     return emailRegex.test(email); // Assuming email has a text attribute
-});
+}, 'email not valid');
 
 UserSchema.path('gender').validate(function (gender) {
     return gender === 'male' || gender === 'female';
-});
+}, 'gender can only be \'male\' or \'female\'');
 
 
 module.exports = mongoose.model('User',UserSchema);
