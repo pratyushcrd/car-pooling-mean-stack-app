@@ -16,6 +16,8 @@ var JourneySchema = new Schema({
         area: {type: String, required: true},
         city: {type: Schema.ObjectId, required: true, ref: 'City'}
     }
+
+
 });
 
 
