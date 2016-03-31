@@ -44,8 +44,9 @@ passport.deserializeUser(passConfig.deserialize);
 passport.use('login', passConfig.strategyLogin);
 passport.use('signup', passConfig.strategyRegister);
 
+app.use('/api/users', users);
+app.use('/api/journey', require('./routes/journey'));
 app.use('/', routes);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

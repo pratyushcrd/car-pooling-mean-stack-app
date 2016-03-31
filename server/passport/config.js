@@ -68,6 +68,8 @@ module.exports = {
                         newUser.email = req.body.email;
                         newUser.gender = req.body.gender;
                         newUser.age = req.body.age;
+                        newUser.fname = req.body.fname;
+                        newUser.lname = req.body.lname;
 
                         newUser.save(function (err, user) {
                             if (err) {

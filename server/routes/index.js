@@ -3,11 +3,11 @@ var router = express.Router();
 var City = require('../models/city.js');
 var Car = require('../models/car.js');
 var User = require('../models/user.js');
-var Journey = require('../models/journey.js');
 
 // DELETE ALL ROUTE AFTER USAGE
 
 /* GET home page. */
+
 router.get('/city', function (req, res, next) {
     City.find({})
         .exec(function (err, cities) {
@@ -76,6 +76,11 @@ router.post('/user', function (req, res, next) {
         res.json(user);
     });
 
+});
+
+
+router.get('*', function (req, res) {
+    res.render('index');
 });
 
 module.exports = router;
