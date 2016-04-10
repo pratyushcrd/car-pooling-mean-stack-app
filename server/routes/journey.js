@@ -12,7 +12,7 @@ var ifLoggedIn = function(req, res, next) {
         res.json({
             error: 'Not logged in'
         });
-    }
+};
 /* GET list of all the journeys . */
 router.get('/journeys/', function(req, res, next) {
     Journey.find({})
@@ -25,12 +25,13 @@ router.get('/journeys/', function(req, res, next) {
 
 /* GET list of all the journeys of the user. */
 router.get('/users/:uid/journeys/', function(req, res, next) {
-    Journey.find({})
+    Journey.find({posted_by: req.params.uid})
     .populate('posted_by')
     .exec(function(err, journey) {
         if (err) return res.send(err);
         res.json(journey);
     });
+    console.log(req.params.uid);
 });
 /* To add new journeys . */
 router.post('/journeys', ifLoggedIn, function(req, res, next) {
