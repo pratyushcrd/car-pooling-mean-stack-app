@@ -9,6 +9,7 @@ var passport = require('passport');
 var passConfig = require('./passport/config.js');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var journey = require('./routes/journey');
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,7 +35,8 @@ app.use(passport.session());
 passport.serializeUser(passConfig.serialize);
 passport.deserializeUser(passConfig.deserialize);
 passport.use('facebook', passConfig.facebookStrategy);
-app.use('/users', users);
+app.use('/api/users', users);
+app.use('/api/journey', journey);
 app.use('*', routes);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
