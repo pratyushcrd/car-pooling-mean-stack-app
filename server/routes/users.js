@@ -14,6 +14,10 @@ router.get('/auth/facebook', passport.authenticate('facebook'));
 router.get('/facebook/callback', function(req, res, next) {
     console.log('Enter');
     passport.authenticate('facebook', function(user) {
+        // Checking if user object is present
+        if(user.user){
+            req.logIn(user.user, function(err){});
+        }
         res.send(user);
     })(req, res, next);
 });
@@ -21,5 +25,13 @@ router.get('/facebook/callback', function(req, res, next) {
 router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
+});
+/* Get Current User */
+router.get('/user', function (req, res) {
+    if (req.user) {
+        res.json(req.user);
+    } else {
+        res.json({error: 'Not Logged In!'});
+    }
 });
 module.exports = router;
