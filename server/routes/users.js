@@ -13,7 +13,7 @@ router.get('/auth/facebook', passport.authenticate('facebook'));
 /* Handle callback requests */
 router.get('/facebook/callback', function(req, res, next) {
     console.log('Enter');
-    passport.authenticate('facebook', function(user, err) {
+    passport.authenticate('facebook', function(user) {
         res.send(user);
     })(req, res, next);
 });

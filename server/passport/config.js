@@ -1,4 +1,4 @@
-var User = require('../models/user.js');
+var User = require('../models/user');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var bCrypt = require('bcrypt-node');
 var createHash = function(password) {
@@ -21,13 +21,43 @@ module.exports = {
     facebookStrategy: new FacebookStrategy({
         clientID: '1528040984167334',
         clientSecret: '00b4a6e7f4eb3e73adbd87482e0d278b',
-        callbackURL: "http://localhost:3000/users/facebook/callback",
-        profileFields: ['id', 'displayName', 'picture', 'email', 'gender', 'about', 'bio']
+        callbackURL: "http://localhost:3000/api/users/facebook/callback",
+        profileFields: ['id', 'displayName', 'picture', 'emails', 'gender', 'about', 'bio']
     }, function(accessToken, refreshToken, profile, cb) {
-        console.log('Enter strategy');
-        console.log(cb);
-        profile._json = undefined;
-        profile._raw = undefined;
-        return cb(profile);
+        var error = {error: 'Could not log in'};
+        
+        User.findOne({id: profile.id}, function(err, user){
+
+            if(err){
+                return res.send(error);
+            }
+
+            if(user){
+                var sendUser = {};
+                sendUser.type = 'Old user';
+                sendUser.user = user;
+                return cb(sendUser);
+            }
+
+            var newUser = new User();
+            newUser.id = profile.id;
+            newUser.name = profile.displayName;
+            newUser.gender = profile.gender;
+            newUser.profile_pic = profile.photos[0].value;
+            newUser.save(function(err, user){
+                if(err || !user){
+                    console.log(err);
+                    return cb(error);
+                }
+
+                var sendUser = {};
+                sendUser.type = 'New user';
+                sendUser.user = user;
+                return cb(sendUser);
+
+            });
+
+        });
+
     })
 };
