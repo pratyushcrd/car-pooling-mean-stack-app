@@ -2,42 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="870034fb-96e0-40e5-b112-303dc1445f4f" name="Default" comment="Angular setup and home view">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/routes/journey.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/runConfigurations/bin_www.xml" afterPath="$PROJECT_DIR$/.idea/runConfigurations/bin_www.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/express-session/HISTORY.md" afterPath="$PROJECT_DIR$/node_modules/express-session/HISTORY.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/express-session/LICENSE" afterPath="$PROJECT_DIR$/node_modules/express-session/LICENSE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/express-session/README.md" afterPath="$PROJECT_DIR$/node_modules/express-session/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/express-session/index.js" afterPath="$PROJECT_DIR$/node_modules/express-session/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/express-session/package.json" afterPath="$PROJECT_DIR$/node_modules/express-session/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/express-session/session/cookie.js" afterPath="$PROJECT_DIR$/node_modules/express-session/session/cookie.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/express-session/session/memory.js" afterPath="$PROJECT_DIR$/node_modules/express-session/session/memory.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/express-session/session/session.js" afterPath="$PROJECT_DIR$/node_modules/express-session/session/session.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/express-session/session/store.js" afterPath="$PROJECT_DIR$/node_modules/express-session/session/store.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport-facebook/.npmignore" afterPath="$PROJECT_DIR$/node_modules/passport-facebook/.npmignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport-facebook/LICENSE" afterPath="$PROJECT_DIR$/node_modules/passport-facebook/LICENSE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport-facebook/README.md" afterPath="$PROJECT_DIR$/node_modules/passport-facebook/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport-facebook/lib/errors/facebookauthorizationerror.js" afterPath="$PROJECT_DIR$/node_modules/passport-facebook/lib/errors/facebookauthorizationerror.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport-facebook/lib/errors/facebookgraphapierror.js" afterPath="$PROJECT_DIR$/node_modules/passport-facebook/lib/errors/facebookgraphapierror.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport-facebook/lib/errors/facebooktokenerror.js" afterPath="$PROJECT_DIR$/node_modules/passport-facebook/lib/errors/facebooktokenerror.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport-facebook/lib/index.js" afterPath="$PROJECT_DIR$/node_modules/passport-facebook/lib/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport-facebook/lib/profile.js" afterPath="$PROJECT_DIR$/node_modules/passport-facebook/lib/profile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport-facebook/lib/strategy.js" afterPath="$PROJECT_DIR$/node_modules/passport-facebook/lib/strategy.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport-facebook/package.json" afterPath="$PROJECT_DIR$/node_modules/passport-facebook/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport/LICENSE" afterPath="$PROJECT_DIR$/node_modules/passport/LICENSE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport/lib/authenticator.js" afterPath="$PROJECT_DIR$/node_modules/passport/lib/authenticator.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport/lib/errors/authenticationerror.js" afterPath="$PROJECT_DIR$/node_modules/passport/lib/errors/authenticationerror.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport/lib/framework/connect.js" afterPath="$PROJECT_DIR$/node_modules/passport/lib/framework/connect.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport/lib/http/request.js" afterPath="$PROJECT_DIR$/node_modules/passport/lib/http/request.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport/lib/index.js" afterPath="$PROJECT_DIR$/node_modules/passport/lib/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport/lib/middleware/authenticate.js" afterPath="$PROJECT_DIR$/node_modules/passport/lib/middleware/authenticate.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport/lib/middleware/initialize.js" afterPath="$PROJECT_DIR$/node_modules/passport/lib/middleware/initialize.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport/lib/strategies/session.js" afterPath="$PROJECT_DIR$/node_modules/passport/lib/strategies/session.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/passport/package.json" afterPath="$PROJECT_DIR$/node_modules/passport/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/app.js" afterPath="$PROJECT_DIR$/server/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/models/journey.js" afterPath="$PROJECT_DIR$/server/models/journey.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/users.js" afterPath="$PROJECT_DIR$/server/routes/users.js" />
     </list>
     <ignored path="boilerplate-express.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -93,7 +58,7 @@
       <file leaf-file-name="journey.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/routes/journey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.1827957">
+            <state vertical-scroll-proportion="0.18328841">
               <caret line="6" column="43" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
               <folding>
                 <element signature="e#0#45#0" expanded="false" />
@@ -396,7 +361,13 @@
       <option name="project" value="LOCAL" />
       <updated>1459400441966</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Angular setup and home view">
+      <created>1460296260014</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1460296260014</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView">
@@ -414,16 +385,16 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19029851" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33665007" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3372093" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3251634" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39869282" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -627,7 +598,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/routes/journey.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1827957">
+        <state vertical-scroll-proportion="0.18328841">
           <caret line="6" column="43" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
           <folding>
             <element signature="e#0#45#0" expanded="false" />
