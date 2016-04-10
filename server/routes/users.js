@@ -8,23 +8,18 @@ router.get('/', function(req, res, next) {
         res.json(car);
     });
 });
+/* Transfer call to facebook */
 router.get('/auth/facebook', passport.authenticate('facebook'));
-
+/* Handle callback requests */
 router.get('/facebook/callback', function(req, res, next) {
     console.log('Enter');
-    passport.authenticate('facebook', function(user, err){
-
-    	console.log('Enter last');
-    	console.log(user);
-    	console.log(err);
-    	res.send(user);
-
+    passport.authenticate('facebook', function(user, err) {
+        res.send(user);
     })(req, res, next);
-
 });
-
-app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
+/* logout */
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
 module.exports = router;
