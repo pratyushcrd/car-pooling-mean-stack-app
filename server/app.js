@@ -36,7 +36,7 @@ passport.serializeUser(passConfig.serialize);
 passport.deserializeUser(passConfig.deserialize);
 passport.use('facebook', passConfig.facebookStrategy);
 app.use('/api/users', users);
-app.use('/api/journey', journey);
+app.use('/api', journey);
 app.use('*', routes);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

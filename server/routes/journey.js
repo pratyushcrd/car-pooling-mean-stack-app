@@ -5,16 +5,35 @@ var express = require('express');
 var router = express.Router();
 var Car = require('../models/car');
 var Journey = require('../models/journey');
+var ifLoggedIn = function(req, res, next) {
+        if (req.user) {
+            return next();
+        }
+        res.json({
+            error: 'Not logged in'
+        });
+    }
 /* GET list of all the journeys . */
-router.get('/', function (req, res, next) {
-    Journey.find(function (err, journey) {
-        if (err)
-            return res.send(err);
+router.get('/journeys/', function(req, res, next) {
+    Journey.find({})
+    .populate('posted_by')
+    .exec(function(err, journey) {
+        if (err) return res.send(err);
+        res.json(journey);
+    });
+});
+
+/* GET list of all the journeys of the user. */
+router.get('/users/:uid/journeys/', function(req, res, next) {
+    Journey.find({})
+    .populate('posted_by')
+    .exec(function(err, journey) {
+        if (err) return res.send(err);
         res.json(journey);
     });
 });
 /* To add new journeys . */
-router.post('/', function (req, res, next) {
+router.post('/journeys', ifLoggedIn, function(req, res, next) {
     var newJourney = new Journey();
     newJourney.start = {};
     newJourney.end = {};
@@ -30,25 +49,31 @@ router.post('/', function (req, res, next) {
     newJourney.gender_preference = req.body.gender_preference;
     newJourney.description = req.body.description;
     newJourney.fare = req.body.fare;
-    newJourney.save(function (err, journeyDetail) {
+    newJourney.posted_by = req.user._id;
+    newJourney.save(function(err, journeyDetail) {
         if (err) {
             res.send(err);
             return next();
         }
-        res.send(journeyDetail);
+        req.user.journeys.push(journeyDetail._id);
+        req.user.save(function(err, user) {
+            res.send(journeyDetail);
+        });
     });
-
 });
 /* To delete the journeys . */
-router.delete('/:id', function (req, res, next) {
-    Journey.findOneAndRemove({_id: req.params.id}, function (err, deletedJourney) {
+router.delete('/journeys/:id', ifLoggedIn, function(req, res, next) {
+    Journey.findOneAndRemove({
+        _id: req.params.id
+    }, function(err, deletedJourney) {
         if (err) {
             res.send(err);
             return next();
         }
-        res.send(deletedJourney)
+        req.user.pull(deletedJourney._id);
+        req.user.save(function(err, user) {
+            res.send(deletedJourney);
+        });
     });
-
 });
-
 module.exports = router;

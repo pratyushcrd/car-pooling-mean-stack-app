@@ -1,12 +1,5 @@
 var User = require('../models/user');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var bCrypt = require('bcrypt-node');
-var createHash = function(password) {
-    return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
-};
-var isValidPassword = function(user, password) {
-    return bCrypt.compareSync(password, user.password);
-};
 module.exports = {
     deserialize: function(id, done) {
         User.findOne({
