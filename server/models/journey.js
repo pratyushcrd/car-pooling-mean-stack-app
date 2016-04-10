@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var JourneySchema = new Schema({
-    posted_by: {type: String, required: true, ref: 'User'},
+    posted_by: {type: String},
     start: {
         street: {type: String, required: true},
         area: {type: String, required: true},
@@ -19,13 +19,20 @@ var JourneySchema = new Schema({
     },
     departure: {type: Date, required: true},
     vehicle: {type: String, required: true},
-    seats: {type: Number, required: true, min: 1, max: 5},
+    availableSeats: {type: Number, required: true, min: 1, max: 5},
     gender_preference: {type: String, default: 'none'},
     stops: [String],
     description: String,
     fare: {type: Number, required: true},
-    requested_by: [String],
-    accepted_requests: [String],
+    requested_by: [{
+        name: {type: String},
+        requestTime: {type: Date, default: Date.now()},
+    }],
+    accepted_requests: [{
+        name: {type: String},
+        acceptedTime: {type: Date, default: Date.now()},
+        //city: {type: Schema.ObjectId, required: true, ref: 'City'}
+    }],
     created_at: {type: Date, default: Date.now()}
 });
 
