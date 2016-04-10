@@ -17,17 +17,9 @@ router.get('/facebook/callback', function(req, res, next) {
         res.send(user);
     })(req, res, next);
 });
-<<<<<<< HEAD
 /* logout */
 router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
-=======
-
-router.get('/logout', function (req, res) {
-        req.logout();
-        res.redirect('/');
-    });
->>>>>>> e2ab1e098068e375962845b8f3e06cedf4189aa7
 module.exports = router;
