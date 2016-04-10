@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var Car = require('../models/car');
+var User = require('../models/user');
 var passport = require('passport');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    Car.find({}, function(err, car) {
+    User.find({}, function(err, car) {
         res.json(car);
     });
 });
