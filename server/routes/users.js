@@ -22,4 +22,9 @@ router.get('/facebook/callback', function(req, res, next) {
     })(req, res, next);
 
 });
+
+app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
 module.exports = router;
