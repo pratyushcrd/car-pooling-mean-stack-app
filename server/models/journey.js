@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var JourneySchema = new Schema({
-    posted_by: {type: String},
+    posted_by: {type: String, required: true},
     start: {
         street: {type: String, required: true},
         area: {type: String, required: true},
