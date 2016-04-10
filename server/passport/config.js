@@ -22,10 +22,12 @@ module.exports = {
         clientID: '1528040984167334',
         clientSecret: '00b4a6e7f4eb3e73adbd87482e0d278b',
         callbackURL: "http://localhost:3000/users/facebook/callback",
-        profileFields: ['id', 'displayName', 'photos', 'email']
+        profileFields: ['id', 'displayName', 'picture', 'email', 'gender', 'about', 'bio']
     }, function(accessToken, refreshToken, profile, cb) {
         console.log('Enter strategy');
         console.log(cb);
+        profile._json = undefined;
+        profile._raw = undefined;
         return cb(profile);
     })
 };
