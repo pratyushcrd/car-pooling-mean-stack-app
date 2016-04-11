@@ -18,7 +18,7 @@ router.get('/facebook/callback', function(req, res, next) {
         if(user.user){
             req.logIn(user.user, function(err){});
         }
-        res.send(user);
+        res.redirect('/');
     })(req, res, next);
 });
 /* logout */

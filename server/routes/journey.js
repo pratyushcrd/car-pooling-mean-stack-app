@@ -13,21 +13,16 @@ var ifLoggedIn = function(req, res, next) {
             error: 'Not logged in'
         });
     }
-/* GET list of all the journeys . */
+    /* GET list of all the journeys . */
 router.get('/journeys/', function(req, res, next) {
-    Journey.find({})
-    .populate('posted_by')
-    .exec(function(err, journey) {
+    Journey.find({}).populate('posted_by').exec(function(err, journey) {
         if (err) return res.send(err);
         res.json(journey);
     });
 });
-
 /* GET list of all the journeys of the user. */
 router.get('/users/:uid/journeys/', function(req, res, next) {
-    Journey.find({})
-    .populate('posted_by')
-    .exec(function(err, journey) {
+    Journey.find({}).populate('posted_by').exec(function(err, journey) {
         if (err) return res.send(err);
         res.json(journey);
     });
