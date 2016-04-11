@@ -19,7 +19,7 @@
                             <label class="col-sm-2 col-sm-2 control-label">
                                 <strong>
                                     Starting Destination
-                                    
+
 {{journeyObject}}
                                 </strong>
                             </label>
@@ -75,7 +75,7 @@
                                 Departure
                             </label>
                             <div class="col-sm-4">
-                                <input class="form-control" type="text" ng-model="journeyObject.departure">
+                                <input class="form-control" type="datetime-local" ng-model="journeyObject.departure">
                                 </input>
                             </div>
                             <label class="col-sm-2 col-sm-2 control-label">
@@ -120,7 +120,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-10 col-sm-offset-2">
-                                <input class="form-control btn btn-facebook" placeholder="" type="submit">
+                                <input class="form-control btn btn-facebook" ng-click="postJourney()" placeholder="" type="submit">
                                 </input>
                             </div>
                         </div>
