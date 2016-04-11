@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <!-- /row mt -->
-                <div class="col-md-4 mb">
+                <div class="col-md-4 mb" ng-repeat="journey in journeys">
                     <!-- WHITE PANEL - TOP USER -->
                     <div class="white-panel pn">
                         <div class="white-header">
@@ -26,28 +26,28 @@
                             </h5>
                         </div>
                         <p>
-                            <img class="img-circle" src="assets/img/ui-zac.jpg" width="80"/>
+                            <img class="img-circle" src="{{journey.posted_by.profile_pic}}" width="80"/>
                         </p>
                         <p>
                             <b>
-                                Zac Snider
+                                {{journey.name}}
                             </b>
                         </p>
                         <div class="row">
                             <div class="col-md-6">
-                                <p class="small mt">
-                                    MEMBER SINCE
+                                <p class="mt">
+                                    {{journey.start.street}}
                                 </p>
                                 <p>
-                                    2012
+                                    {{journey.start.area}}
                                 </p>
                             </div>
                             <div class="col-md-6">
-                                <p class="small mt">
-                                    TOTAL SPEND
+                                <p class="mt">
+                                    {{journey.end.street}}
                                 </p>
                                 <p>
-                                    $ 47,60
+                                    {{journey.end.area}}
                                 </p>
                             </div>
                         </div>

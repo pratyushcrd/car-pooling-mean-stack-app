@@ -10,11 +10,16 @@ app.factory('Journey', function($resource) {
     });
 });
 /* Controller for index page */
-app.controller('HomeController', function($scope, $http, $timeout) {});
+app.controller('HomeController', function($scope, $http, $timeout, Journey) {
+    // List of all journeys
+    $scope.journeys = Journey.query();
+    
+});
 /* Controller for index page */
 app.controller('JourneyController', function($scope, $http, $timeout, Journey) {
     // Object to store form data
     $scope.journeyObject = {};
+    // function to post joureys
     $scope.postJourney = function() {
         var newJourney = new Journey();
         newJourney.startStreet = $scope.journeyObject.startStreet;
@@ -29,7 +34,6 @@ app.controller('JourneyController', function($scope, $http, $timeout, Journey) {
         newJourney.fare = $scope.journeyObject.fare;
         newJourney.$save($scope.journeyObject, function(tweet) {
             console.log(tweet);
-            
         }, function(err) {
             console.log(err);
         })
