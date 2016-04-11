@@ -20,7 +20,7 @@ var JourneySchema = new Schema({
     departure: {type: Date, required: true},
     vehicle: {type: String, required: true},
     availableSeats: {type: Number, required: true, min: 1, max: 5},
-    gender_preference: {type: String, default: 'none'},
+    genderPreference: {type: String, default: 'none'},
     stops: [String],
     description: String,
     fare: {type: Number, required: true},

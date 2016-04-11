@@ -35,7 +35,6 @@ router.post('/journeys', ifLoggedIn, function(req, res, next) {
     var newJourney = new Journey();
     newJourney.start = {};
     newJourney.end = {};
-    //console.log(req);
     console.log(req.body);
     newJourney.start.street = req.body.startStreet;
     newJourney.start.area = req.body.startArea;
@@ -44,7 +43,7 @@ router.post('/journeys', ifLoggedIn, function(req, res, next) {
     newJourney.departure = req.body.departure;
     newJourney.vehicle = req.body.vehicle;
     newJourney.availableSeats = req.body.availableSeats;
-    newJourney.gender_preference = req.body.gender_preference;
+    newJourney.genderPreference = req.body.genderPreference;
     newJourney.description = req.body.description;
     newJourney.fare = req.body.fare;
     newJourney.posted_by = req.user._id;

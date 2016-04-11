@@ -11,11 +11,17 @@ app.factory('Journey', function($resource) {
 });
 /* Controller for index page */
 app.controller('HomeController', function($scope, $http, $timeout) {});
+/* Controller for index page */
+app.controller('JourneyController', function($scope, $http, $timeout) {});
     /* Configuing routes */
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider.when('/', {
         templateUrl: '/home.html',
         controller: 'HomeController'
+    })
+    .when('/addjourney', {
+        templateUrl: '/post_journey.html',
+        controller: 'JourneyController'
     }).otherwise({
         templateUrl: '/home.html',
         controller: 'HomeController',
