@@ -280,17 +280,17 @@
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
             <!--sidebar start-->
-            <aside>
+            <aside ng-controller="SidebarController">
                 <div class="nav-collapse " id="sidebar">
                     <!-- sidebar menu start-->
                     <ul class="sidebar-menu" id="nav-accordion">
                         <p class="centered">
                             <a href="profile.html">
-                                <img class="img-circle" src="assets/img/ui-sam.jpg" width="60"/>
+                                <img class="img-circle" src="{{user.profile_pic}}" width="60"/>
                             </a>
                         </p>
                         <h5 class="centered">
-                            Marcel Newman
+                            {{user.name}}
                         </h5>
                         <li class="mt">
                             <a class="active" href="/">

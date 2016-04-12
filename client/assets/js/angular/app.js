@@ -15,6 +15,14 @@ app.controller('HomeController', function($scope, $http, $timeout, Journey) {
     $scope.journeys = Journey.query();
     
 });
+/* Controller for side bar */
+app.controller('SidebarController', function($scope, $rootScope, $http) {
+    $http.get('/api/users/user')
+    .then(function(response) {
+        console.log(response);
+        $rootScope.user = response.data;
+    });
+});
 /* Controller for index page */
 app.controller('JourneyController', function($scope, $http, $timeout, Journey) {
     // Object to store form data
