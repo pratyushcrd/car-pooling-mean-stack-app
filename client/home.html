@@ -17,36 +17,39 @@
                     </div>
                 </div>
                 <!-- /row mt -->
-                <div class="col-md-4 mb" ng-repeat="journey in journeys">
+                <div class="col-md-6 mb" ng-repeat="journey in journeys">
                     <!-- WHITE PANEL - TOP USER -->
-                    <div class="white-panel pn">
+                    <div class="white-panel">
                         <div class="white-header">
-                            <h5>
-                                TOP USER
+                            <h5 class="text-left">
+                                <img class="img-circle" src="{{journey.posted_by.profile_pic}}" style="margin-left: 5px;" width="25"/>
+                                <span style="margin-left: 5px;">
+                                    @{{journey.posted_by.name}}
+                                </span>
                             </h5>
                         </div>
                         <p>
-                            <img class="img-circle" src="{{journey.posted_by.profile_pic}}" width="80"/>
-                        </p>
-                        <p>
-                            <b>
-                                {{journey.posted_by.name}}
-                            </b>
+                            <img class="img-circle" src="/assets/img/car_types/sedan.png" width="80"/>
+                            <br>
+                                <b>
+                                    Sedan
+                                </b>
+                            </br>
                         </p>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <p class="mt">
                                     {{journey.start.street}}
-                                </p>
-                                <p>
+                            ,
                                     {{journey.start.area}}
                                 </p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-2 col-sm-0 fa fa-arrow-right">
+                            </div>
+                            <div class="col-md-5">
                                 <p class="mt">
                                     {{journey.end.street}}
-                                </p>
-                                <p>
+                                ,
                                     {{journey.end.area}}
                                 </p>
                             </div>
