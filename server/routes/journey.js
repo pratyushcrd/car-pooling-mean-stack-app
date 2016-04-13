@@ -5,6 +5,8 @@ var express = require('express');
 var router = express.Router();
 var Car = require('../models/car');
 var Journey = require('../models/journey');
+var Vehicle = require('../models/vehicle')
+
 var ifLoggedIn = function(req, res, next) {
         if (req.user) {
             return next();
@@ -15,7 +17,7 @@ var ifLoggedIn = function(req, res, next) {
     }
     /* GET list of all the journeys . */
 router.get('/journeys/', function(req, res, next) {
-    Journey.find({}).populate('posted_by').exec(function(err, journey) {
+    Journey.find({}).populate('posted_by vehicle').exec(function(err, journey) {
         if (err) return res.send(err);
         res.json(journey);
     });
@@ -67,10 +69,11 @@ router.delete('/journeys/:id', ifLoggedIn, function(req, res, next) {
             res.send(err);
             return next();
         }
-        req.user.pull(deletedJourney._id);
+        req.user.journeys.pull(deletedJourney._id);
         req.user.save(function(err, user) {
             res.send(deletedJourney);
         });
     });
 });
+
 module.exports = router;

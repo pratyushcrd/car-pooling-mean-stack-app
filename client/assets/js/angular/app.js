@@ -27,6 +27,14 @@ app.controller('SidebarController', function($scope, $rootScope, $http) {
 app.controller('JourneyController', function($scope, $http, $timeout, Journey) {
     // Object to store form data
     $scope.journeyObject = {};
+    // List of vehicles
+    $scope.vehicles = [];
+    // Retrieve vehicles
+    $http.get('/api/vehicles')
+    .then(function(response) {
+        console.log(response);
+        $scope.vehicles = response.data;
+    });
     // function to post joureys
     $scope.postJourney = function() {
         var newJourney = new Journey();

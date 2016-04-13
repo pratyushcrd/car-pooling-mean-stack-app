@@ -18,7 +18,7 @@ var JourneySchema = new Schema({
         //city: {type: Schema.ObjectId, required: true, ref: 'City'}
     },
     departure: {type: Date, required: true},
-    vehicle: {type: String, required: true},
+    vehicle: {type: String, required: true, ref: 'Vehicle'},
     availableSeats: {type: Number, required: true, min: 1, max: 5},
     genderPreference: {type: String, default: 'none'},
     stops: [String],

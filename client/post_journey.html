@@ -80,7 +80,9 @@
                                 Vehicle
                             </label>
                             <div class="col-sm-4">
-                                <input class="form-control" ng-model="journeyObject.vehicle" type="text">
+                                <select class="form-control" ng-model="journeyObject.vehicle">
+                                <option ng-repeat="vehicle in vehicles" value="{{vehicle._id}}">{{vehicle.type}}</option>>
+                                </select>
                                 </input>
                             </div>
                         </div>

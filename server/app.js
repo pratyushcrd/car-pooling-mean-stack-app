@@ -35,10 +35,15 @@ app.use(passport.session());
 passport.serializeUser(passConfig.serialize);
 passport.deserializeUser(passConfig.deserialize);
 passport.use('facebook', passConfig.facebookStrategy);
+/*
+Routes 
+*/
 app.use('/api/users', users);
 app.use('/api', journey);
+app.use('/api/vehicles', require('./routes/vehicle'))
 app.use('*', routes);
-// catch 404 and forward to error handler
+
+    // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
