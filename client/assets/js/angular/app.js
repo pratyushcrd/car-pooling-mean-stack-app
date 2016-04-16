@@ -24,7 +24,9 @@ app.controller('SidebarController', function($scope, $rootScope, $http) {
     });
 });
 /* Controller for index page */
-app.controller('JourneyController', function($scope, $http, $timeout, Journey) {
+app.controller('JourneyController', function($scope, $routeParams, $http, $timeout, Journey) {
+    //getting single joutney by id
+    $scope.journey = Journey.get({id: $routeParams.id}, null);
     // Object to store form data
     $scope.journeyObject = {};
     // List of vehicles
@@ -62,6 +64,9 @@ app.config(function($routeProvider, $locationProvider) {
         controller: 'HomeController'
     }).when('/addjourney', {
         templateUrl: '/post_journey.html',
+        controller: 'JourneyController'
+    }).when('/journey/:id', {
+        templateUrl: '/journey.html',
         controller: 'JourneyController'
     }).otherwise({
         templateUrl: '/home.html',

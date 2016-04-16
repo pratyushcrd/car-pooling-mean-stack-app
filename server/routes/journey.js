@@ -6,7 +6,6 @@ var router = express.Router();
 var Car = require('../models/car');
 var Journey = require('../models/journey');
 var Vehicle = require('../models/vehicle')
-
 var ifLoggedIn = function(req, res, next) {
         if (req.user) {
             return next();
@@ -75,5 +74,18 @@ router.delete('/journeys/:id', ifLoggedIn, function(req, res, next) {
         });
     });
 });
-
+/* To Get one journeys . */
+router.get('/journeys/:id', function(req, res, next) {
+    Journey.findOne({
+        _id: req.params.id
+    })
+    .populate('posted_by vehicle')
+    .exec(function(err, journey) {
+        if (err) {
+            res.send(err);
+            return next();
+        }
+        res.send(journey);
+    });
+});
 module.exports = router;

@@ -11,7 +11,7 @@ Premium: http://www.gridgum.com
 
 /* BASIC THEME CONFIGURATION */
 body {
-    color: #797979;
+    color: #212121;
 	background: #f1f2f3;
     font-family: 'Ruda', sans-serif;
     padding: 0px !important;
@@ -29,11 +29,11 @@ a, a:hover, a:focus {
 }
 ::selection {
 
-    background: #68dff0;
+    background: #FF5252;
     color: #fff;
 }
 ::-moz-selection {
-    background: #68dff0;
+    background: #FF5252;
     color: #fff;
 }
 
@@ -44,7 +44,7 @@ a, a:hover, a:focus {
 
 /* Bootstrap Modifications */
 .modal-header {
-	background: #68dff0;
+	background: #FF5252;
 }
 
 .modal-title {
@@ -74,7 +74,7 @@ a, a:hover, a:focus {
 /*Theme Backgrounds*/
 
 .bg-theme {
-	background-color: #68dff0;
+	background-color: #FF5252;
 }
 
 .bg-theme02 {
@@ -92,7 +92,7 @@ a, a:hover, a:focus {
 
 .btn-theme {
   color: #fff;
-  background-color: #68dff0;
+  background-color: #FF5252;
   border-color: #48bcb4;
 }
 .btn-theme:hover,
@@ -206,11 +206,11 @@ hr {
 /*Exclusive Theme Colors Configuration*/
 
 .label-theme {
-	background-color: #68dff0;
+	background-color: #FF5252;
 }
 
 .bg-theme {
-	background-color: #68dff0;
+	background-color: #FF5252;
 }
 
 ul.top-menu > li > .logout {
@@ -221,7 +221,7 @@ ul.top-menu > li > .logout {
 	border: 1px solid #64c3c2 !important;
 	padding: 5px 15px;
 	margin-right: 15px;
-	background: #68dff0;
+	background: #414141;
 	margin-top: 15px;
 }
 
@@ -232,7 +232,7 @@ ul.top-menu > li > .logout {
     width: 210px;
     height: 100%;
     position: fixed;
-    background: #424a5d;
+    background: #333;
 }
 
 #sidebar h5 {
@@ -325,7 +325,7 @@ ul.sidebar-menu li ul.sub li a:hover {
 }
 
 ul.sidebar-menu li ul.sub li.active a {
-    color: #68dff0;
+    color: #FF5252;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -364,7 +364,7 @@ ul.sidebar-menu li a{
 }
 
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
-    background: #68dff0;
+    background: #689F38;
     color: #fff;
     display: block;
 
@@ -413,8 +413,8 @@ ul.sidebar-menu li a.active i {
 }
 
 .black-bg {
-    background: #ffd740;
-    border-bottom: 1px solid #9fc730;
+    background: #8BC34A;
+    border-bottom: 1px solid #689F38;
 }
 
 .wrapper {
@@ -445,7 +445,7 @@ a.logo:hover, a.logo:focus {
 }
 
 a.logo span {
-    color: #68dff0;
+    color: #FF5252;
 }
 
 
@@ -468,23 +468,23 @@ a.logo span {
 }
 
 ul.top-menu > li > a {
-    color: #666666;
+    color: #FF5252;
     font-size: 16px;
     border-radius: 4px;
     -webkit-border-radius: 4px;
-    border:1px solid #666666 !important;
+    border:1px solid #414141 !important;
     padding: 2px 6px;
     margin-right: 15px;
 }
 
 ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
-    border:1px solid #b6b6b6 !important;
+    border:1px solid #FF5252 !important;
     background-color: transparent !important;
-    border-color: #b6b6b6 !important;
+    border-color: #FF5252 !important;
     text-decoration: none;
     border-radius: 4px;
     -webkit-border-radius: 4px;
-    color: #b6b6b6 !important;
+    color: #FF5252 !important;
 }
 
 .notify-row .badge {
@@ -523,7 +523,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .dropdown-menu.extended li p.green {
-    background-color: #68dff0;
+    background-color: #FF5252;
     color: #fff;
 }
 
@@ -727,9 +727,9 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     border-top-color: #FCB322 !important;
 }
 .notify-arrow-green {
-    border-color: transparent transparent #68dff0;
-    border-bottom-color: #68dff0 !important;
-    border-top-color: #68dff0 !important;
+    border-color: transparent transparent #FF5252;
+    border-bottom-color: #FF5252 !important;
+    border-top-color: #FF5252 !important;
 }
 
 
@@ -781,7 +781,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 	line-height: 60px;
 	height: 60px;
 	margin: 0;
-	background: #ff865c;
+	background: #FF5252;
 	text-align: center;
 }
 
@@ -825,7 +825,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .ds a {
-	color: #68dff0;
+	color: #FF5252;
 }
 
 /* LINE ICONS CONFIGURATION */
@@ -862,7 +862,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .box0:hover p {
-	color: #ff865c;
+	color: #FF5252;
 }
 
 .box0:hover {
@@ -920,8 +920,8 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 .custom-bar-chart .bar .value {
     position: absolute;
     bottom: 0;
-    background: #ff865c;
-    color: #68dff0;
+    background: #FF5252;
+    color: #FF5252;
     width: 100%;
     -webkit-border-radius: 5px 5px 0 0;
     -moz-border-radius: 5px 5px 0 0;
@@ -1055,7 +1055,7 @@ PANELS CONFIGURATIONS
 /*Green Panel*/
 .green-panel {
 	text-align: center;
-	background: #68dff0;
+	background: #FF5252;
 }
 .green-panel .green-header {
 	background: #43b1a9;
@@ -1088,7 +1088,7 @@ PANELS CONFIGURATIONS
 	margin-left: 15px;
 }
 .white-panel .white-header {
-	background: #8bc34a;
+	background: #666;
 	padding: 3px;
 	margin-bottom: 15px;
 	color: #fff;
@@ -1099,7 +1099,7 @@ PANELS CONFIGURATIONS
 }
 
 .white-panel i {
-	color: #68dff0;
+	color: #FF5252;
 	padding-right: 4px;
 	font-size: 14px;
 }
@@ -1514,7 +1514,7 @@ PANELS CONFIGURATIONS
 	font-weight: 900;
 }
 .profile-01 {
-	background: #68dff0;
+	background: #FF5252;
 	height: 50px;
 }
 .profile-01:hover {
@@ -1562,7 +1562,7 @@ PANELS CONFIGURATIONS
 	color: #cdcdcd;
 }
 .pr2-social a:hover {
-	color: #68dff0;
+	color: #FF5252;
 }
 .pr2-social i {
 	margin-top: 15px;
@@ -1618,7 +1618,7 @@ PANELS CONFIGURATIONS
     font-size: 12px;
 }
 .panel.terques-chart .chart-tittle .value a:hover, .panel.terques-chart .chart-tittle .value a.active {
-    color: #68dff0;
+    color: #FF5252;
     font-size: 12px;
 }
 .panel.terques-chart .chart-tittle {
@@ -1673,7 +1673,7 @@ PANELS CONFIGURATIONS
   display: block;
   position: relative;
   overflow: hidden;
-  background-color: #68dff0;
+  background-color: #FF5252;
   -webkit-transition: background-color 0.4s;
   -moz-transition: background-color 0.4s;
   -o-transition: background-color 0.4s;
@@ -1693,7 +1693,7 @@ PANELS CONFIGURATIONS
 }
 
 .project:hover .photo-wrapper {
-  background-color: #68dff0;
+  background-color: #FF5252;
 	background-image:url(../img/zoom.png);
 	background-repeat:no-repeat;
 	background-position:center;
@@ -1936,7 +1936,7 @@ label {
 	margin: 0;
 	padding: 25px 20px;
 	text-align: center;
-	background: #68dff0;
+	background: #FF5252;
 	border-radius: 5px 5px 0 0;
 	-webkit-border-radius: 5px 5px 0 0;
 	color: #fff;
@@ -2216,7 +2216,7 @@ label {
 
 /*footer*/
 .site-footer {
-    background: #68dff0;
+    background: #FF5252;
     color: #fff;
     padding: 10px 0;
 }

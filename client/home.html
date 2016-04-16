@@ -2,7 +2,7 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-9 main-chart">
-                <div class="row mtbox">
+                <!-- <div class="row mtbox">
                     <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                         <div class="box1">
                             <span class="li_heart">
@@ -18,43 +18,45 @@
                 </div>
                 <!-- /row mt -->
                 <div class="col-md-6 mb" ng-repeat="journey in journeys">
-                    <!-- WHITE PANEL - TOP USER -->
-                    <div class="white-panel">
-                        <div class="white-header">
-                            <h5 class="text-left">
-                                <img class="img-circle" src="{{journey.posted_by.profile_pic}}" style="margin-left: 5px;" width="25"/>
-                                <span style="margin-left: 5px;">
-                                    @{{journey.posted_by.name}}
-                                </span>
-                            </h5>
-                        </div>
-                        <p>
-                            <img class="img-circle" src="{{journey.vehicle.png}}" width="80"/>
-                            <br>
-                                <b>
-                                    {{journey.vehicle.type}}
-                                </b>
-                            </br>
-                        </p>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <p class="mt">
-                                    {{journey.start.street}}
+                    <a href="/journey/{{journey._id}}">
+                        <!-- WHITE PANEL - TOP USER -->
+                        <div class="white-panel">
+                            <div class="white-header">
+                                <h5 class="text-left">
+                                    <img class="img-circle" src="{{journey.posted_by.profile_pic}}" style="margin-left: 5px;" width="25"/>
+                                    <span style="margin-left: 5px;">
+                                        @{{journey.posted_by.name}}
+                                    </span>
+                                </h5>
+                            </div>
+                            <p>
+                                <img class="img-circle" src="{{journey.vehicle.png}}" width="190"/>
+                                <br>
+                                    <b>
+                                        {{journey.vehicle.type}}
+                                    </b>
+                                </br>
+                            </p>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <p class="mt">
+                                        {{journey.start.street}}
                             ,
                                     {{journey.start.area}}
-                                </p>
-                            </div>
-                            <div class="col-md-2 col-sm-0 fa fa-arrow-right">
-                            </div>
-                            <div class="col-md-5">
-                                <p class="mt">
-                                    {{journey.end.street}}
+                                    </p>
+                                </div>
+                                <div class="col-md-2 col-sm-0 fa fa-arrow-right">
+                                </div>
+                                <div class="col-md-5">
+                                    <p class="mt">
+                                        {{journey.end.street}}
                                 ,
                                     {{journey.end.area}}
-                                </p>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <!-- /col-md-4 -->
             </div>
