@@ -1,4 +1,4 @@
-<section id="main-content">
+  <section id="main-content">
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-9 main-chart">
@@ -25,7 +25,7 @@
                                 <h5 class="text-left">
                                     <img class="img-circle" src="{{journey.posted_by.profile_pic}}" style="margin-left: 5px;" width="25"/>
                                     <span style="margin-left: 5px;">
-                                        @{{journey.posted_by.name}}
+                                        @{{journey.posted_by.name}} {{timeInWords(journey.departure)}}
                                     </span>
                                 </h5>
                             </div>

@@ -9,31 +9,32 @@ app.factory('Journey', function($resource) {
         }
     });
 });
-/* Controller for index page */
-app.controller('HomeController', function($scope, $http, $timeout, Journey) {
-    // List of all journeys
-    $scope.journeys = Journey.query();
-    
-});
 /* Controller for side bar */
 app.controller('SidebarController', function($scope, $rootScope, $http) {
-    $http.get('/api/users/user')
-    .then(function(response) {
-        console.log(response);
+    $http.get('/api/users/user').then(function(response) {
         $rootScope.user = response.data;
     });
 });
 /* Controller for index page */
 app.controller('JourneyController', function($scope, $routeParams, $http, $timeout, Journey) {
+    // List of all journeys
+    $scope.journeys = Journey.query();
     //getting single joutney by id
-    $scope.journey = Journey.get({id: $routeParams.id}, null);
+    if ($routeParams.id) {
+        $scope.journey = Journey.get({
+            id: $routeParams.id
+        }, null);
+    }
+    // Moment js
+    $scope.timeInWords = function(date) {
+        return moment(date).fromNow();
+    };
     // Object to store form data
     $scope.journeyObject = {};
     // List of vehicles
     $scope.vehicles = [];
     // Retrieve vehicles
-    $http.get('/api/vehicles')
-    .then(function(response) {
+    $http.get('/api/vehicles').then(function(response) {
         console.log(response);
         $scope.vehicles = response.data;
     });
@@ -61,7 +62,7 @@ app.controller('JourneyController', function($scope, $routeParams, $http, $timeo
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider.when('/', {
         templateUrl: '/home.html',
-        controller: 'HomeController'
+        controller: 'JourneyController'
     }).when('/addjourney', {
         templateUrl: '/post_journey.html',
         controller: 'JourneyController'
@@ -70,7 +71,7 @@ app.config(function($routeProvider, $locationProvider) {
         controller: 'JourneyController'
     }).otherwise({
         templateUrl: '/home.html',
-        controller: 'HomeController',
+        controller: 'JourneyController',
     });
     $locationProvider.html5Mode({
         enabled: true,
