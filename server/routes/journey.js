@@ -88,4 +88,16 @@ router.get('/journeys/:id', function(req, res, next) {
         res.send(journey);
     });
 });
+/* To Delete one journeys . */
+router.delete('/journeys/:id', function(req, res, next) {
+    Journey.findOneAndRemove({
+        _id: req.params.id
+    })
+    .exec(function(err, journey) {
+        if (err) {
+            return res.send(err);
+        }
+        res.send(journey);
+    });
+});
 module.exports = router;
