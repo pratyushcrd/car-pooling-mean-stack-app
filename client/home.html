@@ -1,88 +1,121 @@
 <section id="main-content">
     <section class="wrapper">
-
         <div class="row">
             <div class="col-lg-9 main-chart">
-
-                <div class="row mtbox">
+                <!-- <div class="row mtbox">
                     <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                         <div class="box1">
-                            <span class="li_heart"></span>
-
-                            <h3>933</h3>
+                            <span class="li_heart">
+                            </span>
+                            <h3>
+                                933
+                            </h3>
                         </div>
-                        <p>933 People liked your page the last 24hs. Whoohoo!</p>
+                        <p>
+                            933 People liked your page the last 24hs. Whoohoo!
+                        </p>
                     </div>
-                </div><!-- /row mt -->
-
-
-                <div class="col-md-4 mb">
-                    <!-- WHITE PANEL - TOP USER -->
-                    <div class="white-panel pn">
-                        <div class="white-header">
-                            <h5>TOP USER</h5>
-                        </div>
-                        <p><img src="assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
-
-                        <p><b>Zac Snider</b></p>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <p class="small mt">MEMBER SINCE</p>
-
-                                <p>2012</p>
+                </div>
+                <!-- /row mt -->
+                <div class="col-md-6 mb" ng-repeat="journey in journeys">
+                    <a href="/journey/{{journey._id}}">
+                        <!-- WHITE PANEL - TOP USER -->
+                        <div class="white-panel">
+                            <div class="white-header">
+                                <h5 class="text-left">
+                                    <img class="img-circle" src="{{journey.posted_by.profile_pic}}" style="margin-left: 5px;" width="25"/>
+                                    <span style="margin-left: 5px;">
+                                        @{{journey.posted_by.name}}
+                                    </span>
+                                </h5>
                             </div>
-                            <div class="col-md-6">
-                                <p class="small mt">TOTAL SPEND</p>
-
-                                <p>$ 47,60</p>
+                            <p>
+                                <img class="img-circle" src="{{journey.vehicle.png}}" width="190"/>
+                                <br>
+                                    <b>
+                                        {{journey.vehicle.type}}
+                                    </b>
+                                </br>
+                            </p>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <p class="mt">
+                                        {{journey.start.street}}
+                            ,
+                                    {{journey.start.area}}
+                                    </p>
+                                </div>
+                                <div class="col-md-2 col-sm-0 fa fa-arrow-right">
+                                </div>
+                                <div class="col-md-5">
+                                    <p class="mt">
+                                        {{journey.end.street}}
+                                ,
+                                    {{journey.end.area}}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div><!-- /col-md-4 -->
-
-
-            </div><!-- /col-lg-9 END SECTION MIDDLE -->
-
-
+                    </a>
+                </div>
+                <!-- /col-md-4 -->
+            </div>
+            <!-- /col-lg-9 END SECTION MIDDLE -->
             <!-- **********************************************************************************************************************************************************
             RIGHT SIDEBAR CONTENT
             *********************************************************************************************************************************************************** -->
-
             <div class="col-lg-3 ds">
                 <!--COMPLETED ACTIONS DONUTS CHART-->
-                <h3>NOTIFICATIONS</h3>
-
+                <h3>
+                    NOTIFICATIONS
+                </h3>
                 <!-- First Action -->
                 <div class="desc">
                     <div class="thumb">
-                        <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                        <span class="badge bg-theme">
+                            <i class="fa fa-clock-o">
+                            </i>
+                        </span>
                     </div>
                     <div class="details">
                         <p>
-                            <muted>2 Minutes Ago</muted>
+                            <muted>
+                                2 Minutes Ago
+                            </muted>
                             <br/>
-                            <a href="#">James Brown</a> subscribed to your newsletter.<br/>
+                            <a href="#">
+                                James Brown
+                            </a>
+                            subscribed to your newsletter.
+                            <br/>
                         </p>
                     </div>
                 </div>
                 <!-- USERS ONLINE SECTION -->
-                <h3>TEAM MEMBERS</h3>
+                <h3>
+                    TEAM MEMBERS
+                </h3>
                 <!-- First Member -->
                 <div class="desc">
                     <div class="thumb">
-                        <img class="img-circle" src="assets/img/ui-divya.jpg" width="35px" height="35px" align="">
+                        <img align="" class="img-circle" height="35px" src="assets/img/ui-divya.jpg" width="35px">
+                        </img>
                     </div>
                     <div class="details">
-                        <p><a href="#">DIVYA MANIAN</a><br/>
-                            <muted>Available</muted>
+                        <p>
+                            <a href="#">
+                                DIVYA MANIAN
+                            </a>
+                            <br/>
+                            <muted>
+                                Available
+                            </muted>
                         </p>
                     </div>
                 </div>
-
-
-            </div><!-- /col-lg-3 -->
+            </div>
+            <!-- /col-lg-3 -->
         </div>
-        <! --/row -->
+        <!-- --/row ---->
     </section>
 </section>

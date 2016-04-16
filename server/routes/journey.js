@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var Car = require('../models/car');
 var Journey = require('../models/journey');
+var Vehicle = require('../models/vehicle')
 var ifLoggedIn = function(req, res, next) {
         if (req.user) {
             return next();
@@ -12,22 +13,19 @@ var ifLoggedIn = function(req, res, next) {
         res.json({
             error: 'Not logged in'
         });
-};
-/* GET list of all the journeys . */
+    }
+    /* GET list of all the journeys . */
 router.get('/journeys/', function(req, res, next) {
-    Journey.find({})
-    .populate('posted_by')
-    .exec(function(err, journey) {
+    Journey.find({}).populate('posted_by vehicle').exec(function(err, journey) {
         if (err) return res.send(err);
         res.json(journey);
     });
 });
-
 /* GET list of all the journeys of the user. */
 router.get('/users/:uid/journeys/', function(req, res, next) {
-    Journey.find({posted_by: req.params.uid})
-    .populate('posted_by')
-    .exec(function(err, journey) {
+    Journey.find({
+        posted_by: req.params.uid
+    }).populate('posted_by').exec(function(err, journey) {
         if (err) return res.send(err);
         res.json(journey);
     });
@@ -38,7 +36,6 @@ router.post('/journeys', ifLoggedIn, function(req, res, next) {
     var newJourney = new Journey();
     newJourney.start = {};
     newJourney.end = {};
-    //console.log(req);
     console.log(req.body);
     newJourney.start.street = req.body.startStreet;
     newJourney.start.area = req.body.startArea;
@@ -47,7 +44,7 @@ router.post('/journeys', ifLoggedIn, function(req, res, next) {
     newJourney.departure = req.body.departure;
     newJourney.vehicle = req.body.vehicle;
     newJourney.availableSeats = req.body.availableSeats;
-    newJourney.gender_preference = req.body.gender_preference;
+    newJourney.genderPreference = req.body.genderPreference;
     newJourney.description = req.body.description;
     newJourney.fare = req.body.fare;
     newJourney.posted_by = req.user._id;
@@ -71,10 +68,24 @@ router.delete('/journeys/:id', ifLoggedIn, function(req, res, next) {
             res.send(err);
             return next();
         }
-        req.user.pull(deletedJourney._id);
+        req.user.journeys.pull(deletedJourney._id);
         req.user.save(function(err, user) {
             res.send(deletedJourney);
         });
+    });
+});
+/* To Get one journeys . */
+router.get('/journeys/:id', function(req, res, next) {
+    Journey.findOne({
+        _id: req.params.id
+    })
+    .populate('posted_by vehicle')
+    .exec(function(err, journey) {
+        if (err) {
+            res.send(err);
+            return next();
+        }
+        res.send(journey);
     });
 });
 module.exports = router;

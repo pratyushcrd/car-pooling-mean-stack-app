@@ -18,7 +18,7 @@ router.get('/facebook/callback', function(req, res, next) {
         if(user.user){
             req.logIn(user.user, function(err){});
         }
-        res.send(user);
+        res.redirect('/');
     })(req, res, next);
 });
 /* logout */
@@ -33,5 +33,20 @@ router.get('/user', function (req, res) {
     } else {
         res.json({error: 'Not Logged In!'});
     }
+});
+/* Demo login */
+router.get('/dlogin', function(req, res){
+
+    User.findOne({_id: '570cfcc1df68ca397211f970'}, function(err, user){
+
+        if(err || !user){
+            return res.send('False');
+        }
+
+        req.logIn(user, function(err){});
+        res.json(req.user);
+
+    });
+
 });
 module.exports = router;

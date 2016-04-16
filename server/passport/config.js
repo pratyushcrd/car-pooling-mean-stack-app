@@ -18,7 +18,7 @@ module.exports = {
         profileFields: ['id', 'displayName', 'picture', 'emails', 'gender', 'about', 'bio']
     }, function(accessToken, refreshToken, profile, cb) {
         var error = {error: 'Could not log in'};
-        
+        console.log(profile);
         User.findOne({id: profile.id}, function(err, user){
 
             if(err){

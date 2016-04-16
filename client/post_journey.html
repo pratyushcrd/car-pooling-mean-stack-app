@@ -1,0 +1,135 @@
+<section id="main-content">
+    <section class="wrapper">
+        <h3>
+            <i class="fa fa-angle-right">
+            </i>
+            Form Components
+        </h3>
+        <!-- BASIC FORM ELELEMNTS -->
+        <div class="row mt">
+            <div class="col-lg-12">
+                <div class="form-panel">
+                    <h4 class="mb">
+                        <i class="fa fa-angle-right">
+                        </i>
+                        Form Elements
+                    </h4>
+                    <div class="form-horizontal style-form" method="get">
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">
+                                <strong>
+                                    Starting Destination
+                                </strong>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">
+                                Street
+                            </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" ng-model="journeyObject.startStreet" type="text">
+                                </input>
+                            </div>
+                            <label class="col-sm-2 col-sm-2 control-label">
+                                Area
+                            </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" ng-model="journeyObject.startArea" type="text">
+                                </input>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">
+                                <strong>
+                                    End Destination
+                                </strong>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">
+                                Street
+                            </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" ng-model="journeyObject.endStreet" type="text">
+                                </input>
+                            </div>
+                            <label class="col-sm-2 col-sm-2 control-label">
+                                Area
+                            </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" ng-model="journeyObject.endArea" type="text">
+                                </input>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">
+                                <strong>
+                                    Description
+                                </strong>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">
+                                Departure
+                            </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" ng-model="journeyObject.departure" type="datetime-local">
+                                </input>
+                            </div>
+                            <label class="col-sm-2 col-sm-2 control-label">
+                                Vehicle
+                            </label>
+                            <div class="col-sm-4">
+                                <select class="form-control" ng-model="journeyObject.vehicle">
+                                <option ng-repeat="vehicle in vehicles" value="{{vehicle._id}}">{{vehicle.type}}</option>>
+                                </select>
+                                </input>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">
+                                Available Seats
+                            </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" ng-model="journeyObject.availableSeats" type="number">
+                                </input>
+                            </div>
+                            <label class="col-sm-2 col-sm-2 control-label">
+                                Gender Preference
+                            </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" ng-model="journeyObject.genderPreference" type="text">
+                                </input>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">
+                                Description
+                            </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" ng-model="journeyObject.description" type="text">
+                                </input>
+                            </div>
+                            <label class="col-sm-2 col-sm-2 control-label">
+                                Fare
+                            </label>
+                            <div class="col-sm-4">
+                                <input class="form-control" ng-model="journeyObject.fare" type="text">
+                                </input>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <input class="form-control btn btn-facebook" ng-click="postJourney()" placeholder="" type="submit">
+                                </input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<!-- col-lg-12-->
+<!-- --/wrapper ---->
+<!-- /MAIN CONTENT -->
