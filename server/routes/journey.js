@@ -48,6 +48,66 @@ router.get('/journeys/user', ifLoggedIn, function(req, res, next) {
         res.json(journeys);
     });
 });
+/* Make a request to a journey */
+router.post('/journeys/:id/request', ifLoggedIn, function(req, res) {
+    Journey.findOne({_id: req.params.id}, function(err, journey){
+        if(err || !journey){
+            return res.send({error: 'Post Not found'});
+        }
+        if(!req.body.seats || req.body.seats > journey.availableSeats){
+            return res.send({error: 'Seats invalid'});
+        }
+
+        for(var index in journey.requested_by){
+            if(journey.requested_by[index].id == (req.user._id)){
+                return res.send({error: 'Cannot post multiple requests'});
+            }
+        }
+        journey.requested_by.push({id: req.user._id, seatsRequired: req.body.seats});
+        journey.save(function(err, journey){
+            if(err){
+                return res.send(err);
+            }
+            return res.send(journey);
+        });
+
+    });
+});
+/* Accept a request in a journey */
+router.post('/journeys/:id/accept/:uid', ifLoggedIn, function(req, res) {
+    Journey.findOne({_id: req.params.id}, function(err, journey){
+        if(err || !journey){
+            return res.send({error: 'Post Not found'});
+        }
+        var position = -1;
+        for(index in journey.requested_by){
+            var request = journey.requested_by[index];
+            if(request.id == req.params.uid){
+                if(request.seatsRequired <= journey.availableSeats){
+                    position = index;
+                }else{
+                    return res.send({error: 'Seats not available'});
+                }
+            }
+        }
+        if(position == -1){
+            return res.send({error: 'Could not find request entry'});
+        }else{
+            var request = journey.requested_by[position];
+            journey.requested_by.pull(request);
+            journey.accepted_requests.push(request);
+            journey.availableSeats = journey.availableSeats - request.seatsRequired;
+            journey.save(function(err, journey){
+                if(err || !journey){
+                    return res.send({error: err});
+                }else{
+                    return res.send(journey);    
+                }
+            });
+        }
+
+    });
+});
 /* GET list of all the journeys of the user. */
 router.get('/users/:uid/journeys/', function(req, res, next) {
     Journey.find({
@@ -60,6 +120,9 @@ router.get('/users/:uid/journeys/', function(req, res, next) {
 });
 /* To add new journeys . */
 router.post('/journeys', ifLoggedIn, function(req, res, next) {
+    if(!req.body.availableSeats || req.body.availableSeats < 1){
+        return res.send({error: 'Seats must be minimum 1'});
+    }
     var newJourney = new Journey();
     newJourney.start = {};
     newJourney.end = {};
