@@ -19,19 +19,20 @@ var JourneySchema = new Schema({
     },
     departure: {type: Date, required: true},
     vehicle: {type: String, required: true, ref: 'Vehicle'},
-    availableSeats: {type: Number, required: true, min: 1, max: 5},
+    availableSeats: {type: Number, required: true, min: 0},
     genderPreference: {type: String, default: 'none'},
     stops: [String],
     description: String,
     fare: {type: Number, required: true},
     requested_by: [{
-        name: {type: String},
-        requestTime: {type: Date, default: Date.now()},
+        id: {type: String, required: true},
+        seatsRequired: {type: Number, required: true},
+        created_at: {type: Date, default: Date.now()},
     }],
     accepted_requests: [{
-        name: {type: String},
-        acceptedTime: {type: Date, default: Date.now()},
-        //city: {type: Schema.ObjectId, required: true, ref: 'City'}
+        id: {type: String, required: true},
+        seatsRequired: {type: Number, required: true},
+        created_at: {type: Date},
     }],
     created_at: {type: Date, default: Date.now()}
 });
