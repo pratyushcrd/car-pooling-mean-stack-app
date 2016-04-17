@@ -2,21 +2,6 @@
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-9 main-chart">
-                <div class="row mtbox">
-                    <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
-                        <div class="box1">
-                            <span class="li_heart">
-                            </span>
-                            <h3>
-                                933
-                            </h3>
-                        </div>
-                        <p>
-                            933 People liked your page the last 24hs. Whoohoo!
-                        </p>
-                    </div>
-                </div>
-                <!-- /row mt -->
                 <div class="col-md-12 mb">
                     <a href="/journey/{{journey._id}}">
                         <!-- WHITE PANEL - TOP USER -->
@@ -32,28 +17,32 @@
                             <p>
                                 <img class="img-circle" src="{{journey.vehicle.png}}" width="300"/>
                                 <br>
-                                    <b>
+                                    <h2>
                                         {{journey.vehicle.type}}
-                                    </b>
+                                    </h2>
                                 </br>
                             </p>
                             <div class="row">
                                 <div class="col-md-5">
-                                    <p class="mt">
+                                    <h4 class="mt">
                                         {{journey.start.street}}
                             ,
                                     {{journey.start.area}}
-                                    </p>
+                                    </h4>
                                 </div>
-                                <div class="col-md-2 col-sm-0 fa fa-arrow-right">
-                                </div>
+                                <h4 class="col-md-2 col-sm-0 fa fa-arrow-right">
+                                </h4>
                                 <div class="col-md-5">
-                                    <p class="mt">
+                                    <h4 class="mt">
                                         {{journey.end.street}}
                                 ,
                                     {{journey.end.area}}
-                                    </p>
+                                    </h4>
                                 </div>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
                             </div>
                         </div>
                     </a>
@@ -64,7 +53,8 @@
             <!-- **********************************************************************************************************************************************************
             RIGHT SIDEBAR CONTENT
             *********************************************************************************************************************************************************** -->
-            <div ng-include="'/rightBar.html'"></div>
+            <div ng-include="'/rightBar.html'">
+            </div>
             <!-- /col-lg-3 -->
         </div>
         <!-- --/row ---->

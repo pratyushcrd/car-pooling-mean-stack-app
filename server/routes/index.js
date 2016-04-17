@@ -8,9 +8,7 @@ router.get('*', function(req, res, next) {
   }else{
   	path = 'login.html';
   }
-  console.log(path);
-  console.log(req.user);
-  res.sendfile(path, {root: './client'});
+  return res.sendfile(path, {root: './client'});
 });
 
 module.exports = router;

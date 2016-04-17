@@ -1,50 +1,95 @@
 <div class="col-lg-3 ds">
-                <!--COMPLETED ACTIONS DONUTS CHART-->
-                <h3>
-                    NOTIFICATIONS
-                </h3>
-                <!-- First Action -->
-                <div class="desc">
-                    <div class="thumb">
-                        <span class="badge bg-theme">
-                            <i class="fa fa-clock-o">
-                            </i>
-                        </span>
-                    </div>
-                    <div class="details">
-                        <p>
-                            <muted>
-                                2 Minutes Ago
-                            </muted>
-                            <br/>
-                            <a href="#">
-                                James Brown
-                            </a>
-                            subscribed to your newsletter.
-                            <br/>
-                        </p>
-                    </div>
-                </div>
-                <!-- USERS ONLINE SECTION -->
-                <h3>
-                    TEAM MEMBERS
-                </h3>
-                <!-- First Member -->
-                <div class="desc">
-                    <div class="thumb">
-                        <img align="" class="img-circle" height="35px" src="assets/img/ui-divya.jpg" width="35px">
-                        </img>
-                    </div>
-                    <div class="details">
-                        <p>
-                            <a href="#">
-                                DIVYA MANIAN
-                            </a>
-                            <br/>
-                            <muted>
-                                Available
-                            </muted>
-                        </p>
-                    </div>
-                </div>
+    <!--COMPLETED ACTIONS DONUTS CHART-->
+    <h3>
+        RECENT JOURNEYS
+    </h3>
+    <!-- First Action -->
+    <div style="max-height: 40vh; overflow: scroll;">
+        <div class="desc" ng-show="pastJourneys == undefined || pastJourneys.length == 0">
+            <div class="thumb">
+                <img align="" class="img-circle" height="35px" src="{{user.profile_pic}}" width="35px">
+                </img>
             </div>
+            <div class="details">
+                <p>
+                    <muted>
+                        <h6>
+                            No journeys found
+                        </h6>
+                    </muted>
+                </p>
+            </div>
+        </div>
+        <!-- End Error -->
+        <div class="desc" ng-repeat="journey in pastJourneys">
+            <div class="thumb">
+                <img align="" class="img-circle" height="35px" src="{{journey.posted_by.profile_pic}}" width="35px">
+                </img>
+            </div>
+            <div class="details">
+                <p>
+                    <muted>
+                        {{timeInWords(journey.departure)}}
+                    </muted>
+                    <br/>
+                    <a href="#">
+                        <span ng-show="journey.posted_by._id != user._id">
+                            {{journey.posted_by.name}}
+                        </span>
+                        <span ng-show="journey.posted_by._id == user._id">
+                            You
+                        </span>
+                        travelled
+                    </a>
+                    <br/>
+                    <span>
+                        {{journey.start.area}} to {{journey.end.area}}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- USERS ONLINE SECTION -->
+    <h3>
+        YOUR JOURNEYS
+    </h3>
+    <!-- First Member -->
+    <div style="max-height: 40vh; overflow: scroll;">
+        <div class="desc" ng-repeat="journey in userJourneys">
+            <div class="thumb">
+                <img align="" class="img-circle" height="35px" src="{{journey.posted_by.profile_pic}}" width="35px">
+                </img>
+            </div>
+            <div class="details">
+                <p>
+                    <muted>
+                        {{timeInWords(journey.departure)}}
+                    </muted>
+                    <br/>
+                    <a href="#">
+                        You travelled
+                    </a>
+                    <br/>
+                    <span>
+                        {{journey.start.area}} to {{journey.end.area}}
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="desc" ng-show="userJourneys == undefined || userJourneys.length == 0">
+            <div class="thumb">
+                <img align="" class="img-circle" height="35px" src="{{user.profile_pic}}" width="35px">
+                </img>
+            </div>
+            <div class="details">
+                <p>
+                    <muted>
+                        <h6>
+                            No journeys yet
+                        </h6>
+                    </muted>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
