@@ -37,7 +37,7 @@ router.get('/user', function (req, res) {
 /* Demo login */
 router.get('/dlogin', function(req, res){
 
-    User.findOne({_id: '570cfcc1df68ca397211f970'}, function(err, user){
+    User.findOne({_id: '570df403c36d1ef90a149cce'}, function(err, user){
 
         if(err || !user){
             return res.send('False');

@@ -6,6 +6,20 @@ app.factory('Journey', function($resource) {
     return $resource('/api/journeys/:id', null, {
         'update': {
             method: 'PUT'
+        },
+        past: {
+            method: 'GET',
+            isArray: true,
+            params: {
+                id: 'past'
+            }
+        },
+        user: {
+            method: 'GET',
+            isArray: true,
+            params: {
+                id: 'user'
+            }
         }
     });
 });
@@ -19,6 +33,10 @@ app.controller('SidebarController', function($scope, $rootScope, $http) {
 app.controller('JourneyController', function($scope, $routeParams, $http, $timeout, Journey) {
     // List of all journeys
     $scope.journeys = Journey.query();
+    // List of all past journeys
+    $scope.pastJourneys = Journey.past();
+    // List of all user journeys
+    $scope.userJourneys = Journey.user();
     //getting single joutney by id
     if ($routeParams.id) {
         $scope.journey = Journey.get({
@@ -35,7 +53,6 @@ app.controller('JourneyController', function($scope, $routeParams, $http, $timeo
     $scope.vehicles = [];
     // Retrieve vehicles
     $http.get('/api/vehicles').then(function(response) {
-        console.log(response);
         $scope.vehicles = response.data;
     });
     // function to post joureys

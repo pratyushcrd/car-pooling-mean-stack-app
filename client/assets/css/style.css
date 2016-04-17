@@ -10,6 +10,10 @@ Premium: http://www.gridgum.com
 @import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
 
 /* BASIC THEME CONFIGURATION */
+::-webkit-scrollbar { 
+    display: none; 
+}
+
 body {
     color: #212121;
 	background: #f1f2f3;
@@ -27,24 +31,15 @@ a, a:hover, a:focus {
     text-decoration: none;
     outline: none;
 }
-::selection {
-
-    background: #FF5252;
-    color: #fff;
-}
-::-moz-selection {
-    background: #FF5252;
-    color: #fff;
-}
 
 #container {
     width: 100%;
-    height: 100%;
+    margin-bottom: -105px;
 }
 
 /* Bootstrap Modifications */
 .modal-header {
-	background: #FF5252;
+	background: #D32F2F;
 }
 
 .modal-title {
@@ -74,11 +69,11 @@ a, a:hover, a:focus {
 /*Theme Backgrounds*/
 
 .bg-theme {
-	background-color: #FF5252;
+	background-color: #D32F2F;
 }
 
 .bg-theme02 {
-    background-color: #FF5252;
+    background-color: #D32F2F;
     border: 1px solid #689F38 !important;
 }
 
@@ -93,7 +88,7 @@ a, a:hover, a:focus {
 
 .btn-theme {
   color: #fff;
-  background-color: #FF5252;
+  background-color: #D32F2F;
   border-color: #48bcb4;
 }
 .btn-theme:hover,
@@ -207,11 +202,11 @@ hr {
 /*Exclusive Theme Colors Configuration*/
 
 .label-theme {
-	background-color: #FF5252;
+	background-color: #D32F2F;
 }
 
 .bg-theme {
-	background-color: #FF5252;
+	background-color: #D32F2F;
 }
 
 ul.top-menu > li > .logout {
@@ -326,7 +321,7 @@ ul.sidebar-menu li ul.sub li a:hover {
 }
 
 ul.sidebar-menu li ul.sub li.active a {
-    color: #FF5252;
+    color: #D32F2F;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -446,7 +441,7 @@ a.logo:hover, a.logo:focus {
 }
 
 a.logo span {
-    color: #FF5252;
+    color: #D32F2F;
 }
 
 
@@ -469,7 +464,7 @@ a.logo span {
 }
 
 ul.top-menu > li > a {
-    color: #FF5252;
+    color: #D32F2F;
     font-size: 16px;
     border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -479,13 +474,13 @@ ul.top-menu > li > a {
 }
 
 ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
-    border:1px solid #FF5252 !important;
+    border:1px solid #D32F2F !important;
     background-color: transparent !important;
-    border-color: #FF5252 !important;
+    border-color: #D32F2F !important;
     text-decoration: none;
     border-radius: 4px;
     -webkit-border-radius: 4px;
-    color: #FF5252 !important;
+    color: #D32F2F !important;
 }
 
 .notify-row .badge {
@@ -524,7 +519,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .dropdown-menu.extended li p.green {
-    background-color: #FF5252;
+    background-color: #D32F2F;
     color: #fff;
 }
 
@@ -728,9 +723,9 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     border-top-color: #FCB322 !important;
 }
 .notify-arrow-green {
-    border-color: transparent transparent #FF5252;
-    border-bottom-color: #FF5252 !important;
-    border-top-color: #FF5252 !important;
+    border-color: transparent transparent #D32F2F;
+    border-bottom-color: #D32F2F !important;
+    border-top-color: #D32F2F !important;
 }
 
 
@@ -782,7 +777,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 	line-height: 60px;
 	height: 60px;
 	margin: 0;
-	background: #FF5252;
+	background: #D32F2F;
 	text-align: center;
 }
 
@@ -826,7 +821,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .ds a {
-	color: #FF5252;
+	color: #D32F2F;
 }
 
 /* LINE ICONS CONFIGURATION */
@@ -863,7 +858,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .box0:hover p {
-	color: #FF5252;
+	color: #D32F2F;
 }
 
 .box0:hover {
@@ -921,8 +916,8 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 .custom-bar-chart .bar .value {
     position: absolute;
     bottom: 0;
-    background: #FF5252;
-    color: #FF5252;
+    background: #D32F2F;
+    color: #D32F2F;
     width: 100%;
     -webkit-border-radius: 5px 5px 0 0;
     -moz-border-radius: 5px 5px 0 0;
@@ -1056,7 +1051,7 @@ PANELS CONFIGURATIONS
 /*Green Panel*/
 .green-panel {
 	text-align: center;
-	background: #FF5252;
+	background: #D32F2F;
 }
 .green-panel .green-header {
 	background: #43b1a9;
@@ -1100,7 +1095,7 @@ PANELS CONFIGURATIONS
 }
 
 .white-panel i {
-	color: #FF5252;
+	color: #D32F2F;
 	padding-right: 4px;
 	font-size: 14px;
 }
@@ -1515,7 +1510,7 @@ PANELS CONFIGURATIONS
 	font-weight: 900;
 }
 .profile-01 {
-	background: #FF5252;
+	background: #D32F2F;
 	height: 50px;
 }
 .profile-01:hover {
@@ -1563,7 +1558,7 @@ PANELS CONFIGURATIONS
 	color: #cdcdcd;
 }
 .pr2-social a:hover {
-	color: #FF5252;
+	color: #D32F2F;
 }
 .pr2-social i {
 	margin-top: 15px;
@@ -1619,7 +1614,7 @@ PANELS CONFIGURATIONS
     font-size: 12px;
 }
 .panel.terques-chart .chart-tittle .value a:hover, .panel.terques-chart .chart-tittle .value a.active {
-    color: #FF5252;
+    color: #D32F2F;
     font-size: 12px;
 }
 .panel.terques-chart .chart-tittle {
@@ -1674,7 +1669,7 @@ PANELS CONFIGURATIONS
   display: block;
   position: relative;
   overflow: hidden;
-  background-color: #FF5252;
+  background-color: #D32F2F;
   -webkit-transition: background-color 0.4s;
   -moz-transition: background-color 0.4s;
   -o-transition: background-color 0.4s;
@@ -1694,7 +1689,7 @@ PANELS CONFIGURATIONS
 }
 
 .project:hover .photo-wrapper {
-  background-color: #FF5252;
+  background-color: #D32F2F;
 	background-image:url(../img/zoom.png);
 	background-repeat:no-repeat;
 	background-position:center;
@@ -1937,7 +1932,7 @@ label {
 	margin: 0;
 	padding: 25px 20px;
 	text-align: center;
-	background: #FF5252;
+	background: #D32F2F;
 	border-radius: 5px 5px 0 0;
 	-webkit-border-radius: 5px 5px 0 0;
 	color: #fff;
@@ -2217,7 +2212,7 @@ label {
 
 /*footer*/
 .site-footer {
-    background: #FF5252;
+    background: #D32F2F;
     color: #fff;
     padding: 10px 0;
 }

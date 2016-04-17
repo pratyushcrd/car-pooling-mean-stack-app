@@ -15,8 +15,7 @@ var ifLoggedIn =function(req, res, next){
 router.get('/', ifLoggedIn, function(req, res, next){
 	Message.find({postedBy: req.user._id}, function(err, messages){
 		if (err) {
-			res.send(err);
-			return next();
+			return res.send({error: err}); 
 		}
 		res.send(messages);
 	});

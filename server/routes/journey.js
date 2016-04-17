@@ -16,9 +16,36 @@ var ifLoggedIn = function(req, res, next) {
     }
     /* GET list of all the journeys . */
 router.get('/journeys/', function(req, res, next) {
-    Journey.find({}).populate('posted_by vehicle').exec(function(err, journey) {
+    Journey.find({
+        departure: {
+            $gt: new Date()
+        }
+    }).lean().populate('posted_by vehicle').exec(function(err, journeys) {
         if (err) return res.send(err);
-        res.json(journey);
+        console.log(journeys)
+        res.json(journeys);
+    });
+});
+/* GET list of all the past journeys . */
+router.get('/journeys/past', function(req, res, next) {
+    Journey.find({
+        departure: {
+            $lt: new Date()
+        }
+    }).lean().sort('-departure').limit(5).populate('posted_by vehicle').exec(function(err, journeys) {
+        if (err) return res.send(err);
+        console.log(journeys)
+        res.json(journeys);
+    });
+});
+/* GET list of all the journeys of current user . */
+router.get('/journeys/user', ifLoggedIn, function(req, res, next) {
+    Journey.find({
+        posted_by: req.user._id
+    }).lean().sort('-departure').limit(5).populate('posted_by vehicle').exec(function(err, journeys) {
+        if (err) return res.send(err);
+        console.log(journeys)
+        res.json(journeys);
     });
 });
 /* GET list of all the journeys of the user. */
@@ -50,8 +77,7 @@ router.post('/journeys', ifLoggedIn, function(req, res, next) {
     newJourney.posted_by = req.user._id;
     newJourney.save(function(err, journeyDetail) {
         if (err) {
-            res.send(err);
-            return next();
+            return res.send(err);
         }
         req.user.journeys.push(journeyDetail._id);
         req.user.save(function(err, user) {
@@ -65,8 +91,7 @@ router.delete('/journeys/:id', ifLoggedIn, function(req, res, next) {
         _id: req.params.id
     }, function(err, deletedJourney) {
         if (err) {
-            res.send(err);
-            return next();
+            return res.send(err);
         }
         req.user.journeys.pull(deletedJourney._id);
         req.user.save(function(err, user) {
@@ -78,12 +103,9 @@ router.delete('/journeys/:id', ifLoggedIn, function(req, res, next) {
 router.get('/journeys/:id', function(req, res, next) {
     Journey.findOne({
         _id: req.params.id
-    })
-    .populate('posted_by vehicle')
-    .exec(function(err, journey) {
+    }).populate('posted_by vehicle').exec(function(err, journey) {
         if (err) {
-            res.send(err);
-            return next();
+            return res.send(err);
         }
         res.send(journey);
     });
@@ -92,8 +114,7 @@ router.get('/journeys/:id', function(req, res, next) {
 router.delete('/journeys/:id', function(req, res, next) {
     Journey.findOneAndRemove({
         _id: req.params.id
-    })
-    .exec(function(err, journey) {
+    }).exec(function(err, journey) {
         if (err) {
             return res.send(err);
         }
