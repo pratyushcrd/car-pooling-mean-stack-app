@@ -5,11 +5,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var MessageSchema = new Schema({
+var ChatSchema = new Schema({
     message: {type: String, required: true},
-    postedBy: {type: String, required: true, ref: 'User'},
-    postedTo: {type: String, required: true, ref: 'User'},
+    journeyId: {type: String, required: true, ref: 'User'},
+    userId: {type: String, required: true, ref: 'User'},
     created_at: {type: Date, default: Date.now()}
 });
 
-module.exports = mongoose.model('Message', MessageSchema);
+module.exports = mongoose.model('Chat', ChatSchema);

@@ -40,8 +40,8 @@ Routes
 */
 app.use('/api/users', users);
 app.use('/api', journey);
-app.use('/api/messages', require('./routes/message'));
-app.use('/api/vehicles', require('./routes/vehicle'))
+app.use('/api/chat', require('./routes/chat'));
+app.use('/api/vehicles', require('./routes/vehicle'));
 app.use('*', routes);
 
     // catch 404 and forward to error handler
