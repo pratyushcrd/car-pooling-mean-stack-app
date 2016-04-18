@@ -1,4 +1,4 @@
-  <section id="main-content">
+<section id="main-content">
     <section class="wrapper">
         <div class="row">
             <div class="col-lg-9 main-chart">
@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <!-- /row mt -->
-                <div class="col-md-6 mb" ng-repeat="journey in journeys">
+                <div class="col-md-6 mb" ng-repeat-start="journey in journeys">
                     <a href="/journey/{{journey._id}}">
                         <!-- WHITE PANEL - TOP USER -->
                         <div class="white-panel">
@@ -59,16 +59,26 @@
                     </a>
                 </div>
                 <!-- /col-md-4 -->
+                <div ng-repeat-end>
+                <div class="clear clearfix" ng-if="$index % 2 == 1">&nbsp;</div>
+                </div>
+                
             </div>
             <!-- /col-lg-9 END SECTION MIDDLE -->
             <!-- **********************************************************************************************************************************************************
             RIGHT SIDEBAR CONTENT
             *********************************************************************************************************************************************************** -->
-            <div ng-include="'/rightBar.html'"></div>
+            <div ng-include="'/rightBar.html'">
+            </div>
             <!-- /col-lg-3 -->
         </div>
         <!-- --/row ---->
     </section>
 </section>
-<br></br><br></br><br></br><br></br>
-<br></br><br></br><br></br>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
