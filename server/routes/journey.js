@@ -178,7 +178,7 @@ router.delete('/journeys/:id', ifLoggedIn, function(req, res, next) {
 router.get('/journeys/:id', function(req, res, next) {
     Journey.findOne({
         _id: req.params.id
-    }).populate('posted_by vehicle').exec(function(err, journey) {
+    }).populate('posted_by vehicle accepted_requests.id').exec(function(err, journey) {
         if (err) {
             return res.send(err);
         }
