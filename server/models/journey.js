@@ -30,7 +30,7 @@ var JourneySchema = new Schema({
         created_at: {type: Date, default: Date.now()},
     }],
     accepted_requests: [{
-        id: {type: String, required: true},
+        id: {type: String, required: true, ref: 'User'},
         seatsRequired: {type: Number, required: true},
         created_at: {type: Date},
     }],

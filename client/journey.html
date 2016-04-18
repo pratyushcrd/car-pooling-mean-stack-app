@@ -46,8 +46,37 @@
                             </div>
                         </div>
                     </a>
+
                 </div>
-                <!-- /col-md-4 -->
+                <!-- /col-md-12 -->
+
+
+                <div class="col-sm-12 ">
+                            <!-- WHITE PANEL - TOP USER -->
+                            <div class="white-panel">
+                                <div class="white-header" style="background-color: #eaeaea;color: #777">
+                                    <h5>PEOPLE ON THIS RIDE</h5>
+                                </div>
+                                <div class="row">
+
+                                <div class="col-md-2">
+                                <p><img src="{{journey.posted_by.profile_pic}}" class="img-circle" width="50"></p>
+                                <p><b>{{journey.posted_by.name}}</b></p>
+                                </div>
+
+                                <div class="col-md-2" ng-repeat="user in journey.accepted_requests">
+                                <p><img src="{{user.id.profile_pic}}" class="img-circle" width="50"></p>
+                                <p><b>{{user.id.name}}</b></p>
+                                </div>
+
+
+                                </div>
+
+                            </div>
+                        </div><!-- /col-md-4 -->
+
+
+
             </div>
             <!-- /col-lg-9 END SECTION MIDDLE -->
             <!-- **********************************************************************************************************************************************************
