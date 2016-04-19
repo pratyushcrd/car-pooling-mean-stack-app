@@ -64,10 +64,43 @@ router.post('/journeys/:id/request', ifLoggedIn, function(req, res) {
                 return res.send({error: 'Cannot post multiple requests'});
             }
         }
+
+        for(var index in journey.accepted_requests){
+            if(journey.accepted_requests[index].id == (req.user._id)){
+                return res.send({error: 'Already in the journey'});
+            }
+        }
         journey.requested_by.push({id: req.user._id, seatsRequired: req.body.seats});
         journey.save(function(err, journey){
             if(err){
                 return res.send(err);
+            }
+            return res.send(journey);
+        });
+
+    });
+});
+/* Decline a request ******INSECURE******* */
+router.delete('/journeys/:id/request/:uid', ifLoggedIn, function(req, res) {
+    Journey.findOne({_id: req.params.id}, function(err, journey){
+        if(err || !journey){
+            return res.send({error: 'Post Not found'});
+        }
+        var position = -1;
+        for(var index in journey.requested_by){
+            if(journey.requested_by[index].id == (req.params.uid)){
+                position = index;
+            }
+        }
+
+        if(position == -1){
+            return res.send({error: 'No request from the user'});
+        }
+
+        journey.requested_by.pull(journey.requested_by[position]);
+        journey.save(function(err, journey){
+            if(err){
+                return res.send({error: err});
             }
             return res.send(journey);
         });
@@ -178,7 +211,7 @@ router.delete('/journeys/:id', ifLoggedIn, function(req, res, next) {
 router.get('/journeys/:id', function(req, res, next) {
     Journey.findOne({
         _id: req.params.id
-    }).populate('posted_by vehicle accepted_requests.id').exec(function(err, journey) {
+    }).populate('posted_by vehicle accepted_requests.id requested_by.id').exec(function(err, journey) {
         if (err) {
             return res.send(err);
         }

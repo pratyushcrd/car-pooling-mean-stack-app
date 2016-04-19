@@ -30,18 +30,49 @@ app.controller('SidebarController', function($scope, $rootScope, $http) {
     });
 });
 /* Controller for index page */
-app.controller('JourneyController', function($scope, $routeParams, $http, $timeout, Journey) {
+app.controller('JourneyController', function($scope, $rootScope, $routeParams, $http, $timeout, Journey) {
     // List of all journeys
     $scope.journeys = Journey.query();
     // List of all past journeys
     $scope.pastJourneys = Journey.past();
     // List of all user journeys
     $scope.userJourneys = Journey.user();
-    //getting single joutney by id
+    // Simple array to stores options of seats available
+    $scope.seatsAvailable = [];
+    // Boolean to check if request panel is to be shown
+    $scope.hideRequestPanel = false;
+    // Boolean to check if user req in journey
+    $scope.ifRequestedJourney = false;
+    // function to refresh journey page
+    $scope.refreshJourney = function() {
+            window.location = '/journey/' + $routeParams.id;
+        }
+        //getting single joutney by id
     if ($routeParams.id) {
         $scope.journey = Journey.get({
             id: $routeParams.id
-        }, null);
+        }, function(data) {
+            $scope.seatsAvailable = [];
+            for (var i = 1; i <= $scope.journey.availableSeats; ++i) {
+                $scope.seatsAvailable.push(i);
+            }
+            if ($scope.journey.posted_by._id == $rootScope.user._id) {
+                $scope.hideRequestPanel = true;
+            }
+            for (index in $scope.journey.requested_by) {
+                console.log($scope.journey.requested_by[index]);
+                console.log($rootScope.user._id);
+                if ($scope.journey.requested_by[index].id._id == $rootScope.user._id) {
+                    $scope.hideRequestPanel = true;
+                    $scope.ifRequestedJourney = true;
+                }
+            }
+            for (index in $scope.journey.accepted_requests) {
+                if ($scope.journey.accepted_requests[index].id._id == $rootScope.user._id) {
+                    $scope.hideRequestPanel = true;
+                }
+            }
+        });
     }
     // Moment js
     $scope.timeInWords = function(date) {
@@ -55,7 +86,38 @@ app.controller('JourneyController', function($scope, $routeParams, $http, $timeo
     $http.get('/api/vehicles').then(function(response) {
         $scope.vehicles = response.data;
     });
-    // function to post joureys
+    // function to decline request
+    $scope.decline = function(userId) {
+            $http({
+                method: "DELETE",
+                url: "/api/journeys/" + $routeParams.id + "/request/" + userId,
+            }).then(function(response) {
+                $scope.refreshJourney();
+            }, function(response) {});
+        }
+        // function to accept request
+    $scope.accept = function(userId) {
+            $http({
+                method: "POST",
+                url: "/api/journeys/" + $routeParams.id + "/accept/" + userId,
+            }).then(function(response) {
+                $scope.refreshJourney();
+            }, function(response) {});
+        }
+        // seatsRequestedByUser
+    $scope.makeRequest = function() {
+            $http({
+                method: "POST",
+                url: "/api/journeys/" + $routeParams.id + "/request",
+                data: {
+                    seats: $scope.seatsRequestedByUser
+                }
+            }).then(function(response) {
+                console.log(response.data);
+                $scope.refreshJourney();
+            }, function(response) {});
+        }
+        // function to post joureys
     $scope.postJourney = function() {
         var newJourney = new Journey();
         newJourney.startStreet = $scope.journeyObject.startStreet;
