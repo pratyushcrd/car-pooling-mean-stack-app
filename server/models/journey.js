@@ -25,7 +25,7 @@ var JourneySchema = new Schema({
     description: String,
     fare: {type: Number, required: true},
     requested_by: [{
-        id: {type: String, required: true},
+        id: {type: String, required: true, ref: 'User'},
         seatsRequired: {type: Number, required: true},
         created_at: {type: Date, default: Date.now()},
     }],

@@ -49,4 +49,19 @@ router.get('/dlogin', function(req, res){
     });
 
 });
+
+router.get('/plogin', function(req, res){
+
+    User.findOne({_id: '57154b6c26cd6f2023c613bb'}, function(err, user){
+
+        if(err || !user){
+            return res.send('False');
+        }
+
+        req.logIn(user, function(err){});
+        res.json(req.user);
+
+    });
+
+});
 module.exports = router;
