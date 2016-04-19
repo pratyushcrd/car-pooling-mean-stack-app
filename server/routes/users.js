@@ -15,8 +15,8 @@ router.get('/facebook/callback', function(req, res, next) {
     console.log('Enter');
     passport.authenticate('facebook', function(user) {
         // Checking if user object is present
-        if(user.user){
-            req.logIn(user.user, function(err){});
+        if (user.user) {
+            req.logIn(user.user, function(err) {});
         }
         res.redirect('/');
     })(req, res, next);
@@ -27,41 +27,58 @@ router.get('/logout', function(req, res) {
     res.redirect('/');
 });
 /* Get Current User */
-router.get('/user', function (req, res) {
+router.get('/user', function(req, res) {
     if (req.user) {
         res.json(req.user);
     } else {
-        res.json({error: 'Not Logged In!'});
+        res.json({
+            error: 'Not Logged In!'
+        });
     }
 });
 /* Demo login */
-router.get('/dlogin', function(req, res){
-
-    User.findOne({_id: '570df403c36d1ef90a149cce'}, function(err, user){
-
-        if(err || !user){
+router.get('/dlogin', function(req, res) {
+    User.findOne({
+        _id: '570df403c36d1ef90a149cce'
+    }, function(err, user) {
+        if (err || !user) {
             return res.send('False');
         }
-
-        req.logIn(user, function(err){});
+        req.logIn(user, function(err) {});
         res.json(req.user);
-
     });
-
 });
-
-router.get('/plogin', function(req, res){
-
-    User.findOne({_id: '57154b6c26cd6f2023c613bb'}, function(err, user){
-
-        if(err || !user){
+router.get('/plogin', function(req, res) {
+    User.findOne({
+        _id: '57154b6c26cd6f2023c613bb'
+    }, function(err, user) {
+        if (err || !user) {
             return res.send('False');
         }
-
-        req.logIn(user, function(err){});
+        req.logIn(user, function(err) {});
         res.json(req.user);
-
     });
-
+});
+router.get('/full', function(req, res) {
+    if (!req.user) {
+        return res.send({
+            error: 'Not logged in'
+        });
+    }
+    User.findOne({
+        _id: req.user._id
+    }).populate({
+        path: 'journeys',
+        populate: {
+            path: 'vehicle posted_by accepted_requests.id' , 
+            select: ' type png _id profile_pic name'
+                    }
+    }).exec(function(err, user) {
+        if (err || !user) {
+            return res.send('False');
+        }
+        req.logIn(user, function(err) {});
+        res.json(req.user);
+    });
 });
 module.exports = router;

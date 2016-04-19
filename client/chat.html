@@ -1,0 +1,41 @@
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-md-12 main-chart">
+                <div class="col-md-12">
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" ng-model="message"/>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="btn btn-primary" ng-click="sendMessage()">
+                            Send
+                        </p>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <!-- /col-md-4 -->
+                <div class="col-md-10 main-chart">
+                    <div class="col-md-12 mb" ng-repeat="message in messages">
+                        <div class="white-panel">
+                            <span class="col-md-12" style="background-color: #fff; padding: 15px">
+                                <span class="col-md-2">
+                                    <img class="img-circle" src="{{message.userId.profile_pic}}" width="50"/>
+                                </span>
+                                <span class="col-md-10">
+                                    <h4 class="pull-left">
+                                        {{message.message}}
+                                    </h4>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" style="height:65vh;">
+            </div>
+        </div>
+    </section>
+</section>
+<!-- -->
+<!-- --/row ---->

@@ -23,9 +23,50 @@ app.factory('Journey', function($resource) {
         }
     });
 });
+app.factory('Chat', function($resource) {
+    return $resource('/api/chats/:id', null, {
+        'update': {
+            method: 'PUT'
+        }
+    });
+});
+/* Controller for chat bar */
+app.controller('ChatController', function($scope, $rootScope, $http, $routeParams, $interval, Chat) {
+    // Array
+    $scope.messages = Chat.query({
+        jid: $routeParams.id
+    });
+    // Moment js
+    $scope.timeInWords = function(date) {
+        return moment(date).fromNow();
+    };
+    // Array to save chats initially
+    $interval(function() {
+        Chat.query({
+            jid: $routeParams.id
+        }, function(data) {
+            console.log(data);
+            if (data != $scope.messages) {
+                $scope.messages = data;
+            }
+        });
+    }, 10000);
+    // Function to send chat
+    $scope.sendMessage = function() {
+        var chat = new Chat();
+        chat.message = $scope.message;
+        chat.jid = $routeParams.id;
+        chat.$save(function(message) {
+            $scope.message = '';
+            message.userId = $rootScope.user;
+            $scope.messages.unshift(message);
+            console.log(message);
+        });
+    }
+});
 /* Controller for side bar */
 app.controller('SidebarController', function($scope, $rootScope, $http) {
-    $http.get('/api/users/user').then(function(response) {
+    $http.get('/api/users/full').then(function(response) {
         $rootScope.user = response.data;
     });
 });
@@ -148,6 +189,12 @@ app.config(function($routeProvider, $locationProvider) {
     }).when('/journey/:id', {
         templateUrl: '/journey.html',
         controller: 'JourneyController'
+    }).when('/chat', {
+        templateUrl: '/chat_group.html',
+        controller: 'ChatController'
+    }).when('/chat/:id', {
+        templateUrl: '/chat.html',
+        controller: 'ChatController'
     }).otherwise({
         templateUrl: '/home.html',
         controller: 'JourneyController',
