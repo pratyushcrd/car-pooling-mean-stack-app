@@ -1,0 +1,45 @@
+<section id="main-content">
+    <section class="wrapper">
+        <div class="row">
+            <div class="col-lg-12 main-chart">
+                <div class="col-md-4 mb" ng-repeat-start="journey in user.journeys">
+                    <a href="/chat/{{journey._id}}">
+                        <!-- WHITE PANEL - TOP USER -->
+                        <div class="white-panel">
+                            <div class="white-header">
+                                <h5 class="text-left">
+                                    <img class="img-circle" src="{{journey.posted_by.profile_pic}}" style="margin-left: 5px;" width="25"/>
+                                    <span style="margin-left: 5px;">
+                                        @{{journey.posted_by.name}} {{timeInWords(journey.departure)}}
+                                    </span>
+                                </h5>
+                            </div>
+                            <p class="col-md-12">
+                                <span class="col-md-3">
+                                    <img class="img-circle" src="{{journey.posted_by.profile_pic}}" width="50"/>
+                                    <br/>
+                                    {{journey.posted_by.name}}
+                                </span>
+                                <span class="col-md-3" ng-repeat="item in journey.accepted_requests">
+                                    <img class="img-circle" src="{{item.id.profile_pic}}" width="50"/>
+                                    <br/>
+                                    {{item.id.name}}
+                                </span>
+                            </p>
+                            <div class="row">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- /col-md-4 -->
+                <div ng-repeat-end="">
+                    <div class="clear clearfix" ng-if="$index % 3 == 2">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1" style="height:55vh;">
+            </div>
+        </div>
+        <!-- --/row ---->
+    </section>
+</section>

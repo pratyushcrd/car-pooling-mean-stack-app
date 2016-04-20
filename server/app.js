@@ -40,7 +40,7 @@ Routes
 */
 app.use('/api/users', users);
 app.use('/api', journey);
-app.use('/api/chat', require('./routes/chat'));
+app.use('/api/chats', require('./routes/chat'));
 app.use('/api/vehicles', require('./routes/vehicle'));
 app.use('*', routes);
 

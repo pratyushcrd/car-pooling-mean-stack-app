@@ -3,8 +3,7 @@ var router = express.Router();
 var User = require('../models/user');
 var Chat = require('../models/chat');
 var Journey = require('../models/journey');
-
-var ifLoggedIn = function (req, res, next) {
+var ifLoggedIn = function(req, res, next) {
     if (req.user) {
         return next();
     }
@@ -13,27 +12,35 @@ var ifLoggedIn = function (req, res, next) {
     });
 };
 
-router.get('/:jid', ifLoggedIn, function (req, res, next) {
-    Chat.find({journeyId: req.params.jid}, function (err, messages) {
+router.get('/', ifLoggedIn, function(req, res, next) {
+    Chat.find({
+        journeyId: req.query.jid
+    }).sort({
+        _id: -1
+    }).populate('userId').exec(function(err, messages) {
         if (err) {
-            return res.send({error: err});
+            return res.send({
+                error: err
+            });
         }
         res.send(messages);
-    }).sort({created_at: -1});
+    });
 });
-
-router.post('/:jid', ifLoggedIn, function (req, res, next) {
-    Journey.findOne({_id: req.params.jid}, function (err, journey) {
+router.post('/', ifLoggedIn, function(req, res, next) {
+    Journey.findOne({
+        _id: req.body.jid
+    }, function(err, journey) {
         if (err || !journey) {
-            return res.json({error: "Journey dose not exists"});
-        }
-        else {
+            return res.json({
+                error: "Journey dose not exists"
+            });
+        } else {
             var flag = 0;
             for (index in req.user.journeys) {
                 var userJourney = req.user.journeys[index];
                 console.log(userJourney);
-                console.log(req.params.jid);
-                if (userJourney == req.params.jid) {
+                console.log(req.body.jid);
+                if (userJourney == req.body.jid) {
                     flag = 1;
                 }
             }
@@ -41,26 +48,21 @@ router.post('/:jid', ifLoggedIn, function (req, res, next) {
                 var newMessage = new Chat();
                 newMessage.message = req.body.message;
                 newMessage.userId = req.user._id;
-                newMessage.journeyId = req.params.jid;
-                newMessage.save(function (err, Message) {
+                newMessage.journeyId = req.body.jid;
+                newMessage.save(function(err, Message) {
                     if (err) {
-                        return res.send({error: err});
-
+                        return res.send({
+                            error: err
+                        });
                     }
                     return res.send(Message);
                 });
+            } else {
+                return res.send({
+                    error: "You are not authorized"
+                });
             }
-            else {
-                return res.send({error: "You are not authorized"});
-            }
-
         }
-
-
     });
-
-
 });
-
-
 module.exports = router;
