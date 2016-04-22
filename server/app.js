@@ -35,12 +35,15 @@ app.use(passport.session());
 passport.serializeUser(passConfig.serialize);
 passport.deserializeUser(passConfig.deserialize);
 passport.use('facebook', passConfig.facebookStrategy);
+//Socket IO
+var io = require('socket.io')();
+app.io = io;
 /*
 Routes 
 */
 app.use('/api/users', users);
 app.use('/api', journey);
-app.use('/api/chats', require('./routes/chat'));
+app.use('/api/chats', require('./routes/chat')(io));
 app.use('/api/vehicles', require('./routes/vehicle'));
 app.use('*', routes);
 

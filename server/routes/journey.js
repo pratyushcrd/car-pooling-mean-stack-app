@@ -23,7 +23,6 @@ router.get('/journeys/', function(req, res, next) {
         }
     }).lean().populate('posted_by vehicle').exec(function(err, journeys) {
         if (err) return res.send(err);
-        console.log(journeys)
         res.json(journeys);
     });
 });
@@ -35,7 +34,6 @@ router.get('/journeys/past', function(req, res, next) {
         }
     }).lean().sort('-departure').limit(5).populate('posted_by vehicle').exec(function(err, journeys) {
         if (err) return res.send(err);
-        console.log(journeys)
         res.json(journeys);
     });
 });
@@ -45,7 +43,6 @@ router.get('/journeys/user', ifLoggedIn, function(req, res, next) {
         posted_by: req.user._id
     }).lean().sort('-departure').limit(5).populate('posted_by vehicle').exec(function(err, journeys) {
         if (err) return res.send(err);
-        console.log(journeys)
         res.json(journeys);
     });
 });
@@ -161,7 +158,6 @@ router.get('/users/:uid/journeys/', function(req, res, next) {
         if (err) return res.send(err);
         res.json(journey);
     });
-    console.log(req.params.uid);
 });
 /* To add new journeys . */
 router.post('/journeys', ifLoggedIn, function(req, res, next) {
@@ -171,7 +167,6 @@ router.post('/journeys', ifLoggedIn, function(req, res, next) {
     var newJourney = new Journey();
     newJourney.start = {};
     newJourney.end = {};
-    console.log(req.body);
     newJourney.start.street = req.body.startStreet;
     newJourney.start.area = req.body.startArea;
     newJourney.end.street = req.body.endStreet;

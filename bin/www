@@ -28,7 +28,10 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
+/* Socket IO */
+var io = app.io;
+io.listen(server);
+require('../server/socketio/io')(io);
 /**
  * Normalize a port into a number, string, or false.
  */

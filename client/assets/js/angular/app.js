@@ -23,6 +23,29 @@ app.factory('Journey', function($resource) {
         }
     });
 });
+app.factory('socket', function($rootScope) {
+    var socket = io.connect();
+    return {
+        on: function(eventName, callback) {
+            socket.on(eventName, function() {
+                var args = arguments;
+                $rootScope.$apply(function() {
+                    callback.apply(socket, args);
+                });
+            });
+        },
+        emit: function(eventName, data, callback) {
+            socket.emit(eventName, data, function() {
+                var args = arguments;
+                $rootScope.$apply(function() {
+                    if (callback) {
+                        callback.apply(socket, args);
+                    }
+                });
+            })
+        }
+    };
+});
 app.factory('Chat', function($resource) {
     return $resource('/api/chats/:id', null, {
         'update': {
@@ -31,8 +54,8 @@ app.factory('Chat', function($resource) {
     });
 });
 /* Controller for chat bar */
-app.controller('ChatController', function($scope, $rootScope, $http, $routeParams, $interval, Chat) {
-    // Array
+app.controller('ChatController', function($scope, $rootScope, socket, $http, $routeParams, $interval, Chat) {
+    // Array to save chats initially
     $scope.messages = Chat.query({
         jid: $routeParams.id
     });
@@ -40,17 +63,6 @@ app.controller('ChatController', function($scope, $rootScope, $http, $routeParam
     $scope.timeInWords = function(date) {
         return moment(date).fromNow();
     };
-    // Array to save chats initially
-    $interval(function() {
-        Chat.query({
-            jid: $routeParams.id
-        }, function(data) {
-            console.log(data);
-            if (data != $scope.messages) {
-                $scope.messages = data;
-            }
-        });
-    }, 2000);
     // Function to send chat
     $scope.sendMessage = function() {
         var chat = new Chat();
@@ -59,10 +71,13 @@ app.controller('ChatController', function($scope, $rootScope, $http, $routeParam
         chat.$save(function(message) {
             $scope.message = '';
             message.userId = $rootScope.user;
-            $scope.messages.unshift(message);
             console.log(message);
         });
     }
+    socket.on('chat', function(message){
+        console.log('A chat received');
+        $scope.messages.unshift(message);
+    })
 });
 /* Controller for side bar */
 app.controller('SidebarController', function($scope, $rootScope, $http) {
