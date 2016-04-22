@@ -50,7 +50,7 @@ app.controller('ChatController', function($scope, $rootScope, $http, $routeParam
                 $scope.messages = data;
             }
         });
-    }, 10000);
+    }, 2000);
     // Function to send chat
     $scope.sendMessage = function() {
         var chat = new Chat();
