@@ -9,7 +9,7 @@ var passport = require('passport');
 var passConfig = require('./passport/config.js');
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var journey = require('./routes/journey');
+//var journey = require('./routes/journey');
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,7 +42,7 @@ app.io = io;
 Routes 
 */
 app.use('/api/users', users);
-app.use('/api', journey);
+app.use('/api', require('./routes/journey')(io));
 app.use('/api/chats', require('./routes/chat')(io));
 app.use('/api/vehicles', require('./routes/vehicle'));
 app.use('*', routes);

@@ -88,7 +88,7 @@ app.controller('ChatController', function($scope, $rootScope, socket, $http, $ro
             message.userId = $rootScope.user;
             console.log(message);
         });
-    }
+    };
     socket.on('chat', function(message) {
         console.log('A chat received');
         if (message.journeyId == $routeParams.id) {
@@ -103,7 +103,7 @@ app.controller('SidebarController', function($scope, $rootScope, $http) {
     });
 });
 /* Controller for index page */
-app.controller('JourneyController', function($scope, $rootScope, $routeParams, $http, $timeout, Journey) {
+app.controller('JourneyController', function ($scope, $rootScope, $routeParams, socket, $http, $timeout, Journey) {
     // List of all journeys
     $scope.journeys = Journey.query();
     // List of all past journeys
@@ -119,7 +119,7 @@ app.controller('JourneyController', function($scope, $rootScope, $routeParams, $
     // function to refresh journey page
     $scope.refreshJourney = function() {
             window.location = '/journey/' + $routeParams.id;
-        }
+    };
         //getting single joutney by id
     if ($routeParams.id) {
         $scope.journey = Journey.get({
@@ -167,7 +167,7 @@ app.controller('JourneyController', function($scope, $rootScope, $routeParams, $
             }).then(function(response) {
                 $scope.refreshJourney();
             }, function(response) {});
-        }
+    };
         // function to accept request
     $scope.accept = function(userId) {
             $http({
@@ -176,7 +176,7 @@ app.controller('JourneyController', function($scope, $rootScope, $routeParams, $
             }).then(function(response) {
                 $scope.refreshJourney();
             }, function(response) {});
-        }
+    };
         // seatsRequestedByUser
     $scope.makeRequest = function() {
             $http({
@@ -189,7 +189,7 @@ app.controller('JourneyController', function($scope, $rootScope, $routeParams, $
                 console.log(response.data);
                 $scope.refreshJourney();
             }, function(response) {});
-        }
+    };
         // function to post joureys
     $scope.postJourney = function() {
         var newJourney = new Journey();
@@ -208,7 +208,13 @@ app.controller('JourneyController', function($scope, $rootScope, $routeParams, $
         }, function(err) {
             console.log(err);
         })
-    }
+    };
+
+    socket.on('journey', function (journey) {
+        console.log('A journey received');
+        $scope.journeys.unshift(journey);
+
+    });
 });
 /* Configuing routes */
 app.config(function($routeProvider, $locationProvider) {
