@@ -53,6 +53,21 @@ app.factory('Chat', function($resource) {
         }
     });
 });
+/* A directive for Enter press check */
+app.directive('myEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.myEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+});
+
 /* Controller for chat bar */
 app.controller('ChatController', function($scope, $rootScope, socket, $http, $routeParams, $interval, Chat) {
     // Array to save chats initially
@@ -74,9 +89,11 @@ app.controller('ChatController', function($scope, $rootScope, socket, $http, $ro
             console.log(message);
         });
     }
-    socket.on('chat', function(message){
+    socket.on('chat', function(message) {
         console.log('A chat received');
-        $scope.messages.unshift(message);
+        if (message.journeyId == $routeParams.id) {
+            $scope.messages.unshift(message);
+        }
     })
 });
 /* Controller for side bar */
