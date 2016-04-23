@@ -6,7 +6,7 @@ module.exports = function(io) {
    
     router.get('/', function(req, res, next) {
         UnreadMessage.find({
-            userId: req.user._id;
+            userId: req.user._id
         }, function(err, messages){
         	 if(err){
         	 	res.send({error: err});
