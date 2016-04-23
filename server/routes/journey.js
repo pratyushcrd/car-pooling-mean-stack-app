@@ -93,7 +93,7 @@ module.exports = function (io) {
 
         });
     });
-    /* Decline a request ******SECURE******* */
+    /* Decline a request */
     router.delete('/journeys/:id/request/:uid', ifLoggedIn, ifOwns, function (req, res) {
         Journey.findOne({_id: req.params.id}, function (err, journey) {
             if (err || !journey) {
@@ -211,7 +211,7 @@ module.exports = function (io) {
         });
     });
     /* To delete the journeys . */
-    router.delete('/journeys/:id', ifLoggedIn, function (req, res, next) {
+    router.delete('/journeys/:id', ifLoggedIn, ifOwns, function (req, res, next) {
         Journey.findOneAndRemove({
             _id: req.params.id
         }, function (err, deletedJourney) {
