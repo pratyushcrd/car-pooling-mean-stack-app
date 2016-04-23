@@ -3,6 +3,7 @@ module.exports = function(io) {
     var router = express.Router();
     var User = require('../models/user');
     var Chat = require('../models/chat');
+    var UnreadMessage = require('../models/unreadMessage');
     var Journey = require('../models/journey');
     var ifLoggedIn = function(req, res, next) {
         if (req.user) {
@@ -26,6 +27,7 @@ module.exports = function(io) {
             res.send(messages);
         });
     });
+    /*Async required*/
     router.post('/', ifLoggedIn, function(req, res, next) {
         Journey.findOne({
             _id: req.body.jid
@@ -55,6 +57,28 @@ module.exports = function(io) {
                                 error: err
                             });
                         }
+                        var userArray = journey.accepted_requests;
+                        userArray.push({id: journey.posted_by});
+                        for (index in userArray) {
+                            var userId = userArray[index].id;
+                            if (userId == req.user._id) {
+                                continue;
+                            }
+                            var newUnreadmessage = UnreadMessage();
+                            newUnreadmessage.userId = userId;
+                            newUnreadmessage.message = req.body.message;
+                            newUnreadmessage.postedBy = req.user._id;
+                            newUnreadmessage.journeyId = req.body.jid;
+                            newUnreadmessage.save(function (err, Unreadmessage) {
+                                if (err) {
+                                    return res.send({
+                                        error: err
+                                    });
+                                }
+                            });
+                        }
+
+
                         message.userId = req.user;
                         io.emit('chat', message);
                         return res.send(message);
@@ -68,4 +92,4 @@ module.exports = function(io) {
         });
     });
     return router;
-}
+};
