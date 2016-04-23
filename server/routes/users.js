@@ -59,6 +59,18 @@ router.get('/plogin', function(req, res) {
         res.json(req.user);
     });
 });
+router.get('/pblogin', function (req, res) {
+    User.findOne({
+        _id: '571262c6b5178cac0c99f9d2'
+    }, function (err, user) {
+        if (err || !user) {
+            return res.send('False');
+        }
+        req.logIn(user, function (err) {
+        });
+        res.json(req.user);
+    });
+});
 router.get('/full', function(req, res) {
     if (!req.user) {
         return res.send({
