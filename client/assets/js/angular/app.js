@@ -72,7 +72,7 @@ app.directive('myEnter', function () {
 app.controller('ChatController', function($scope, $rootScope, socket, $http, $routeParams, $interval, Chat) {
     // Array to save chats initially
     $scope.messages = Chat.query({
-        jid: $routeParams.id
+        jid: $routeParams.cid
     });
     // Moment js
     $scope.timeInWords = function(date) {
@@ -82,7 +82,7 @@ app.controller('ChatController', function($scope, $rootScope, socket, $http, $ro
     $scope.sendMessage = function() {
         var chat = new Chat();
         chat.message = $scope.message;
-        chat.jid = $routeParams.id;
+        chat.jid = $routeParams.cid;
         chat.$save(function(message) {
             $scope.message = '';
             message.userId = $rootScope.user;
@@ -91,7 +91,7 @@ app.controller('ChatController', function($scope, $rootScope, socket, $http, $ro
     };
     socket.on('chat', function(message) {
         console.log('A chat received');
-        if (message.journeyId == $routeParams.id) {
+        if (message.journeyId == $routeParams.cid) {
             $scope.messages.unshift(message);
         }
     })
@@ -230,7 +230,7 @@ app.config(function($routeProvider, $locationProvider) {
     }).when('/chat', {
         templateUrl: '/chat_group.html',
         controller: 'ChatController'
-    }).when('/chat/:id', {
+    }).when('/chat/:cid', {
         templateUrl: '/chat.html',
         controller: 'ChatController'
     }).otherwise({
