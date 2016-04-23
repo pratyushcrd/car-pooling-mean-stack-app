@@ -4,21 +4,40 @@ module.exports = function(io) {
     var Chat = require('../models/chat');
     var User = require('../models/user');
     var UnreadMessage = require('../models/unreadMessage');
+    var ifLoggedIn = function(req, res, next) {
+        if (req.user) {
+            return next();
+        }
+        res.json({
+            error: 'Not logged in'
+        });
+    };
     /*To get all the messages of the current user*/
-    router.get('/', function(req, res, next) {
-        UnreadMessage.find({
-            userId: req.user._id
-        }, function(err, messages) {
+    router.get('/', ifLoggedIn, function(req, res, next) {
+        UnreadMessage.aggregate().match({
+            userId: {
+                $eq: req.user._id
+            }
+        }).project({
+            message: '$message',
+            journeyId: '$journeyId'
+        }).group({
+            _id: '$journeyId',
+            occurance: {
+                $sum: 1
+            },
+            message: {
+                $max: '$message'
+            }
+        }).exec(function(err, messages) {
             if (err) {
-                res.send({
-                    error: err
-                });
+                return null;
             }
             res.send(messages);
         });
     });
     /*To get the count of unread messages of the current user of  given journey*/
-    router.get('/:id', function(req, res, next) {
+    router.get('/:id', ifLoggedIn, function(req, res, next) {
         UnreadMessage.find({
             userId: req.user._id,
             journeyId: req.params.id
@@ -33,8 +52,8 @@ module.exports = function(io) {
             });
         });
     });
-    /*To delete the read messages*/
-    router.delete('/:id', function(req, res, next) {
+    /*To delete the read messages INSECURE */
+    router.delete('/:id', ifLoggedIn, function(req, res, next) {
         UnreadMessage.remove({
             userId: req.user._id,
             journeyId: req.params.id
