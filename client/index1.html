@@ -129,8 +129,8 @@
                                             </span>
                                         </span>
                                         <span class="message">
-                                            <div class="muted" style="color:#a98">{{message._id.start.area}} to {{message._id.end.area}}</div>
-                                            {{message.message}}
+                                            <div class="muted" style="color:#765">going {{message._id.start.area}} to {{message._id.end.area}}</div>
+                                            {{message.occurance}} message<span ng-if="message.occurance > 1">s</span> unread
                                         </span>
                                     </a>
                                 </li>
