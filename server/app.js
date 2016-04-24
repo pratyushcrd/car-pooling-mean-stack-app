@@ -45,6 +45,7 @@ app.use('/api/users', users);
 app.use('/api', require('./routes/journey')(io));
 app.use('/api/chats', require('./routes/chat')(io));
 app.use('/api/unreadMessages', require('./routes/unreadMessage')(io));
+app.use('/api/notifications', require('./routes/notification')(io));
 app.use('/api/vehicles', require('./routes/vehicle'));
 app.use('*', routes);
 
