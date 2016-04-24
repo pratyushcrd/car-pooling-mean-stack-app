@@ -2,7 +2,9 @@ module.exports = function(io) {
     var express = require('express');
     var router = express.Router();
     var Chat = require('../models/chat');
+    var Vehicle = require('../models/vehicle');
     var User = require('../models/user');
+    var Journey = require('../models/journey');
     var UnreadMessage = require('../models/unreadMessage');
     var ifLoggedIn = function(req, res, next) {
         if (req.user) {
@@ -32,9 +34,29 @@ module.exports = function(io) {
             }
         }).exec(function(err, messages) {
             if (err) {
-                return null;
+                return res.send({
+                    error: err
+                });
             }
-            res.send(messages);
+            Journey.populate(messages, {
+                path: '_id'
+            }, function(err, messages) {
+                if (err) {
+                    return res.send({
+                        error: err
+                    });
+                }
+                User.populate(messages, {
+                    path: '_id.posted_by'
+                }, function(err, messages) {
+                    if (err) {
+                        return res.send({
+                            error: err
+                        });
+                    }
+                    res.send(messages);
+                });
+            });
         });
     });
     /*To get the count of unread messages of the current user of  given journey*/

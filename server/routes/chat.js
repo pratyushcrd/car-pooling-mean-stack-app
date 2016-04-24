@@ -80,7 +80,7 @@ module.exports = function(io) {
 
 
                         message.userId = req.user;
-                        io.emit('chat', message);
+                        io.emit('chat' + req.body.jid, message);
                         return res.send(message);
                     });
                 } else {
