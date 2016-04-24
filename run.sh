@@ -1,1 +1,1 @@
-nodemon
+sudo nodemon

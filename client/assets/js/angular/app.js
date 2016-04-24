@@ -23,6 +23,13 @@ app.factory('Journey', function($resource) {
         }
     });
 });
+app.factory('Unread', function($resource) {
+    return $resource('/api/unreadmessages/:id', null, {
+        'update': {
+            method: 'PUT'
+        }
+    });
+});
 app.factory('socket', function($rootScope) {
     var socket = io.connect();
     return {
@@ -54,30 +61,32 @@ app.factory('Chat', function($resource) {
     });
 });
 /* A directive for Enter press check */
-app.directive('myEnter', function () {
-    return function (scope, element, attrs) {
-        element.bind("keydown keypress", function (event) {
-            if(event.which === 13) {
-                scope.$apply(function (){
+app.directive('myEnter', function() {
+    return function(scope, element, attrs) {
+        element.bind("keydown keypress", function(event) {
+            if (event.which === 13) {
+                scope.$apply(function() {
                     scope.$eval(attrs.myEnter);
                 });
-
                 event.preventDefault();
             }
         });
     };
 });
-
 /* Controller for chat bar */
-app.controller('ChatController', function($scope, $rootScope, socket, $http, $routeParams, $interval, Chat) {
+app.controller('ChatController', function($scope, $rootScope, socket, $http, Unread, $routeParams, $interval, Chat) {
     // Array to save chats initially
     $scope.messages = Chat.query({
         jid: $routeParams.cid
     });
-    // Moment js
-    $scope.timeInWords = function(date) {
-        return moment(date).fromNow();
-    };
+    // Delete the read messages from unread category
+    if ($routeParams.cid) {
+        Unread.delete({
+            id: $routeParams.cid
+        }, function(data) {
+            $rootScope.refreshUnread();
+        });
+    }
     // Function to send chat
     $scope.sendMessage = function() {
         var chat = new Chat();
@@ -86,24 +95,53 @@ app.controller('ChatController', function($scope, $rootScope, socket, $http, $ro
         chat.$save(function(message) {
             $scope.message = '';
             message.userId = $rootScope.user;
-            console.log(message);
         });
     };
-    socket.on('chat', function(message) {
-        console.log('A chat received');
-        if (message.journeyId == $routeParams.cid) {
-            $scope.messages.unshift(message);
-        }
+    socket.on('chat' + $routeParams.cid, function(message) {
+        $scope.messages.unshift(message);
+        Unread.delete({
+            id: $routeParams.cid
+        }, function(data) {
+        });
     })
 });
 /* Controller for side bar */
-app.controller('SidebarController', function($scope, $rootScope, $http) {
+app.controller('SidebarController', function($scope, $rootScope, $http) {});
+/* Controller for unread message */
+app.controller('UnreadController', function($scope, $rootScope, $http, $routeParams, socket, Unread) {
     $http.get('/api/users/full').then(function(response) {
         $rootScope.user = response.data;
+        $scope.setListener();
     });
+    $rootScope.refreshUnread = function() {
+        $rootScope.unreadMessages = Unread.query(function(data) {
+            $rootScope.unreadCount = 0;
+            for (var i in data) {
+                if (data[i].occurance) {
+                    $rootScope.unreadCount += data[i].occurance;
+                }
+            }
+        });
+    }
+    $rootScope.refreshUnread();
+    // Moment js
+    $rootScope.timeInWords = function(date) {
+        return moment(date).fromNow();
+    };
+    // A Listener for every chat group
+    $scope.setListener = function() {
+        for (var i in $rootScope.user.journeys) {
+            var journeyId = $rootScope.user.journeys[i]._id;
+            socket.on('chat' + journeyId, function(message) {
+                if (!$routeParams.cid || $routeParams.cid != message.journeyId) {
+                    $rootScope.refreshUnread();
+                }
+            })
+        }
+    }
 });
 /* Controller for index page */
-app.controller('JourneyController', function ($scope, $rootScope, $routeParams, socket, $http, $timeout, Journey) {
+app.controller('JourneyController', function($scope, $rootScope, $routeParams, socket, $http, $timeout, Journey) {
     // List of all journeys
     $scope.journeys = Journey.query();
     // List of all past journeys
@@ -118,9 +156,9 @@ app.controller('JourneyController', function ($scope, $rootScope, $routeParams, 
     $scope.ifRequestedJourney = false;
     // function to refresh journey page
     $scope.refreshJourney = function() {
-            window.location = '/journey/' + $routeParams.id;
+        window.location = '/journey/' + $routeParams.id;
     };
-        //getting single joutney by id
+    //getting single joutney by id
     if ($routeParams.id) {
         $scope.journey = Journey.get({
             id: $routeParams.id
@@ -147,10 +185,6 @@ app.controller('JourneyController', function ($scope, $rootScope, $routeParams, 
             }
         });
     }
-    // Moment js
-    $scope.timeInWords = function(date) {
-        return moment(date).fromNow();
-    };
     // Object to store form data
     $scope.journeyObject = {};
     // List of vehicles
@@ -161,36 +195,36 @@ app.controller('JourneyController', function ($scope, $rootScope, $routeParams, 
     });
     // function to decline request
     $scope.decline = function(userId) {
-            $http({
-                method: "DELETE",
-                url: "/api/journeys/" + $routeParams.id + "/request/" + userId,
-            }).then(function(response) {
-                $scope.refreshJourney();
-            }, function(response) {});
+        $http({
+            method: "DELETE",
+            url: "/api/journeys/" + $routeParams.id + "/request/" + userId,
+        }).then(function(response) {
+            $scope.refreshJourney();
+        }, function(response) {});
     };
-        // function to accept request
+    // function to accept request
     $scope.accept = function(userId) {
-            $http({
-                method: "POST",
-                url: "/api/journeys/" + $routeParams.id + "/accept/" + userId,
-            }).then(function(response) {
-                $scope.refreshJourney();
-            }, function(response) {});
+        $http({
+            method: "POST",
+            url: "/api/journeys/" + $routeParams.id + "/accept/" + userId,
+        }).then(function(response) {
+            $scope.refreshJourney();
+        }, function(response) {});
     };
-        // seatsRequestedByUser
+    // seatsRequestedByUser
     $scope.makeRequest = function() {
-            $http({
-                method: "POST",
-                url: "/api/journeys/" + $routeParams.id + "/request",
-                data: {
-                    seats: $scope.seatsRequestedByUser
-                }
-            }).then(function(response) {
-                console.log(response.data);
-                $scope.refreshJourney();
-            }, function(response) {});
+        $http({
+            method: "POST",
+            url: "/api/journeys/" + $routeParams.id + "/request",
+            data: {
+                seats: $scope.seatsRequestedByUser
+            }
+        }).then(function(response) {
+            console.log(response.data);
+            $scope.refreshJourney();
+        }, function(response) {});
     };
-        // function to post joureys
+    // function to post joureys
     $scope.postJourney = function() {
         var newJourney = new Journey();
         newJourney.startStreet = $scope.journeyObject.startStreet;
@@ -209,11 +243,9 @@ app.controller('JourneyController', function ($scope, $rootScope, $routeParams, 
             console.log(err);
         })
     };
-
-    socket.on('journey', function (journey) {
+    socket.on('journey', function(journey) {
         console.log('A journey received');
         $scope.journeys.unshift(journey);
-
     });
 });
 /* Configuing routes */
