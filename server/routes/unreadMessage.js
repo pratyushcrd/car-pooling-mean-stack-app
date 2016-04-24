@@ -16,11 +16,12 @@ module.exports = function(io) {
     router.get('/', ifLoggedIn, function(req, res, next) {
         UnreadMessage.aggregate().match({
             userId: {
-                $eq: req.user._id
+                $eq: req.user._id.toString()
             }
         }).project({
             message: '$message',
-            journeyId: '$journeyId'
+            journeyId: '$journeyId',
+            userId: '$userId'
         }).group({
             _id: '$journeyId',
             occurance: {
