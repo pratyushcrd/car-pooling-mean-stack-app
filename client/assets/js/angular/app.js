@@ -60,6 +60,15 @@ app.factory('Chat', function($resource) {
         }
     });
 });
+
+app.factory('Notification', function ($resource) {
+    return $resource('/api/notifications/:id', null, {
+        'update': {
+            method: 'PUT'
+        }
+    });
+});
+
 /* A directive for Enter press check */
 app.directive('myEnter', function() {
     return function(scope, element, attrs) {
@@ -108,10 +117,10 @@ app.controller('ChatController', function($scope, $rootScope, socket, $http, Unr
 app.controller('SidebarController', function($scope, $rootScope, $http) {});
 /* Controller for unread message */
 app.controller('UnreadController', function($scope, $rootScope, $http, $routeParams, socket, Unread) {
-    $http.get('/api/users/full').then(function(response) {
+    /*$http.get('/api/users/full').then(function(response) {
         $rootScope.user = response.data;
         $scope.setListener();
-    });
+     });*/
     $rootScope.refreshUnread = function() {
         $rootScope.unreadMessages = Unread.query(function(data) {
             $rootScope.unreadCount = 0;
@@ -121,12 +130,9 @@ app.controller('UnreadController', function($scope, $rootScope, $http, $routePar
                 }
             }
         });
-    }
-    $rootScope.refreshUnread();
-    // Moment js
-    $rootScope.timeInWords = function(date) {
-        return moment(date).fromNow();
     };
+    $rootScope.refreshUnread();
+
     // A Listener for every chat group
     $scope.setListener = function() {
         for (var i in $rootScope.user.journeys) {
@@ -139,8 +145,39 @@ app.controller('UnreadController', function($scope, $rootScope, $http, $routePar
         }
     }
 });
+
+app.controller('NotificationController', function ($scope, $rootScope, $http, $routeParams, socket, Notification) {
+    $http.get('/api/users/full').then(function (response) {
+        $rootScope.user = response.data;
+        $scope.setNotificationListner();
+    });
+
+    $scope.notificationCount = 0;
+    $rootScope.refreshNotification = function () {
+        $scope.notifications = Notification.query(function (data) {
+            $scope.notificationCount = $scope.notifications.length;
+        });
+    };
+    $rootScope.refreshNotification();
+    // Moment js
+    $rootScope.timeInWords = function (date) {
+        return moment(date).fromNow();
+    };
+    // A Listener for the notification
+
+    $scope.setNotificationListner = function () {
+
+        console.log('notification' + $rootScope.user._id);
+        socket.on('notification' + $rootScope.user._id, function () {
+            $rootScope.refreshNotification();
+            console.log('notification' + $rootScope.user._id);
+        });
+    }
+});
+
+
 /* Controller for index page */
-app.controller('JourneyController', function($scope, $rootScope, $log, $timeout, $routeParams, socket, $http, $timeout, Journey) {
+app.controller('JourneyController', function ($scope, $rootScope, $log, $timeout, $routeParams, socket, $http, $timeout, Journey, Notification) {
     // List of all journeys
     $scope.journeys = Journey.query();
     // List of all past journeys
@@ -182,6 +219,14 @@ app.controller('JourneyController', function($scope, $rootScope, $log, $timeout,
                     $scope.hideRequestPanel = true;
                 }
             }
+
+            Notification.delete({
+                id: $routeParams.id
+            }, function (data) {
+            });
+            $rootScope.refreshNotification();
+
+
         });
     }
     // Object to store form data
@@ -260,8 +305,8 @@ app.controller('JourneyController', function($scope, $rootScope, $log, $timeout,
     /* START MAP */
     $scope.startMap = {
         center: {
-            latitude: 45,
-            longitude: -73
+            latitude: 22.6761144,
+            longitude: 88.0883865
         },
         zoom: 8
     };
@@ -283,7 +328,7 @@ app.controller('JourneyController', function($scope, $rootScope, $log, $timeout,
                 $scope.startCoordLng = response.data.results[0].geometry.location.lng;
             }
         });
-    }
+    };
     $scope.startMarker = {
         id: 0,
         coords: {
@@ -312,8 +357,8 @@ app.controller('JourneyController', function($scope, $rootScope, $log, $timeout,
     /* end MAP */
     $scope.endMap = {
         center: {
-            latitude: 45,
-            longitude: -73
+            latitude: 22.6761144,
+            longitude: 88.0883865
         },
         zoom: 8
     };
@@ -335,7 +380,7 @@ app.controller('JourneyController', function($scope, $rootScope, $log, $timeout,
                 $scope.endCoordLng = response.data.results[0].geometry.location.lng;
             }
         });
-    }
+    };
     $scope.endMarker = {
         id: 0,
         coords: {
