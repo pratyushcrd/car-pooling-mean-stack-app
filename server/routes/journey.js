@@ -12,7 +12,7 @@ module.exports = function (io) {
     var Notification = require('../models/notification');
 
     /*To notify the users*/
-    var notify = function (res, req, userId, journeyId, notification) {
+    var notify = function (req, res, userId, journeyId, notification) {
         var newNotification = new Notification();
         newNotification.userId = userId;
         newNotification.notification = notification;
@@ -21,6 +21,7 @@ module.exports = function (io) {
             if (err) {
                 return res.send({error: err})
             }
+            io.emit('notification' + userId);
         });
 
     };

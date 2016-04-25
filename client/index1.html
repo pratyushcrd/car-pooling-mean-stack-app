@@ -71,36 +71,44 @@
                     <!--  notification start -->
                     <ul class="nav top-menu">
                         <!-- settings start -->
-                        <li class="dropdown">
+                        <li class="dropdown" ng-controller="NotificationController">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="">
                                 <i class="fa fa-tasks">
                                 </i>
+                                <span class="badge bg-theme02" ng-if="notificationCount">
+                                    {{notificationCount || ''}}
+                                </span>
                             </a>
-                            <ul class="dropdown-menu extended tasks-bar">
+                            <ul class="dropdown-menu extended inbox">
                                 <div class="notify-arrow notify-arrow-green">
                                 </div>
                                 <li>
                                     <p class="green">
-                                        Notifications
+                                        You have {{notificationCount == 0 ? 'no' : notificationCount}} new notifications
                                     </p>
                                 </li>
-                                <li>
-                                    <a href="">
-                                        <div class="task-info">
-                                            <div class="desc">
-                                                DashGum Admin Panel
+                                <li ng-repeat="notification in notifications">
+
+                                    <a href="/journey/{{notification.journeyId._id}}">
+                                        <span class="photo">
+                                            <img alt="avatar" src="{{notification.journeyId.posted_by.profile_pic}}"/>
+                                        </span>
+                                        <span class="subject">
+                                            <span class="from">
+                                                {{notification.journeyId.posted_by.name}}
+                                            </span>
+                                            <span class="time">
+                                                {{timeInWords(notification.journeyId.departure)}}
+                                            </span>
+                                        </span>
+                                        <span class="message">
+                                            <div class="muted" style="color:#765">
+                                                going {{notification.journeyId.start.area}} to
+                                                {{notification.journeyId.end.area}}
                                             </div>
-                                            <div class="percent">
-                                                40%
-                                            </div>
-                                        </div>
-                                        <div class="progress progress-striped">
-                                            <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" class="progress-bar progress-bar-success" role="progressbar" style="width: 40%">
-                                                <span class="sr-only">
-                                                    40% Complete (success)
-                                                </span>
-                                            </div>
-                                        </div>
+                                            <b>{{notification.notification}}</b>
+
+                                        </span>
                                     </a>
                                 </li>
                             </ul>
