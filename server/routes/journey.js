@@ -17,10 +17,11 @@ module.exports = function (io) {
         newNotification.userId = userId;
         newNotification.notification = notification;
         newNotification.journeyId = journeyId;
-        newNotification.save(function (err, notifications) {
+        newNotification.save(function (err, notification) {
             if (err) {
                 return res.send({error: err})
             }
+            io.emit('user' + userId, notification);
         });
 
     };
