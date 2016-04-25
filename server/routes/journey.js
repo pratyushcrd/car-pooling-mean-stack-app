@@ -54,7 +54,7 @@ module.exports = function (io) {
             departure: {
                 $gt: new Date()
             }
-        }).sort({departure: -1}).lean().populate('posted_by vehicle').exec(function (err, journeys) {
+        }).sort({departure: 1}).lean().populate('posted_by vehicle').exec(function (err, journeys) {
             if (err) return res.send(err);
             res.json(journeys);
         });

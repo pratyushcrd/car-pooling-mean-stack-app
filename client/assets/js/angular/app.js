@@ -1,7 +1,7 @@
 /**
  * Created by Pratyush on 14-03-2016.
  */
-var app = angular.module('cityCommute', ['ngResource', 'ngRoute']);
+var app = angular.module('cityCommute', ['ngResource', 'ngRoute', 'uiGmapgoogle-maps']);
 app.factory('Journey', function($resource) {
     return $resource('/api/journeys/:id', null, {
         'update': {
@@ -101,8 +101,7 @@ app.controller('ChatController', function($scope, $rootScope, socket, $http, Unr
         $scope.messages.unshift(message);
         Unread.delete({
             id: $routeParams.cid
-        }, function(data) {
-        });
+        }, function(data) {});
     })
 });
 /* Controller for side bar */
@@ -141,7 +140,7 @@ app.controller('UnreadController', function($scope, $rootScope, $http, $routePar
     }
 });
 /* Controller for index page */
-app.controller('JourneyController', function($scope, $rootScope, $routeParams, socket, $http, $timeout, Journey) {
+app.controller('JourneyController', function($scope, $rootScope, $log, $timeout, $routeParams, socket, $http, $timeout, Journey) {
     // List of all journeys
     $scope.journeys = Journey.query();
     // List of all past journeys
@@ -227,16 +226,26 @@ app.controller('JourneyController', function($scope, $rootScope, $routeParams, s
     // function to post joureys
     $scope.postJourney = function() {
         var newJourney = new Journey();
-        newJourney.startStreet = $scope.journeyObject.startStreet;
-        newJourney.startArea = $scope.journeyObject.startArea;
-        newJourney.endStreet = $scope.journeyObject.endStreet;
-        newJourney.endArea = $scope.journeyObject.endArea;
+        newJourney.startStreet = $scope.startLocation;
+        newJourney.startArea = $scope.startArea;
+        newJourney.startCity = $scope.startCity;
+        newJourney.startAddress = $scope.startAddress;
+        newJourney.startCoordLat = $scope.startCoordLat;
+        newJourney.startCoordLng = $scope.startCoordLng;
+        newJourney.endStreet = $scope.endLocation;
+        newJourney.endArea = $scope.endArea;
+        newJourney.endCity = $scope.endCity;
+        newJourney.endAddress = $scope.endAddress;
+        newJourney.endCoordLat = $scope.endCoordLat;
+        newJourney.endCoordLng = $scope.endCoordLng;
         newJourney.departure = $scope.journeyObject.departure;
         newJourney.vehicle = $scope.journeyObject.vehicle;
         newJourney.availableSeats = $scope.journeyObject.availableSeats;
         newJourney.genderPreference = $scope.journeyObject.genderPreference;
         newJourney.description = $scope.journeyObject.description;
         newJourney.fare = $scope.journeyObject.fare;
+        console.log('Hi');
+        console.log(newJourney);
         newJourney.$save($scope.journeyObject, function(tweet) {
             console.log(tweet);
         }, function(err) {
@@ -247,6 +256,111 @@ app.controller('JourneyController', function($scope, $rootScope, $routeParams, s
         console.log('A journey received');
         $scope.journeys.unshift(journey);
     });
+    /* MAP CONFIGURATIONS */
+    /* START MAP */
+    $scope.startMap = {
+        center: {
+            latitude: 45,
+            longitude: -73
+        },
+        zoom: 8
+    };
+    $scope.fetchStart = function() {
+        var address = $scope.startAddressModel.replace(' ', '%20');
+        $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).then(function(response) {
+            if((response.data != undefined) && (response.data.status = 'OK') && (response.data.results != undefined) && (response.data.results[0].geometry != undefined) && (response.data.results[0].address_components != undefined)){
+                $scope.startMap.center.latitude = response.data.results[0].geometry.location.lat;
+                $scope.startMap.center.longitude = response.data.results[0].geometry.location.lng;
+                $scope.startMarker.coords.latitude = response.data.results[0].geometry.location.lat;
+                $scope.startMarker.coords.longitude = response.data.results[0].geometry.location.lng;
+                $scope.startMap.zoom = 14;
+                $scope.startLocation = response.data.results[0].formatted_address.split(',')[0];
+                $scope.startArea = response.data.results[0].formatted_address.split(',')[1];
+                var len = response.data.results[0].formatted_address.split(',').length;
+                $scope.startCity = response.data.results[0].formatted_address.split(',')[len - 3];
+                $scope.startAddress = response.data.results[0].formatted_address;
+                $scope.startCoordLat = response.data.results[0].geometry.location.lat;
+                $scope.startCoordLng = response.data.results[0].geometry.location.lng;
+            }
+        });
+    }
+    $scope.startMarker = {
+        id: 0,
+        coords: {
+            latitude: 0,
+            longitude: 0
+        },
+        options: {
+            draggable: true
+        },
+        events: {
+            dragend: function(marker, eventName, args) {
+                alert('ad');
+                $log.log('marker dragend');
+                marker.coords = $scope.startMap.center;
+                $log.log(lat);
+                $log.log(lon);
+                $scope.startMarker.options = {
+                    draggable: true,
+                    labelContent: "lat: " + $scope.startMarker.coords.latitude + ' ' + 'lon: ' + $scope.startMarker.coords.longitude,
+                    labelAnchor: "100 0",
+                    labelClass: "marker-labels"
+                };
+            }
+        }
+    };
+    /* end MAP */
+    $scope.endMap = {
+        center: {
+            latitude: 45,
+            longitude: -73
+        },
+        zoom: 8
+    };
+    $scope.fetchend = function() {
+        var address = $scope.endAddressModel.replace(' ', '%20');
+        $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).then(function(response) {
+            if((response.data != undefined) && (response.data.status = 'OK') && (response.data.results != undefined) && (response.data.results[0].geometry != undefined) && (response.data.results[0].address_components != undefined)){
+                $scope.endMap.center.latitude = response.data.results[0].geometry.location.lat;
+                $scope.endMap.center.longitude = response.data.results[0].geometry.location.lng;
+                $scope.endMarker.coords.latitude = response.data.results[0].geometry.location.lat;
+                $scope.endMarker.coords.longitude = response.data.results[0].geometry.location.lng;
+                $scope.endMap.zoom = 14;
+                $scope.endLocation = response.data.results[0].formatted_address.split(',')[0];
+                $scope.endArea = response.data.results[0].formatted_address.split(',')[1];
+                var len = response.data.results[0].formatted_address.split(',').length;
+                $scope.endCity = response.data.results[0].formatted_address.split(',')[len - 3];
+                $scope.endAddress = response.data.results[0].formatted_address;
+                $scope.endCoordLat = response.data.results[0].geometry.location.lat;
+                $scope.endCoordLng = response.data.results[0].geometry.location.lng;
+            }
+        });
+    }
+    $scope.endMarker = {
+        id: 0,
+        coords: {
+            latitude: 0,
+            longitude: 0
+        },
+        options: {
+            draggable: true
+        },
+        events: {
+            dragend: function(marker, eventName, args) {
+                alert('ad');
+                $log.log('marker dragend');
+                marker.coords = $scope.endMap.center;
+                $log.log(lat);
+                $log.log(lon);
+                $scope.endMarker.options = {
+                    draggable: true,
+                    labelContent: "lat: " + $scope.endMarker.coords.latitude + ' ' + 'lon: ' + $scope.endMarker.coords.longitude,
+                    labelAnchor: "100 0",
+                    labelClass: "marker-labels"
+                };
+            }
+        }
+    };
 });
 /* Configuing routes */
 app.config(function($routeProvider, $locationProvider) {
