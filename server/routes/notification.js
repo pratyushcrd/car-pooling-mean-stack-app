@@ -17,7 +17,7 @@ module.exports = function (io) {
     };
     /*To get all the notifications of the current user*/
     router.get('/', ifLoggedIn, function (req, res, next) {
-        Notification.find({userId: req.user._id}, function (err, notifications) {
+        Notification.find({userId: req.user._id}).sort({_id: -1}).exec(function (err, notifications) {
             if (err) {
                 return res.send({error: err});
             }
@@ -38,7 +38,7 @@ module.exports = function (io) {
                             error: err
                         });
                     }
-                    res.send({notifications: notifications, count: notifications.length});
+                    res.send(notifications);
                 });
             });
         });
