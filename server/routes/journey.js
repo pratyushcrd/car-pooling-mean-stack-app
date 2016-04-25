@@ -9,6 +9,23 @@ module.exports = function (io) {
     var Journey = require('../models/journey');
     var User = require('../models/user');
     var Vehicle = require('../models/vehicle');
+    var Notification = require('../models/notification');
+
+    /*To notify the users*/
+    var notify = function (res, req, userId, journeyId, notification) {
+        var newNotification = new Notification();
+        newNotification.userId = userId;
+        newNotification.notification = notification;
+        newNotification.journeyId = journeyId;
+        newNotification.save(function (err, notifications) {
+            if (err) {
+                return res.send({error: err})
+            }
+        });
+
+    };
+
+
     /*Checks if the current user authorized or not*/
     var ifOwns = function (req, res, next) {
         Journey.findOne({_id: req.params.id}, function (err, journey) {
@@ -84,11 +101,13 @@ module.exports = function (io) {
                 }
             }
             journey.requested_by.push({id: req.user._id, seatsRequired: req.body.seats});
-            journey.save(function (err, journey) {
+            journey.save(function (err, newJourney) {
                 if (err) {
                     return res.send(err);
                 }
-                return res.send(journey);
+                var notification = "You have got a new journey request";
+                notify(res, req, journey.posted_by, journey._id, notification);
+                return res.send(newJourney);
             });
 
         });
@@ -111,11 +130,15 @@ module.exports = function (io) {
             }
 
             journey.requested_by.pull(journey.requested_by[position]);
-            journey.save(function (err, journey) {
+            journey.save(function (err, newJourney) {
                 if (err) {
                     return res.send({error: err});
                 }
-                return res.send(journey);
+
+
+                var notification = "Your request has been declined";
+                notify(res, req, req.params.uid, journey._id, notification);
+                return res.send(newJourney);
             });
 
         });
@@ -157,6 +180,9 @@ module.exports = function (io) {
                                 if (err || !user) {
                                     return res.send({error: err});
                                 }
+
+                                var notification = "Your request has been accepted";
+                                notify(res, req, req.params.uid, req.params.id, notification);
                                 return res.send(journey);
                             });
                         });
