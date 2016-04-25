@@ -89,7 +89,7 @@
                                 </li>
                                 <li ng-repeat="notification in notifications">
 
-                                    <a href="/journey/{{notification.journeyId._id}}">
+                                    <a ng-click="refreshPage(notification.journeyId._id)">
                                         <span class="photo">
                                             <img alt="avatar" src="{{notification.journeyId.posted_by.profile_pic}}"/>
                                         </span>
@@ -162,10 +162,10 @@
                     </ul>
                     <!--  notification end -->
                 </div>
-                <div class="top-menu">
+                <div class="top-menu"  ng-controller="SidebarController">
                     <ul class="nav pull-right top-menu">
                         <li>
-                            <a class="logout" href="/api/users/logout" target="_blank">
+                            <a class="logout" ng-click="logout()" target="_blank">
                                 Logout
                             </a>
                         </li>
@@ -264,20 +264,14 @@
         </script>
         <script src="/assets/js/gritter-conf.js" type="text/javascript">
         </script>
-        <script type="text/javascript_muted">
+        <script type="text/javascript">
             $(document).ready(function () {
-        var unique_id = $.gritter.add({
-            // (string | mandatory) the heading of the notification
+        $.gritter.add({
             title: 'Welcome to Dashgumsd!',
-            // (string | mandatory) the text inside the notification
             text: 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo. Free version for <a href="http://blacktie.co" target="_blank" style="color:#ffd777">BlackTie.co</a>.',
-            // (string | optional) the image to display on the left
             image: 'assets/img/ui-sam.jpg',
-            // (bool | optional) if you want it to fade out on its own or just sit there
-            sticky: true,
-            // (int | optional) the time you want it to be alive for before fading out
-            time: '',
-            // (string | optional) the class name you want to apply to that specific message
+            sticky: false,
+            time: 3000,
             class_name: 'my-sticky-class'
         });
 

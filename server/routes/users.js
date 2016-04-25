@@ -24,7 +24,7 @@ router.get('/facebook/callback', function(req, res, next) {
 /* logout */
 router.get('/logout', function(req, res) {
     req.logout();
-    res.redirect('/');
+    res.send({success: 'Logout successful'});
 });
 /* Get Current User */
 router.get('/user', function(req, res) {

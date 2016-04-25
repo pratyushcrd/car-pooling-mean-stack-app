@@ -60,15 +60,13 @@ app.factory('Chat', function($resource) {
         }
     });
 });
-
-app.factory('Notification', function ($resource) {
+app.factory('Notification', function($resource) {
     return $resource('/api/notifications/:id', null, {
         'update': {
             method: 'PUT'
         }
     });
 });
-
 /* A directive for Enter press check */
 app.directive('myEnter', function() {
     return function(scope, element, attrs) {
@@ -114,7 +112,15 @@ app.controller('ChatController', function($scope, $rootScope, socket, $http, Unr
     })
 });
 /* Controller for side bar */
-app.controller('SidebarController', function($scope, $rootScope, $http) {});
+app.controller('SidebarController', function($scope, $rootScope, $http) {
+    $scope.logout = function() {
+        $http.get('/api/users/logout').then(function(response) {
+            if (response.data.success) {
+                window.location = '/';
+            }
+        });
+    }
+});
 /* Controller for unread message */
 app.controller('UnreadController', function($scope, $rootScope, $http, $routeParams, socket, Unread) {
     /*$http.get('/api/users/full').then(function(response) {
@@ -132,7 +138,6 @@ app.controller('UnreadController', function($scope, $rootScope, $http, $routePar
         });
     };
     $rootScope.refreshUnread();
-
     // A Listener for every chat group
     $scope.setListener = function() {
         for (var i in $rootScope.user.journeys) {
@@ -145,39 +150,36 @@ app.controller('UnreadController', function($scope, $rootScope, $http, $routePar
         }
     }
 });
-
-app.controller('NotificationController', function ($scope, $rootScope, $http, $routeParams, socket, Notification) {
-    $http.get('/api/users/full').then(function (response) {
+app.controller('NotificationController', function($scope, $rootScope, $http, $routeParams, socket, Notification) {
+    $http.get('/api/users/full').then(function(response) {
         $rootScope.user = response.data;
         $scope.setNotificationListner();
     });
-
     $scope.notificationCount = 0;
-    $rootScope.refreshNotification = function () {
-        $scope.notifications = Notification.query(function (data) {
+    $rootScope.refreshNotification = function() {
+        $scope.notifications = Notification.query(function(data) {
             $scope.notificationCount = $scope.notifications.length;
         });
     };
     $rootScope.refreshNotification();
     // Moment js
-    $rootScope.timeInWords = function (date) {
+    $rootScope.timeInWords = function(date) {
         return moment(date).fromNow();
     };
     // A Listener for the notification
-
-    $scope.setNotificationListner = function () {
-
+    $scope.setNotificationListner = function() {
         console.log('notification' + $rootScope.user._id);
-        socket.on('notification' + $rootScope.user._id, function () {
+        socket.on('notification' + $rootScope.user._id, function() {
             $rootScope.refreshNotification();
             console.log('notification' + $rootScope.user._id);
         });
     }
+    $scope.refreshPage = function(journeyId) {
+        window.location = '/journey/' + journeyId;
+    }
 });
-
-
 /* Controller for index page */
-app.controller('JourneyController', function ($scope, $rootScope, $log, $timeout, $routeParams, socket, $http, $timeout, Journey, Notification) {
+app.controller('JourneyController', function($scope, $rootScope, $log, $timeout, $routeParams, socket, $http, $timeout, Journey, Notification) {
     // List of all journeys
     $scope.journeys = Journey.query();
     // List of all past journeys
@@ -219,14 +221,10 @@ app.controller('JourneyController', function ($scope, $rootScope, $log, $timeout
                     $scope.hideRequestPanel = true;
                 }
             }
-
             Notification.delete({
                 id: $routeParams.id
-            }, function (data) {
-            });
+            }, function(data) {});
             $rootScope.refreshNotification();
-
-
         });
     }
     // Object to store form data
@@ -270,6 +268,7 @@ app.controller('JourneyController', function ($scope, $rootScope, $log, $timeout
     };
     // function to post joureys
     $scope.postJourney = function() {
+        $scope.postError = '';
         var newJourney = new Journey();
         newJourney.startStreet = $scope.startLocation;
         newJourney.startArea = $scope.startArea;
@@ -293,13 +292,27 @@ app.controller('JourneyController', function ($scope, $rootScope, $log, $timeout
         console.log(newJourney);
         newJourney.$save($scope.journeyObject, function(tweet) {
             console.log(tweet);
+            if (tweet.error) {
+                $scope.postError = 'Please fill all fields correctly!';
+            }else{
+                window.location = '/';
+            }
         }, function(err) {
             console.log(err);
+            $scope.postError = 'Error in posting';
         })
     };
     socket.on('journey', function(journey) {
         console.log('A journey received');
         $scope.journeys.unshift(journey);
+        $.gritter.add({
+            title: 'New journey posted!',
+            text: '<a href="/"> ' + journey.start.street + ', ' + journey.start.area + ' to ' + journey.end.street + ', ' + journey.end.area + '<br/> ' + journey.availableSeats + ' seats available </a>',
+            image: journey.vehicle.png,
+            sticky: false,
+            time: 6000,
+            class_name: 'my-sticky-class'
+        });
     });
     /* MAP CONFIGURATIONS */
     /* START MAP */
@@ -313,7 +326,7 @@ app.controller('JourneyController', function ($scope, $rootScope, $log, $timeout
     $scope.fetchStart = function() {
         var address = $scope.startAddressModel.replace(' ', '%20');
         $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).then(function(response) {
-            if((response.data != undefined) && (response.data.status = 'OK') && (response.data.results != undefined) && (response.data.results[0].geometry != undefined) && (response.data.results[0].address_components != undefined)){
+            if ((response.data != undefined) && (response.data.status = 'OK') && (response.data.results != undefined) && (response.data.results[0].geometry != undefined) && (response.data.results[0].address_components != undefined)) {
                 $scope.startMap.center.latitude = response.data.results[0].geometry.location.lat;
                 $scope.startMap.center.longitude = response.data.results[0].geometry.location.lng;
                 $scope.startMarker.coords.latitude = response.data.results[0].geometry.location.lat;
@@ -365,7 +378,7 @@ app.controller('JourneyController', function ($scope, $rootScope, $log, $timeout
     $scope.fetchend = function() {
         var address = $scope.endAddressModel.replace(' ', '%20');
         $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).then(function(response) {
-            if((response.data != undefined) && (response.data.status = 'OK') && (response.data.results != undefined) && (response.data.results[0].geometry != undefined) && (response.data.results[0].address_components != undefined)){
+            if ((response.data != undefined) && (response.data.status = 'OK') && (response.data.results != undefined) && (response.data.results[0].geometry != undefined) && (response.data.results[0].address_components != undefined)) {
                 $scope.endMap.center.latitude = response.data.results[0].geometry.location.lat;
                 $scope.endMap.center.longitude = response.data.results[0].geometry.location.lng;
                 $scope.endMarker.coords.latitude = response.data.results[0].geometry.location.lat;
