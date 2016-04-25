@@ -87,7 +87,7 @@ module.exports = function(io) {
                 });
             }
             res.send({
-                removed: messages
+                success: messages
             });
         })
     });

@@ -123,10 +123,10 @@ app.controller('SidebarController', function($scope, $rootScope, $http) {
 });
 /* Controller for unread message */
 app.controller('UnreadController', function($scope, $rootScope, $http, $routeParams, socket, Unread) {
-    /*$http.get('/api/users/full').then(function(response) {
+    $http.get('/api/users/full').then(function(response) {
         $rootScope.user = response.data;
         $scope.setListener();
-     });*/
+     });
     $rootScope.refreshUnread = function() {
         $rootScope.unreadMessages = Unread.query(function(data) {
             $rootScope.unreadCount = 0;
@@ -145,8 +145,15 @@ app.controller('UnreadController', function($scope, $rootScope, $http, $routePar
             socket.on('chat' + journeyId, function(message) {
                 if (!$routeParams.cid || $routeParams.cid != message.journeyId) {
                     $rootScope.refreshUnread();
+                    $.gritter.add({
+                        title: 'New message received!',
+                        text: 'Click on message icon to check',
+                        sticky: false,
+                        time: 2000,
+                        class_name: 'my-sticky-class'
+                    });
                 }
-            })
+            });
         }
     }
 });
@@ -172,6 +179,13 @@ app.controller('NotificationController', function($scope, $rootScope, $http, $ro
         socket.on('notification' + $rootScope.user._id, function() {
             $rootScope.refreshNotification();
             console.log('notification' + $rootScope.user._id);
+            $.gritter.add({
+                title: 'New notification received!',
+                text: 'Click on notification panel to check',
+                sticky: false,
+                time: 4000,
+                class_name: 'my-sticky-class'
+            });
         });
     }
     $scope.refreshPage = function(journeyId) {
@@ -294,7 +308,7 @@ app.controller('JourneyController', function($scope, $rootScope, $log, $timeout,
             console.log(tweet);
             if (tweet.error) {
                 $scope.postError = 'Please fill all fields correctly!';
-            }else{
+            } else {
                 window.location = '/';
             }
         }, function(err) {
