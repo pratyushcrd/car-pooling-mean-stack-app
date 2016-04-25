@@ -31,6 +31,10 @@
         </meta>
     </head>
     <body>
+        <script src="//maps.googleapis.com/maps/api/js?sensor=false">
+        </script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js">
+        </script>
         <script src="/assets/js/angular/angular.min.js">
         </script>
         <script src="/assets/js/angular/angular-route.js">
@@ -38,6 +42,10 @@
         <script src="/assets/js/angular/angular-resource.min.js">
         </script>
         <script src="/assets/js/socketio.js">
+        </script>
+        <script src="http://rawgit.com/nmccready/angular-simple-logger/master/dist/angular-simple-logger.js">
+        </script>
+        <script src="http://rawgit.com/angular-ui/angular-google-maps/master/dist/angular-google-maps.min.js">
         </script>
         <!-- Custom Angular and JS Code -->
         <script src="/assets/js/angular/app.js">
@@ -129,8 +137,14 @@
                                             </span>
                                         </span>
                                         <span class="message">
-                                            <div class="muted" style="color:#765">going {{message._id.start.area}} to {{message._id.end.area}}</div>
-                                            {{message.occurance}} message<span ng-if="message.occurance > 1">s</span> unread
+                                            <div class="muted" style="color:#765">
+                                                going {{message._id.start.area}} to {{message._id.end.area}}
+                                            </div>
+                                            {{message.occurance}} message
+                                            <span ng-if="message.occurance > 1">
+                                                s
+                                            </span>
+                                            unread
                                         </span>
                                     </a>
                                 </li>
