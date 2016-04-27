@@ -193,7 +193,7 @@ app.controller('NotificationController', function($scope, $rootScope, $http, $ro
     }
 });
 /* Controller for index page */
-app.controller('JourneyController', function($scope, $rootScope, $log, $timeout, $routeParams, socket, $http, $timeout, Journey, Notification) {
+app.controller('JourneyController', function($scope, $rootScope, $timeout, $routeParams, socket, $http, $timeout, Journey, Notification) {
     // List of all journeys
     $scope.journeys = Journey.query();
     // List of all past journeys
@@ -366,11 +366,7 @@ app.controller('JourneyController', function($scope, $rootScope, $log, $timeout,
         },
         events: {
             dragend: function(marker, eventName, args) {
-                alert('ad');
-                $log.log('marker dragend');
                 marker.coords = $scope.startMap.center;
-                $log.log(lat);
-                $log.log(lon);
                 $scope.startMarker.options = {
                     draggable: true,
                     labelContent: "lat: " + $scope.startMarker.coords.latitude + ' ' + 'lon: ' + $scope.startMarker.coords.longitude,
@@ -418,11 +414,7 @@ app.controller('JourneyController', function($scope, $rootScope, $log, $timeout,
         },
         events: {
             dragend: function(marker, eventName, args) {
-                alert('ad');
-                $log.log('marker dragend');
                 marker.coords = $scope.endMap.center;
-                $log.log(lat);
-                $log.log(lon);
                 $scope.endMarker.options = {
                     draggable: true,
                     labelContent: "lat: " + $scope.endMarker.coords.latitude + ' ' + 'lon: ' + $scope.endMarker.coords.longitude,

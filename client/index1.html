@@ -10,13 +10,8 @@
                                 Commutr - The free Car Pooling Website
                             </title>
                             <!-- Bootstrap core CSS -->
-                            <link href="/assets/css/nga.min.css" rel="stylesheet" type="text/css">
-                                <link href="/assets/css/bootstrap.css" rel="stylesheet"/>
-                                <!--external css-->
                                 <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
-                                <link href="/assets/css/zabuto_calendar.css" rel="stylesheet" type="text/css"/>
-                                <link href="/assets/js/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
-                                <link href="/assets/lineicons/style.css" rel="stylesheet" type="text/css"/>
+                                <link href="/assets/css/vendor.css" rel="stylesheet" type="text/css"/>
                                 <!-- Custom styles for this template -->
                                 <link href="/assets/css/style.css" rel="stylesheet"/>
                                 <link href="/assets/css/style-responsive.css" rel="stylesheet"/>
@@ -33,21 +28,7 @@
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js">
     </script>
-    <script src="/assets/js/angular/angular.min.js">
-    </script>
-    <script src="/assets/js/angular/angular-route.js">
-    </script>
-    <script src="/assets/js/angular/angular-resource.min.js">
-    </script>
-    <script src="/assets/js/angular/angular-route.js">
-    </script>
-    <script src="/assets/js/angular/angular-animate.js">
-    </script>
-    <script src="/assets/js/socketio.js">
-    </script>
-    <script src="http://rawgit.com/nmccready/angular-simple-logger/master/dist/angular-simple-logger.js">
-    </script>
-    <script src="http://rawgit.com/angular-ui/angular-google-maps/master/dist/angular-google-maps.min.js">
+    <script src="/assets/js/angular/vendor.js">
     </script>
     <!-- Custom Angular and JS Code -->
     <script src="/assets/js/angular/app.js">
@@ -243,21 +224,13 @@
         <!--footer end-->
     </div>
     <!-- js placed at the end of the document so the pages load faster -->
-    <script src="/assets/js/jquery.js">
-    </script>
     <script src="/assets/js/jquery-1.8.3.min.js">
     </script>
     <script src="/assets/js/moment.js">
     </script>
     <script src="/assets/js/bootstrap.min.js">
     </script>
-    <script class="include" src="/assets/js/jquery.dcjqaccordion.2.7.js" type="text/javascript">
-    </script>
     <script src="/assets/js/jquery.scrollTo.min.js">
-    </script>
-    <script src="/assets/js/jquery.nicescroll.js" type="text/javascript">
-    </script>
-    <script src="/assets/js/jquery.sparkline.js">
     </script>
     <!--common script for all pages-->
     <script src="/assets/js/common-scripts.js">
@@ -265,36 +238,5 @@
     <script src="/assets/js/gritter/js/jquery.gritter.js" type="text/javascript">
     </script>
     <script src="/assets/js/gritter-conf.js" type="text/javascript">
-    </script>
-    <script type="text/javascript_muted">
-        $(document).ready(function () {
-        $.gritter.add({
-            title: 'Welcome to Dashgumsd!',
-            text: 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo. Free version for <a href="http://blacktie.co" target="_blank" style="color:#ffd777">BlackTie.co</a>.',
-            image: 'assets/img/ui-sam.jpg',
-            sticky: false,
-            time: 3000,
-            class_name: 'my-sticky-class'
-        });
-
-        return false;
-        });
-    </script>
-    <script type="application/javascript_muted">
-        $(document).ready(function () {
-        $("#date-popover").popover({html: true, trigger: "manual"});
-        $("#date-popover").hide();
-        $("#date-popover").click(function (e) {
-            $(this).hide();
-        });
-    });
-
-
-    function myNavFunction(id) {
-        $("#date-popover").hide();
-        var nav = $("#" + id).data("navigation");
-        var to = $("#" + id).data("to");
-        console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-    }
     </script>
 </body>
