@@ -14,9 +14,14 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+//mongoose local development
+mongodb_connection_string = 'mongodb://localhost/db23ksfklsfn';
+//take advantage of openshift env vars when available:
+if(process.env.OPENSHIFT_MONGODB_DB_URL){
+  mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + 'commutr';
+}
 //mongoose
-mongoose.connect('mongodb://localhost/db23ksfklsfn');
-// uncomment after placing your favicon in /public
+mongoose.connect(mongodb_connection_string);
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
