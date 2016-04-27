@@ -175,7 +175,7 @@ app.controller('NotificationController', function($scope, $rootScope, $http, $ro
     };
     // A Listener for the notification
     $scope.setNotificationListner = function() {
-        console.log('notification' + $rootScope.user._id);
+        //console.log('notification' + $rootScope.user._id);
         socket.on('notification' + $rootScope.user._id, function() {
             $rootScope.refreshNotification();
             console.log('notification' + $rootScope.user._id);
@@ -302,11 +302,10 @@ app.controller('JourneyController', function($scope, $rootScope, $log, $timeout,
         newJourney.genderPreference = $scope.journeyObject.genderPreference;
         newJourney.description = $scope.journeyObject.description;
         newJourney.fare = $scope.journeyObject.fare;
-        console.log('Hi');
-        console.log(newJourney);
+        //console.log(newJourney.genderPreference);
         newJourney.$save($scope.journeyObject, function(tweet) {
             console.log(tweet);
-            if (tweet.error) {
+            if (!tweet.departure) {
                 $scope.postError = 'Please fill all fields correctly!';
             } else {
                 window.location = '/';

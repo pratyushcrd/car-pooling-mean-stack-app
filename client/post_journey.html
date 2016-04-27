@@ -95,14 +95,25 @@
                                 Available Seats
                             </label>
                             <div class="col-sm-4">
-                                <input class="form-control" ng-model="journeyObject.availableSeats" type="number">
+                                <select class="form-control" ng-model="journeyObject.availableSeats">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                </select>
                                 </input>
                             </div>
                             <label class="col-sm-2 col-sm-2 control-label">
                                 Gender Preference
                             </label>
                             <div class="col-sm-4">
-                                <input class="form-control" ng-model="journeyObject.genderPreference" type="text">
+                                <select class="form-control" ng-model="journeyObject.genderPreference">
+                                <option value="None">None</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                </select>
                                 </input>
                             </div>
                         </div>

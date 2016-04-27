@@ -3,10 +3,10 @@
         <div class="row">
             <div class="col-md-12 main-chart">
                 <div class="col-md-12">
-                    <div class="col-md-10">
+                    <div class="col-md-10 col-xs-10">
                         <input class="form-control" type="text" ng-model="message" my-enter="sendMessage()"/>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-xs-2">
                         <p class="btn btn-primary" ng-click="sendMessage()">
                             Send
                         </p>
@@ -15,22 +15,21 @@
                 <br/>
                 <br/>
                 <!-- /col-md-4 -->
-                <div class="col-md-10 main-chart">
-                    <div class="col-md-12 mb nga-default nga-stagger nga-fade" ng-repeat="message in messages">
+                <div class="col-md-10 col-xs-12 main-chart">
+                    <div class="col-md-12 col-xs-12 mb nga-default nga-stagger nga-fade" ng-repeat="message in messages">
                         <div class="white-panel">
-                            <span class="col-md-12" style="background-color: #fff; padding: 15px">
-                                <span class="col-md-2">
-                                    <img class="img-circle" src="{{message.userId.profile_pic}}" width="50"/>
+                            <span class="col-md-12 mb col-xs-12" style="background-color: #fff; padding: 15px">
+                                <span class="col-md-2 col-xs-4">
+                                    <img class="img-circle" src="{{message.userId.profile_pic}}" width="50"/> 
+                                    <h6>
+                                        {{timeInWords(message.created_at)}}
+                                    </h6>
                                 </span>
-                                <span class="col-md-10">
+                                <span class="col-md-10 col-xs-8">
                                     <h4 class="pull-left">
                                         {{message.message}}
                                     </h4>
-                                    <h6 class="pull-right">
-                                        {{timeInWords(message.created_at)}}
-                                    </h6>
-                                    
-                                </span>
+                                </span>  
                             </span>
                         </div>
                     </div>

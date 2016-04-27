@@ -13,6 +13,9 @@ Premium: http://www.gridgum.com
 ::-webkit-scrollbar { 
     display: none; 
 }
+*{
+    word-break:break-all
+}
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }

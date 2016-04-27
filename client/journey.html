@@ -18,7 +18,10 @@
                                 <img class="img-circle" src="{{journey.vehicle.png}}" width="300"/>
                                 <br>
                                     <h2>
-                                        {{journey.vehicle.type}}
+                                        {{journey.vehicle.type}} <h5>( {{journey.availableSeats}} Seat<span ng-if="journey.availableSeats != 1">s</span> Remaining 
+                                        <span ng-if="journey.genderPreference != 'None'">, {{journey.genderPreference}} Preferred</span>
+                                        ) 
+                                        </h5>
                                     </h2>
                                 </br>
                             </p>
@@ -40,9 +43,19 @@
                                     </h4>
                                 </div>
                             </div>
-                            <div class="alert alert-info" ng-if="ifRequestedJourney"><b>Waiting for confirmation!</b> You have requested to share this ride.</div>
-
-
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="mt">
+                                        &nbsp;
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="alert alert-info" ng-if="ifRequestedJourney">
+                                <b>
+                                    Waiting for confirmation!
+                                </b>
+                                You have requested to share this ride.
+                            </div>
                             <!-- Request start -->
                             <div class="row darkblue-panel col-md-10 col-md-offset-1" ng-hide="hideRequestPanel">
                                 <div>
@@ -52,7 +65,7 @@
                                             <option ng-repeat="i in seatsAvailable" value="{{i}}">
                                                 {{i}}
                                             </option>
-                                        </select style="background-color: #fff;">
+                                        </select>
                                         <span class="btn btn-xs btn-primary" ng-click="makeRequest()">
                                             Request
                                         </span>
@@ -111,7 +124,7 @@
                                 </p>
                                 <p>
                                     <b>
-                                        {{user.id.name}}
+                                        {{user.id.name}} ({{user.seatsRequired}} seats)
                                     </b>
                                 </p>
                                 <p>
