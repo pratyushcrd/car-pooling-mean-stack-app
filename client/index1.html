@@ -10,19 +10,16 @@
                                 Commutr - The free Car Pooling Website
                             </title>
                             <!-- Bootstrap core CSS -->
-                            <link href="/assets/css/bootstrap.css" rel="stylesheet">
+                            <link href="/assets/css/nga.min.css" rel="stylesheet" type="text/css">
+                                <link href="/assets/css/bootstrap.css" rel="stylesheet"/>
                                 <!--external css-->
                                 <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
-                                <link href="/assets/css/zabuto_calendar.css" rel="stylesheet" type="text/css">
-                                    <link href="/assets/js/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
-                                    <link href="/assets/lineicons/style.css" rel="stylesheet" type="text/css">
-                                        <!-- Custom styles for this template -->
-                                        <link href="/assets/css/style.css" rel="stylesheet">
-                                            <link href="/assets/css/style-responsive.css" rel="stylesheet">
-                                            </link>
-                                        </link>
-                                    </link>
-                                </link>
+                                <link href="/assets/css/zabuto_calendar.css" rel="stylesheet" type="text/css"/>
+                                <link href="/assets/js/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+                                <link href="/assets/lineicons/style.css" rel="stylesheet" type="text/css"/>
+                                <!-- Custom styles for this template -->
+                                <link href="/assets/css/style.css" rel="stylesheet"/>
+                                <link href="/assets/css/style-responsive.css" rel="stylesheet"/>
                             </link>
                         </meta>
                     </meta>
@@ -30,242 +27,247 @@
             </meta>
         </meta>
     </head>
-    <body>
-        <script src="//maps.googleapis.com/maps/api/js?sensor=false">
-        </script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js">
-        </script>
-        <script src="/assets/js/angular/angular.min.js">
-        </script>
-        <script src="/assets/js/angular/angular-route.js">
-        </script>
-        <script src="/assets/js/angular/angular-resource.min.js">
-        </script>
-        <script src="/assets/js/socketio.js">
-        </script>
-        <script src="http://rawgit.com/nmccready/angular-simple-logger/master/dist/angular-simple-logger.js">
-        </script>
-        <script src="http://rawgit.com/angular-ui/angular-google-maps/master/dist/angular-google-maps.min.js">
-        </script>
-        <!-- Custom Angular and JS Code -->
-        <script src="/assets/js/angular/app.js">
-        </script>
-        <div id="container">
-            <!-- **********************************************************************************************************************************************************
+</html>
+<body>
+    <script src="//maps.googleapis.com/maps/api/js?sensor=false">
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js">
+    </script>
+    <script src="/assets/js/angular/angular.min.js">
+    </script>
+    <script src="/assets/js/angular/angular-route.js">
+    </script>
+    <script src="/assets/js/angular/angular-resource.min.js">
+    </script>
+    <script src="/assets/js/angular/angular-route.js">
+    </script>
+    <script src="/assets/js/angular/angular-animate.js">
+    </script>
+    <script src="/assets/js/socketio.js">
+    </script>
+    <script src="http://rawgit.com/nmccready/angular-simple-logger/master/dist/angular-simple-logger.js">
+    </script>
+    <script src="http://rawgit.com/angular-ui/angular-google-maps/master/dist/angular-google-maps.min.js">
+    </script>
+    <!-- Custom Angular and JS Code -->
+    <script src="/assets/js/angular/app.js">
+    </script>
+    <div id="container">
+        <!-- **********************************************************************************************************************************************************
     TOP BAR CONTENT & NOTIFICATIONS
     *********************************************************************************************************************************************************** -->
-            <!--header start-->
-            <header class="header black-bg">
-                <div class="sidebar-toggle-box">
-                    <div class="fa fa-bars tooltips" data-original-title="Toggle Navigation" data-placement="right">
-                    </div>
+        <!--header start-->
+        <header class="header black-bg">
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars tooltips" data-original-title="Toggle Navigation" data-placement="right">
                 </div>
-                <!--logo start-->
-                <a class="logo" href="/">
-                    <b>
-                        Commutr
-                    </b>
-                </a>
-                <!--logo end-->
-                <div class="nav notify-row" id="top_menu">
-                    <!--  notification start -->
-                    <ul class="nav top-menu">
-                        <!-- settings start -->
-                        <li class="dropdown" ng-controller="NotificationController">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                <i class="fa fa-tasks">
-                                </i>
-                                <span class="badge bg-theme02" ng-if="notificationCount">
-                                    {{notificationCount || ''}}
-                                </span>
-                            </a>
-                            <ul class="dropdown-menu extended inbox">
-                                <div class="notify-arrow notify-arrow-green">
-                                </div>
-                                <li>
-                                    <p class="green">
-                                        You have {{notificationCount == 0 ? 'no' : notificationCount}} new notifications
-                                    </p>
-                                </li>
-                                <li ng-repeat="notification in notifications">
-
-                                    <a ng-click="refreshPage(notification.journeyId._id)">
-                                        <span class="photo">
-                                            <img alt="avatar" src="{{notification.journeyId.posted_by.profile_pic}}"/>
+            </div>
+            <!--logo start-->
+            <a class="logo" href="/">
+                <b>
+                    Commutr
+                </b>
+            </a>
+            <!--logo end-->
+            <div class="nav notify-row" id="top_menu">
+                <!--  notification start -->
+                <ul class="nav top-menu">
+                    <!-- settings start -->
+                    <li class="dropdown" ng-controller="NotificationController">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                            <i class="fa fa-tasks">
+                            </i>
+                            <span class="badge bg-theme02" ng-if="notificationCount">
+                                {{notificationCount || ''}}
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu extended inbox">
+                            <div class="notify-arrow notify-arrow-green">
+                            </div>
+                            <li>
+                                <p class="green">
+                                    You have {{notificationCount == 0 ? 'no' : notificationCount}} new notifications
+                                </p>
+                            </li>
+                            <li ng-repeat="notification in notifications">
+                                <a ng-click="refreshPage(notification.journeyId._id)">
+                                    <span class="photo">
+                                        <img alt="avatar" src="{{notification.journeyId.posted_by.profile_pic}}"/>
+                                    </span>
+                                    <span class="subject">
+                                        <span class="from">
+                                            {{notification.journeyId.posted_by.name}}
                                         </span>
-                                        <span class="subject">
-                                            <span class="from">
-                                                {{notification.journeyId.posted_by.name}}
-                                            </span>
-                                            <span class="time">
-                                                {{timeInWords(notification.journeyId.departure)}}
-                                            </span>
+                                        <span class="time">
+                                            {{timeInWords(notification.journeyId.departure)}}
                                         </span>
-                                        <span class="message">
-                                            <div class="muted" style="color:#765">
-                                                going {{notification.journeyId.start.area}} to
+                                    </span>
+                                    <span class="message">
+                                        <div class="muted" style="color:#765">
+                                            going {{notification.journeyId.start.area}} to
                                                 {{notification.journeyId.end.area}}
-                                            </div>
-                                            <b>{{notification.notification}}</b>
-
+                                        </div>
+                                        <b>
+                                            {{notification.notification}}
+                                        </b>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- settings end -->
+                    <!-- inbox dropdown start-->
+                    <li class="dropdown" id="header_inbox_bar" ng-controller="UnreadController">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                            <i class="fa fa-envelope-o">
+                            </i>
+                            <span class="badge bg-theme02" ng-if="unreadCount">
+                                {{unreadCount || ''}}
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu extended inbox">
+                            <div class="notify-arrow notify-arrow-green">
+                            </div>
+                            <li>
+                                <p class="green">
+                                    You have {{unreadCount == 0 ? 'no' : unreadCount}} new messages
+                                </p>
+                            </li>
+                            <li ng-repeat="message in unreadMessages">
+                                <a href="/chat/{{message._id._id}}">
+                                    <span class="photo">
+                                        <img alt="avatar" src="{{message._id.posted_by.profile_pic}}"/>
+                                    </span>
+                                    <span class="subject">
+                                        <span class="from">
+                                            {{message._id.posted_by.name}}
                                         </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- settings end -->
-                        <!-- inbox dropdown start-->
-                        <li class="dropdown" id="header_inbox_bar" ng-controller="UnreadController">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                <i class="fa fa-envelope-o">
-                                </i>
-                                <span class="badge bg-theme02" ng-if="unreadCount">
-                                    {{unreadCount || ''}}
-                                </span>
-                            </a>
-                            <ul class="dropdown-menu extended inbox">
-                                <div class="notify-arrow notify-arrow-green">
-                                </div>
-                                <li>
-                                    <p class="green">
-                                        You have {{unreadCount == 0 ? 'no' : unreadCount}} new messages
-                                    </p>
-                                </li>
-                                <li ng-repeat="message in unreadMessages">
-                                    <a href="/chat/{{message._id._id}}">
-                                        <span class="photo">
-                                            <img alt="avatar" src="{{message._id.posted_by.profile_pic}}"/>
+                                        <span class="time">
+                                            {{timeInWords(message._id.departure)}}
                                         </span>
-                                        <span class="subject">
-                                            <span class="from">
-                                                {{message._id.posted_by.name}}
-                                            </span>
-                                            <span class="time">
-                                                {{timeInWords(message._id.departure)}}
-                                            </span>
+                                    </span>
+                                    <span class="message">
+                                        <div class="muted" style="color:#765">
+                                            going {{message._id.start.area}} to {{message._id.end.area}}
+                                        </div>
+                                        {{message.occurance}} message
+                                        <span ng-if="message.occurance > 1">
+                                            s
                                         </span>
-                                        <span class="message">
-                                            <div class="muted" style="color:#765">
-                                                going {{message._id.start.area}} to {{message._id.end.area}}
-                                            </div>
-                                            {{message.occurance}} message
-                                            <span ng-if="message.occurance > 1">
-                                                s
-                                            </span>
-                                            unread
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- inbox dropdown end -->
-                    </ul>
-                    <!--  notification end -->
-                </div>
-                <div class="top-menu"  ng-controller="SidebarController">
-                    <ul class="nav pull-right top-menu">
-                        <li>
-                            <a class="logout" ng-click="logout()" target="_blank">
-                                Logout
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </header>
-            <!--header end-->
-            <!-- **********************************************************************************************************************************************************
+                                        unread
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- inbox dropdown end -->
+                </ul>
+                <!--  notification end -->
+            </div>
+            <div class="top-menu" ng-controller="SidebarController">
+                <ul class="nav pull-right top-menu">
+                    <li>
+                        <a class="logout" ng-click="logout()" target="_blank">
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <!--header end-->
+        <!-- **********************************************************************************************************************************************************
     MAIN SIDEBAR MENU
     *********************************************************************************************************************************************************** -->
-            <!--sidebar start-->
-            <aside ng-controller="SidebarController">
-                <div class="nav-collapse " id="sidebar">
-                    <!-- sidebar menu start-->
-                    <ul class="sidebar-menu" id="nav-accordion">
-                        <p class="centered">
-                            <a href="profile.html">
-                                <img class="img-circle" src="{{user.profile_pic}}" width="60"/>
-                            </a>
-                        </p>
-                        <h5 class="centered">
-                            {{user.name}}
-                        </h5>
-                        <li class="mt">
-                            <a class="active" href="/">
-                                <i class="fa fa-dashboard">
-                                </i>
-                                <span>
-                                    Home
-                                </span>
-                            </a>
-                        </li>
-                        <li class="mt">
-                            <a href="/addjourney">
-                                <i class="fa fa-dashboard">
-                                </i>
-                                <span>
-                                    Post New Journey
-                                </span>
-                            </a>
-                        </li>
-                        <li class="mt">
-                            <a href="/chat">
-                                <i class="fa fa-dashboard">
-                                </i>
-                                <span>
-                                    Chat Groups
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- sidebar menu end-->
-                </div>
-            </aside>
-            <!--sidebar end-->
-            <!-- **********************************************************************************************************************************************************
+        <!--sidebar start-->
+        <aside ng-controller="SidebarController">
+            <div class="nav-collapse " id="sidebar">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu" id="nav-accordion">
+                    <p class="centered">
+                        <a href="profile.html">
+                            <img class="img-circle" src="{{user.profile_pic}}" width="60"/>
+                        </a>
+                    </p>
+                    <h5 class="centered">
+                        {{user.name}}
+                    </h5>
+                    <li class="mt">
+                        <a class="active" href="/">
+                            <i class="fa fa-dashboard">
+                            </i>
+                            <span>
+                                Home
+                            </span>
+                        </a>
+                    </li>
+                    <li class="mt">
+                        <a href="/addjourney">
+                            <i class="fa fa-dashboard">
+                            </i>
+                            <span>
+                                Post New Journey
+                            </span>
+                        </a>
+                    </li>
+                    <li class="mt">
+                        <a href="/chat">
+                            <i class="fa fa-dashboard">
+                            </i>
+                            <span>
+                                Chat Groups
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+        <!-- **********************************************************************************************************************************************************
     MAIN CONTENT
     *********************************************************************************************************************************************************** -->
-            <!--main content start-->
-            <div ng-view="">
-            </div>
-            <!--main content end-->
-            <!--footer start-->
-            <footer class="site-footer">
-                <div class="text-center">
-                    2016 - Pratyush
-                    <a class="go-top" href="">
-                        <i class="fa fa-angle-up">
-                        </i>
-                    </a>
-                </div>
-            </footer>
-            <!--footer end-->
+        <!--main content start-->
+        <div ng-view="">
         </div>
-        <!-- js placed at the end of the document so the pages load faster -->
-        <script src="/assets/js/jquery.js">
-        </script>
-        <script src="/assets/js/jquery-1.8.3.min.js">
-        </script>
-        <script src="/assets/js/moment.js">
-        </script>
-        <script src="/assets/js/bootstrap.min.js">
-        </script>
-        <script class="include" src="/assets/js/jquery.dcjqaccordion.2.7.js" type="text/javascript">
-        </script>
-        <script src="/assets/js/jquery.scrollTo.min.js">
-        </script>
-        <script src="/assets/js/jquery.nicescroll.js" type="text/javascript">
-        </script>
-        <script src="/assets/js/jquery.sparkline.js">
-        </script>
-        <!--common script for all pages-->
-        <script src="/assets/js/common-scripts.js">
-        </script>
-        <script src="/assets/js/gritter/js/jquery.gritter.js" type="text/javascript">
-        </script>
-        <script src="/assets/js/gritter-conf.js" type="text/javascript">
-        </script>
-        <script type="text/javascript">
-            $(document).ready(function () {
+        <!--main content end-->
+        <!--footer start-->
+        <footer class="site-footer">
+            <div class="text-center">
+                2016 - Pratyush
+                <a class="go-top" href="">
+                    <i class="fa fa-angle-up">
+                    </i>
+                </a>
+            </div>
+        </footer>
+        <!--footer end-->
+    </div>
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="/assets/js/jquery.js">
+    </script>
+    <script src="/assets/js/jquery-1.8.3.min.js">
+    </script>
+    <script src="/assets/js/moment.js">
+    </script>
+    <script src="/assets/js/bootstrap.min.js">
+    </script>
+    <script class="include" src="/assets/js/jquery.dcjqaccordion.2.7.js" type="text/javascript">
+    </script>
+    <script src="/assets/js/jquery.scrollTo.min.js">
+    </script>
+    <script src="/assets/js/jquery.nicescroll.js" type="text/javascript">
+    </script>
+    <script src="/assets/js/jquery.sparkline.js">
+    </script>
+    <!--common script for all pages-->
+    <script src="/assets/js/common-scripts.js">
+    </script>
+    <script src="/assets/js/gritter/js/jquery.gritter.js" type="text/javascript">
+    </script>
+    <script src="/assets/js/gritter-conf.js" type="text/javascript">
+    </script>
+    <script type="text/javascript_muted">
+        $(document).ready(function () {
         $.gritter.add({
             title: 'Welcome to Dashgumsd!',
             text: 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo. Free version for <a href="http://blacktie.co" target="_blank" style="color:#ffd777">BlackTie.co</a>.',
@@ -277,9 +279,9 @@
 
         return false;
         });
-        </script>
-        <script type="application/javascript_muted">
-            $(document).ready(function () {
+    </script>
+    <script type="application/javascript_muted">
+        $(document).ready(function () {
         $("#date-popover").popover({html: true, trigger: "manual"});
         $("#date-popover").hide();
         $("#date-popover").click(function (e) {
@@ -294,6 +296,5 @@
         var to = $("#" + id).data("to");
         console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
     }
-        </script>
-    </body>
-</html>
+    </script>
+</body>

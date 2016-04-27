@@ -1,1 +1,1 @@
-sudo nodemon
+sudo nodemon --ignore client/

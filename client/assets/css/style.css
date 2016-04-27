@@ -13,6 +13,9 @@ Premium: http://www.gridgum.com
 ::-webkit-scrollbar { 
     display: none; 
 }
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
 .angular-google-map-container { height: 300px; margin-top: 20px; }
 body {
     color: #212121;

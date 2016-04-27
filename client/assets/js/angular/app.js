@@ -1,7 +1,7 @@
 /**
  * Created by Pratyush on 14-03-2016.
  */
-var app = angular.module('cityCommute', ['ngResource', 'ngRoute', 'uiGmapgoogle-maps']);
+var app = angular.module('cityCommute', ['ngResource', 'ngAnimate', 'ngRoute', 'uiGmapgoogle-maps']);
 app.factory('Journey', function($resource) {
     return $resource('/api/journeys/:id', null, {
         'update': {
@@ -171,7 +171,7 @@ app.controller('NotificationController', function($scope, $rootScope, $http, $ro
     $rootScope.refreshNotification();
     // Moment js
     $rootScope.timeInWords = function(date) {
-        return moment(date).fromNow();
+        return moment(date).add(44, 'minutes').fromNow();
     };
     // A Listener for the notification
     $scope.setNotificationListner = function() {
