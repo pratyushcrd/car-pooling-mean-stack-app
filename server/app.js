@@ -15,7 +15,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 //mongoose local development
-mongodb_connection_string = 'mongodb://localhost/db23ksfklsfn';
+mongodb_connection_string = 'mongodb://localhost/daslkdasdldkfj';
 //take advantage of openshift env vars when available:
 if(process.env.OPENSHIFT_MONGODB_DB_URL){
   mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + 'commutr';

@@ -13,9 +13,19 @@ gulp.task('default', function() {
     .pipe(gulp.dest('./client/assets/js/angular/'));
 
     gulp.src(['./client/assets/css/nga.min.css', 
-    	'./client/assets/css/bootstrap.css', 
-    	'./client/assets/js/gritter/css/jquery.gritter.css'])
+    	'./client/assets/css/bootstrap.css'])
     .pipe(concat('vendor.css'))
     .pipe(minifyCSS())
-    .pipe(gulp.dest('./client/assets/css/'))
+    .pipe(gulp.dest('./client/assets/css/'));
+
+    gulp.src(['./client/assets/js/moment.js',
+    './client/assets/js/bootstrap.min.js',
+    './client/assets/js/jquery.scrollTo.min.js',
+    './client/assets/js/common-scripts.js',
+    './client/assets/js/gritter/js/jquery.gritter.js',
+    './client/assets/js/gritter-conf.js',
+    './client/assets/js/jquery.dcjqaccordion.2.7.js'])
+    .pipe(concat('vendor2.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('./client/assets/js/angular'));
 });
