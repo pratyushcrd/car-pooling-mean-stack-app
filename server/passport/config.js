@@ -12,9 +12,9 @@ module.exports = {
         done(null, user._id);
     },
     facebookStrategy: new FacebookStrategy({
-        clientID: '1528040984167334',
-        clientSecret: '00b4a6e7f4eb3e73adbd87482e0d278b',
-        callbackURL: "http://localhost:3000/api/users/facebook/callback",
+        clientID: '1613861178937190',
+        clientSecret: '8283e81b3510dbd58bc781a191ec5c4e',
+        callbackURL: "http://commutr-prtcrd.rhcloud.com/api/users/facebook/callback",
         profileFields: ['id', 'displayName', 'picture', 'emails', 'gender', 'about', 'bio']
     }, function(accessToken, refreshToken, profile, cb) {
         var error = {error: 'Could not log in'};
