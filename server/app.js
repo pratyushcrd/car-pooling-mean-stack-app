@@ -20,6 +20,7 @@ mongodb_connection_string = 'mongodb://localhost/db23ksfklsfn';
 if(process.env.OPENSHIFT_MONGODB_DB_URL){
   mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + 'commutr';
 }
+console.log(process.env.OPENSHIFT_MONGODB_DB_URL);
 //mongoose
 mongoose.connect(mongodb_connection_string);
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

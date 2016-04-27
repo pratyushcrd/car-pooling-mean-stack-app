@@ -28,8 +28,8 @@ var server = http.createServer(app);
 server.listen(server_port, server_ip_address, function () {
   console.log( "Listening on " + server_ip_address + ", server_port " + server_port );
 });
-//server.on('error', onError);
-//server.on('listening', onListening);
+server.on('error', onError);
+server.on('listening', onListening);
 /* Socket IO */
 var io = app.io;
 io.listen(server);
