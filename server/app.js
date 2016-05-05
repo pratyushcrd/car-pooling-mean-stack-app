@@ -17,12 +17,14 @@ app.set('view engine', 'ejs');
 //mongoose local development
 mongodb_connection_string = 'mongodb://localhost/daslkdasdldkfj';
 //take advantage of openshift env vars when available:
-if(process.env.OPENSHIFT_MONGODB_DB_URL){
-  mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + 'commutr';
+if (process.env.MONGODB_URL) {
+    mongodb_connection_string = process.env.MONGODB_URL + 'commutr';
+    mongoose.connect(mongodb_connection_string, { db: { nativeParser: true } });
+} else {
+    mongoose.connect(mongodb_connection_string);
 }
-console.log(process.env.OPENSHIFT_MONGODB_DB_URL);
-//mongoose
-mongoose.connect(mongodb_connection_string);
+//Compression
+app.use(require('compression')());
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -54,8 +56,7 @@ app.use('/api/unreadMessages', require('./routes/unreadMessage')(io));
 app.use('/api/notifications', require('./routes/notification')(io));
 app.use('/api/vehicles', require('./routes/vehicle'));
 app.use('*', routes);
-
-    // catch 404 and forward to error handler
+// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;

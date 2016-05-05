@@ -231,8 +231,10 @@
 
 
 @media (max-width: 480px) {
-
-    .notify-row, .search, .dont-show , .inbox-head .sr-input, .inbox-head .sr-btn{
+    #logout{
+        display: none;
+    }
+    #logout, .search, .dont-show , .inbox-head .sr-input, .inbox-head .sr-btn{
         display: none;
     }
 
@@ -259,7 +261,7 @@
         padding: 15px 17px !important;
     }
 
-    .notify-row, .search, .dont-show, .inbox-head .sr-input, .inbox-head .sr-btn {
+    #logout, .search, .dont-show, .inbox-head .sr-input, .inbox-head .sr-btn {
         display: none;
     }
 

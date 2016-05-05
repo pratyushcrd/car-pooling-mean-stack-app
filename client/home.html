@@ -17,41 +17,52 @@
                     </div>
                 </div>
                 <!-- /row mt -->
-                <div class="col-md-6 mb nga-default nga-stagger nga-fade" ng-repeat-start="journey in journeys">
-                    <a href="/journey/{{journey._id}}">
+                <div class="row mb">
+                    <div class="col-xs-8 col-md-10">
+                        <input class="form-control" ng-keyup="fetchFindStart()" ng-model="findStartAddressModel" ng-model-options="{ debounce: 50 }" placeholder="Enter city to search" type="text"/>
+                    </div>
+                    <div class="col-xs-4 col-md-2">
+                        <input class="form-control" ng-click="searchByBounds()" type="submit" value="Search"/>
+                    </div>
+                    <div class="col-xs-6 col-md-8 col-xs-offset-1" ng-if="isTypingSearchQuery" style="background-color: #fff; padding: 15px;">
+                        {{findData.formatted_address}}
+                    </div>
+                </div>
+                <div class="col-md-6 mb nga-default nga-stagger nga-fade" ng-repeat-start="journey in journeys track by journey._id">
+                    <a href="/journey/{{::journey._id}}">
                         <!-- WHITE PANEL - TOP USER -->
                         <div class="white-panel">
                             <div class="white-header">
                                 <h5 class="text-left">
-                                    <img class="img-circle" src="{{journey.posted_by.profile_pic}}" style="margin-left: 5px;" width="25"/>
+                                    <img class="img-circle" src="{{::journey.posted_by.profile_pic}}" style="margin-left: 5px;" width="25"/>
                                     <span style="margin-left: 5px;">
-                                        @{{journey.posted_by.name}} {{timeInWords(journey.departure)}}
+                                        @{{::journey.posted_by.name}} {{::timeInWords(journey.departure)}}
                                     </span>
                                 </h5>
                             </div>
                             <p>
-                                <img class="img-circle" src="{{journey.vehicle.png}}" width="190"/>
+                                <img class="img-circle" src="{{::journey.vehicle.png}}" width="190"/>
                                 <br>
                                     <b>
-                                        {{journey.vehicle.type}}
+                                        {{::journey.vehicle.type}}
                                     </b>
                                 </br>
                             </p>
                             <div class="row">
                                 <div class="col-md-5">
                                     <p class="mt">
-                                        {{journey.start.street}}
+                                        {{::journey.start.street}}
                             ,
-                                    {{journey.start.area}}
+                                    {{::journey.start.area}}
                                     </p>
                                 </div>
                                 <div class="col-md-2 col-sm-0 fa fa-arrow-right">
                                 </div>
                                 <div class="col-md-5">
                                     <p class="mt">
-                                        {{journey.end.street}}
+                                        {{::journey.end.street}}
                                 ,
-                                    {{journey.end.area}}
+                                    {{::journey.end.area}}
                                     </p>
                                 </div>
                             </div>
@@ -59,10 +70,15 @@
                     </a>
                 </div>
                 <!-- /col-md-4 -->
-                <div ng-repeat-end>
-                <div class="clear clearfix" ng-if="$index % 2 == 1">&nbsp;</div>
+                <div ng-repeat-end="">
+                    <div class="clear clearfix" ng-if="$index % 2 == 1">
+                    </div>
                 </div>
-                
+                <div ng-if="journeys.length == 0">
+                    <h4 style="color: #777;">
+                        No journeys found!
+                    </h4>
+                </div>
             </div>
             <!-- /col-lg-9 END SECTION MIDDLE -->
             <!-- **********************************************************************************************************************************************************
@@ -70,8 +86,7 @@
             *********************************************************************************************************************************************************** -->
             <div ng-include="'/rightBar.html'">
             </div>
-            
-            <div class="col-md-12 col-xs-0" style="height:75vh;">
+            <div class="col-md-12 col-xs-0" style="height:65vh;">
             </div>
             <!-- /col-lg-3 -->
         </div>

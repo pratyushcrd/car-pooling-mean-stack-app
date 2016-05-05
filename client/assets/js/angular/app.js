@@ -1,6 +1,11 @@
 /**
  * Created by Pratyush on 14-03-2016.
  */
+var _commutr = {};
+_commutr.socketJourneyExecuted = false;
+_commutr.joureys = [];
+_commutr.pastJourneys = [];
+_commutr.userJourneys = [];
 var app = angular.module('cityCommute', ['ngResource', 'ngAnimate', 'ngRoute', 'uiGmapgoogle-maps']);
 app.factory('Journey', function($resource) {
     return $resource('/api/journeys/:id', null, {
@@ -123,10 +128,12 @@ app.controller('SidebarController', function($scope, $rootScope, $http) {
 });
 /* Controller for unread message */
 app.controller('UnreadController', function($scope, $rootScope, $http, $routeParams, socket, Unread) {
-    $http.get('/api/users/full').then(function(response) {
+    $http.get('/api/users/full', {
+        cache: true
+    }).then(function(response) {
         $rootScope.user = response.data;
         $scope.setListener();
-     });
+    });
     $rootScope.refreshUnread = function() {
         $rootScope.unreadMessages = Unread.query(function(data) {
             $rootScope.unreadCount = 0;
@@ -158,7 +165,9 @@ app.controller('UnreadController', function($scope, $rootScope, $http, $routePar
     }
 });
 app.controller('NotificationController', function($scope, $rootScope, $http, $routeParams, socket, Notification) {
-    $http.get('/api/users/full').then(function(response) {
+    $http.get('/api/users/full', {
+        cache: true
+    }).then(function(response) {
         $rootScope.user = response.data;
         $scope.setNotificationListner();
     });
@@ -171,7 +180,7 @@ app.controller('NotificationController', function($scope, $rootScope, $http, $ro
     $rootScope.refreshNotification();
     // Moment js
     $rootScope.timeInWords = function(date) {
-        return moment(date).add(44, 'minutes').fromNow();
+        return moment(date).add(13, 'minutes').fromNow();
     };
     // A Listener for the notification
     $scope.setNotificationListner = function() {
@@ -194,12 +203,24 @@ app.controller('NotificationController', function($scope, $rootScope, $http, $ro
 });
 /* Controller for index page */
 app.controller('JourneyController', function($scope, $rootScope, $timeout, $routeParams, socket, $http, $timeout, Journey, Notification) {
+    // hide search box
+    $scope.isTypingSearchQuery = false;
     // List of all journeys
-    $scope.journeys = Journey.query();
+    $scope.journeys = _commutr.journeys;
+    $scope.journeys = Journey.query(function(journeys) {
+        _commutr.journeys = journeys;
+        $scope.isTypingSearchQuery = false;
+    });
     // List of all past journeys
-    $scope.pastJourneys = Journey.past();
+    $scope.pastJourneys = _commutr.pastJourneys;
+    $scope.pastJourneys = Journey.past(function(pastJourneys) {
+        _commutr.pastJourneys = pastJourneys;
+    });
     // List of all user journeys
-    $scope.userJourneys = Journey.user();
+    $scope.userJourneys = _commutr.userJourneys;
+    $scope.userJourneys = Journey.user(function(userJourneys) {
+        _commutr.userJourneys = userJourneys;
+    });
     // Simple array to stores options of seats available
     $scope.seatsAvailable = [];
     // Boolean to check if request panel is to be shown
@@ -246,7 +267,9 @@ app.controller('JourneyController', function($scope, $rootScope, $timeout, $rout
     // List of vehicles
     $scope.vehicles = [];
     // Retrieve vehicles
-    $http.get('/api/vehicles').then(function(response) {
+    $http.get('/api/vehicles', {
+        cache: true
+    }).then(function(response) {
         $scope.vehicles = response.data;
     });
     // function to decline request
@@ -316,16 +339,19 @@ app.controller('JourneyController', function($scope, $rootScope, $timeout, $rout
         })
     };
     socket.on('journey', function(journey) {
-        console.log('A journey received');
-        $scope.journeys.unshift(journey);
-        $.gritter.add({
-            title: 'New journey posted!',
-            text: '<a href="/"> ' + journey.start.street + ', ' + journey.start.area + ' to ' + journey.end.street + ', ' + journey.end.area + '<br/> ' + journey.availableSeats + ' seats available </a>',
-            image: journey.vehicle.png,
-            sticky: false,
-            time: 6000,
-            class_name: 'my-sticky-class'
-        });
+        if (!_commutr.socketJourneyExecuted) {
+            _commutr.socketJourneyExecuted = true;
+            console.log('A journey received');
+            $scope.journeys.unshift(journey);
+            $.gritter.add({
+                title: 'New journey posted!',
+                text: '<a href="/"> ' + journey.start.street + ', ' + journey.start.area + ' to ' + journey.end.street + ', ' + journey.end.area + '<br/> ' + journey.availableSeats + ' seats available </a>',
+                image: journey.vehicle.png,
+                sticky: false,
+                time: 6000,
+                class_name: 'my-sticky-class'
+            });
+        }
     });
     /* MAP CONFIGURATIONS */
     /* START MAP */
@@ -354,6 +380,37 @@ app.controller('JourneyController', function($scope, $rootScope, $timeout, $rout
                 $scope.startCoordLng = response.data.results[0].geometry.location.lng;
             }
         });
+    };
+    $scope.fetchFindStart = function() {
+        var address = $scope.findStartAddressModel.replace(' ', '%20');
+        $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).then(function(response) {
+            if ((response.data != undefined) && (response.data.status = 'OK') && (response.data.results != undefined) && (response.data.results[0].geometry != undefined) && (response.data.results[0].address_components != undefined)) {
+                $scope.findData = response.data.results[0];
+                $scope.isTypingSearchQuery = true;
+            }
+        });
+    };
+    $scope.searchByBounds = function() {
+        if ($scope.findData && $scope.findData.geometry && $scope.findData.geometry.bounds) {
+            $http({
+                method: 'GET',
+                url: '/api/journeys',
+                params: {nelng: $scope.findData.geometry.bounds.northeast.lng, swlng: $scope.findData.geometry.bounds.southwest.lng,nelat: $scope.findData.geometry.bounds.northeast.lat, swlat: $scope.findData.geometry.bounds.southwest.lat}
+            }).
+            success(function(data, status, headers, config) {
+                console.log(data);
+                $scope.journeys = data;
+                $scope.isTypingSearchQuery = false;
+                $scope.findStartAddressModel = '';
+                $scope.findData = {};
+            }).
+            error(function(data, status, headers, config) {
+                console.log(data);
+            })
+        }else{
+            // If no search query load stored journeys
+            $scope.journeys = _commutr.journeys;
+        }
     };
     $scope.startMarker = {
         id: 0,

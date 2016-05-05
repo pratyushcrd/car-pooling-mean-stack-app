@@ -52,16 +52,37 @@ module.exports = function(io) {
     };
     /* GET list of all the journeys . */
     router.get('/journeys/', function(req, res, next) {
-        Journey.find({
-            departure: {
-                $gt: new Date()
-            }
-        }).sort({
-            departure: 1
-        }).lean().populate('posted_by vehicle').exec(function(err, journeys) {
-            if (err) return res.send(err);
-            res.json(journeys);
-        });
+        if (req.query.nelat) {
+            Journey.find({
+                departure: {
+                    $gt: new Date()
+                },
+                'start.lat': {
+                    $lt: req.query.nelat,
+                    $gt: req.query.swlat
+                },
+                'start.lng': {
+                    $lt: req.query.nelng,
+                    $gt: req.query.swlng
+                }
+            }).sort({
+                departure: 1
+            }).lean().populate('posted_by vehicle').exec(function(err, journeys) {
+                if (err) return res.send(err);
+                res.json(journeys);
+            });
+        } else {
+            Journey.find({
+                departure: {
+                    $gt: new Date()
+                }
+            }).sort({
+                departure: 1
+            }).lean().populate('posted_by vehicle').exec(function(err, journeys) {
+                if (err) return res.send(err);
+                res.json(journeys);
+            });
+        }
     });
     /* GET list of all the past journeys . */
     router.get('/journeys/past', function(req, res, next) {
@@ -244,6 +265,8 @@ module.exports = function(io) {
         newJourney.end = {};
         newJourney.start.street = req.body.startStreet;
         newJourney.start.area = req.body.startArea;
+        newJourney.start.lng = req.body.startCoordLng;
+        newJourney.start.lat = req.body.startCoordLat;
         newJourney.end.street = req.body.endStreet;
         newJourney.end.area = req.body.endArea;
         newJourney.departure = req.body.departure;

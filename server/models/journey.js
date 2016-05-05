@@ -10,6 +10,8 @@ var JourneySchema = new Schema({
     start: {
         street: {type: String, required: true},
         area: {type: String, required: true},
+        lat: {type: String, required: true},
+        lng: {type: String, required: true},
         //city: {type: Schema.ObjectId, required: true, ref: 'City'}
     },
     end: {

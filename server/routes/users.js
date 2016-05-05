@@ -24,7 +24,9 @@ router.get('/facebook/callback', function(req, res, next) {
 /* logout */
 router.get('/logout', function(req, res) {
     req.logout();
-    res.send({success: 'Logout successful'});
+    res.send({
+        success: 'Logout successful'
+    });
 });
 /* Get Current User */
 router.get('/user', function(req, res) {
@@ -38,9 +40,7 @@ router.get('/user', function(req, res) {
 });
 /* Demo login */
 router.get('/dlogin', function(req, res) {
-    User.findOne({
-        _id: '570df403c36d1ef90a149cce'
-    }, function(err, user) {
+    User.findOne({}, function(err, user) {
         if (err || !user) {
             return res.send('False');
         }
@@ -48,26 +48,14 @@ router.get('/dlogin', function(req, res) {
         res.json(req.user);
     });
 });
-router.get('/plogin', function(req, res) {
-    User.findOne({
-        _id: '57154b6c26cd6f2023c613bb'
-    }, function(err, user) {
-        if (err || !user) {
-            return res.send('False');
-        }
-        req.logIn(user, function(err) {});
-        res.json(req.user);
-    });
-});
-router.get('/pblogin', function (req, res) {
+router.get('/pblogin', function(req, res) {
     User.findOne({
         _id: '571262c6b5178cac0c99f9d2'
-    }, function (err, user) {
+    }, function(err, user) {
         if (err || !user) {
             return res.send('False');
         }
-        req.logIn(user, function (err) {
-        });
+        req.logIn(user, function(err) {});
         res.json(req.user);
     });
 });
@@ -82,9 +70,9 @@ router.get('/full', function(req, res) {
     }).populate({
         path: 'journeys',
         populate: {
-            path: 'vehicle posted_by accepted_requests.id' , 
+            path: 'vehicle posted_by accepted_requests.id',
             select: ' type png _id profile_pic name'
-                    }
+        }
     }).exec(function(err, user) {
         if (err || !user) {
             return res.send('False');

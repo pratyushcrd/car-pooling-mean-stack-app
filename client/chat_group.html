@@ -36,8 +36,15 @@
                     <div class="clear clearfix" ng-if="$index % 3 == 2">
                     </div>
                 </div>
+                <div ng-if="user.journeys.length == 0">
+                    <h4 class="white-panel col-xs-12 col-md-10 col-md-offset-1">
+                        <span class="panel-heading">
+                            Join or Post a journey to start chat!
+                        </span>
+                    </h4>
+                </div>
             </div>
-            <div class="col-md-12 col-xs-0" style="height:85vh;">
+            <div class="col-md-12 col-xs-0" style="height:75vh;" ng-if="user.journeys.length == 0">
             </div>
         </div>
         <!-- --/row ---->

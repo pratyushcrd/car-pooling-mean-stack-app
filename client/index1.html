@@ -10,15 +10,6 @@
                                 Commutr - The free Car Pooling Website
                             </title>
                             <!-- Bootstrap core CSS -->
-                            <script src="//maps.googleapis.com/maps/api/js?sensor=false">
-                            </script>
-                            <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js">
-                            </script>
-                            <script src="/assets/js/angular/vendor.js">
-                            </script>
-                            <!-- Custom Angular and JS Code -->
-                            <script src="/assets/js/angular/app.js">
-                            </script>
                             <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet"/>
                             <link href="/assets/css/vendor.css" rel="stylesheet" type="text/css"/>
                             <link href="/assets/js/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
@@ -58,7 +49,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="">
                             <i class="fa fa-tasks">
                             </i>
-                            <span class="badge bg-theme02" ng-if="notificationCount">
+                            <span class="badge bg-theme02" ng-if="notificationCount" ng-cloak>
                                 {{notificationCount || ''}}
                             </span>
                         </a>
@@ -66,7 +57,7 @@
                             <div class="notify-arrow notify-arrow-green">
                             </div>
                             <li>
-                                <p class="green">
+                                <p class="green" ng-cloak>
                                     You have {{notificationCount == 0 ? 'no' : notificationCount}} new notifications
                                 </p>
                             </li>
@@ -76,19 +67,19 @@
                                         <img alt="avatar" src="{{notification.journeyId.posted_by.profile_pic}}"/>
                                     </span>
                                     <span class="subject">
-                                        <span class="from">
+                                        <span class="from" ng-cloak>
                                             {{notification.journeyId.posted_by.name}}
                                         </span>
-                                        <span class="time">
+                                        <span class="time" ng-cloak>
                                             {{timeInWords(notification.journeyId.departure)}}
                                         </span>
                                     </span>
-                                    <span class="message">
-                                        <div class="muted" style="color:#765">
+                                    <span class="message" >
+                                        <div class="muted" style="color:#765" ng-cloak>
                                             going {{notification.journeyId.start.area}} to
                                                 {{notification.journeyId.end.area}}
                                         </div>
-                                        <b>
+                                        <b ng-cloak>
                                             {{notification.notification}}
                                         </b>
                                     </span>
@@ -102,7 +93,7 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="">
                             <i class="fa fa-envelope-o">
                             </i>
-                            <span class="badge bg-theme02" ng-if="unreadCount">
+                            <span class="badge bg-theme02" ng-if="unreadCount" ng-cloak>
                                 {{unreadCount || ''}}
                             </span>
                         </a>
@@ -110,7 +101,7 @@
                             <div class="notify-arrow notify-arrow-green">
                             </div>
                             <li>
-                                <p class="green">
+                                <p class="green" ng-cloak>
                                     You have {{unreadCount == 0 ? 'no' : unreadCount}} new messages
                                 </p>
                             </li>
@@ -120,17 +111,17 @@
                                         <img alt="avatar" src="{{message._id.posted_by.profile_pic}}"/>
                                     </span>
                                     <span class="subject">
-                                        <span class="from">
+                                        <span class="from" ng-cloak>
                                             {{message._id.posted_by.name}}
                                         </span>
-                                        <span class="time">
+                                        <span class="time" ng-cloak>
                                             {{timeInWords(message._id.departure)}}
                                         </span>
                                     </span>
-                                    <span class="message">
+                                    <span class="message" ng-cloak>
                                         <div class="muted" style="color:#765">
                                             going {{message._id.start.area}} to {{message._id.end.area}}
-                                        </div>
+                                        </div ng-cloak>
                                         {{message.occurance}} message
                                         <span ng-if="message.occurance > 1">
                                             s
@@ -148,7 +139,7 @@
             <div class="top-menu" ng-controller="SidebarController">
                 <ul class="nav pull-right top-menu">
                     <li>
-                        <a class="logout" ng-click="logout()" target="_blank">
+                        <a class="logout" id="logout" ng-click="logout()" target="_blank">
                             Logout
                         </a>
                     </li>
@@ -166,11 +157,11 @@
                 <ul class="sidebar-menu" id="nav-accordion">
                     <p class="centered">
                         <a href="profile.html">
-                            <img class="img-circle" src="{{user.profile_pic}}" width="60"/>
+                            <img class="img-circle" src="{{::user.profile_pic}}" width="60"/>
                         </a>
                     </p>
-                    <h5 class="centered">
-                        {{user.name}}
+                    <h5 class="centered" ng-cloak>
+                        {{::user.name}}
                     </h5>
                     <li class="mt">
                         <a class="active" href="/">
@@ -199,6 +190,15 @@
                             </span>
                         </a>
                     </li>
+                    <li class="mt">
+                        <a class="logout" ng-click="logout()" target="_blank">
+
+                            <i class="fa fa-dashboard">
+                            </i>
+                            Logout
+                        </a>
+                    </li>
+                    
                 </ul>
                 <!-- sidebar menu end-->
             </div>
@@ -224,7 +224,16 @@
         <!--footer end-->
     </div>
     <!-- js placed at the end of the document so the pages load faster -->
-    <script src="/assets/js/jquery-1.8.3.min.js">
+    <!-- Custom Angular and JS Code -->
+    <script src="//maps.googleapis.com/maps/api/js">
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js">
+    </script>
+    <script src="/assets/js/angular/vendor.js">
+    </script>
+    <script src="/assets/js/angular/app.js">
+    </script>
+    <script src="https://code.jquery.com/jquery-1.8.3.min.js">
     </script>
     <script src="/assets/js/angular/vendor2.js">
     </script>
